@@ -25,7 +25,7 @@
                                                     <asp:ListItem>Book</asp:ListItem>
                                                 </asp:DropDownList>
                                                 <asp:DropDownList ID="DropDownList2" runat="server" CssClass="form-control mr-1">
-                                                    <asp:ListItem>that begins with</asp:ListItem>
+                                                    <asp:ListItem>that begins with words from my query</asp:ListItem>
                                                     <asp:ListItem>that contain exact words from my query</asp:ListItem>
                                                 </asp:DropDownList>
                                                 <asp:DropDownList ID="DropDownList3" runat="server" CssClass="form-control mr-1">
