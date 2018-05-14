@@ -1,0 +1,368 @@
+﻿/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+    background-color: #22272d;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18.5714px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    /*padding-left: 15px;
+    padding-right: 15px;*/
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    /*max-width: 280px;*/
+}
+
+#nav li#mini-logo {
+    display: none;
+    font-weight: bold;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.footer-copyright {
+    font-size: 12px;
+    border-top: 1px dotted #65686c;
+    color: #b1b1b1;
+    line-height: 1.4;
+}
+
+.block-25 {
+    width: 50%;
+    float: left;
+    padding: 0 15px;
+    padding-right: 0;
+}
+
+#tbx_bottom_search {
+    background-color: rgba(255,255,255,0.15);
+    border: 1px solid transparent;
+}
+
+.btn-gray {
+    color: #fff;
+    background-color: rgba(255,255,255,0.15);
+    border: 0;
+}
+
+.btn-gray:hover, .btn-git:hover {
+    background-color:#fff;
+    color:black !important;
+}
+
+.form-control-gray {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: rgba(255,255,255,0.15);
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.wrap {
+    font-size: 14px;
+    padding: 30px;
+}
+
+.wrap-50 {
+    font-size: 14px;
+    padding-top: 50px;
+}
+
+.bullet-less li {
+    list-style-type: none;
+    border-bottom: 1px dotted #bbbdbf;
+    border-bottom-color: #65686c;
+    padding: 0 0 10px 0;
+    margin: 0 0 10px 0;
+}
+
+.bullet-less-content li {
+    list-style-type: none;
+    border-bottom: 1px dotted #bbbdbf;
+    border-bottom-color: #65686c;
+    padding: 0 0 10px 0;
+    margin: 0 0 10px 0;
+    padding-bottom: 0;
+}
+
+.bullet-less a {
+    color: #2362c6;
+}
+
+.bullet-less a:hover {
+    color: #0aa3fc !important;
+}
+
+.bullet-less-content a {
+    color: #2362c6;
+}
+
+.bullet-less-content a:hover {
+     color: #0aa3fc !important;
+
+}
+
+.btn-library {
+    color: #fff;
+    background-color: #330080;
+    border-color: #330080;
+    font-size: 14px;
+    padding: 20px;
+}
+
+::selection {
+    background: #330080;
+    color: white;
+}
+
+.btn-library-10 {
+    color: #fff;
+    background-color: #330080;
+    border-color: #330080;
+    font-size: 14px;
+    padding: 10px;
+}
+
+#footer-twitter, #footer-facebook {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+#footer-twitter:hover:before{
+    color: #00aced;
+    
+}
+
+#footer-facebook:hover:before{
+    color: #3b5998;
+} 
+
+
+
+.btn-library:hover {
+   color: #fff;
+   background-color: #3d009b;
+   border-color: #3d009b;
+}
+
+.btn-library-10:hover {
+    color: #fff;
+    background-color: #3d009b;
+    border-color: #3d009b;
+}
+
+.more {
+    color: #4a4f55 !important;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#nyu-credit {
+    color: #027bc2 !important;
+    font-weight: 700;
+}
+#nyu-credit:hover {
+    color: #0aa3fc !important;
+}
+
+.more:hover {
+    color: #027bc2 !important;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-git {
+    color: #fff;
+    background-color: #22272d;
+}
+
+.footer-media{
+    font-size: 12px;
+    color: #acb6c2;
+}
+
+#media-link {
+    color: #fff;
+}
+
+.footer-primary {
+    line-height: 18px;
+}
+
+.footer-primary a, u {
+    color: #acb6c2;
+}
+
+a, u {
+    text-decoration: none !important;
+    color: #2362c6;
+}
+
+a:hover {
+    color: #0aa3fc;
+}
+
+.footer-primary a:hover {
+    color: #d8dee5 !important;
+}
+
+.lib-header {
+    padding: 20px 50px;
+    background-color: #330080 !important;
+    }
+
+#searchbox-inner {
+    background-color: white;
+}
+
+#searchbox {
+    background-image: url('../Images/Dynamic Design.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+
+.lib-nav {
+    padding-left: 135px;
+    padding-right: 135px;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    font-size: 18px !important;
+    /*display:inline-flex;*/
+}
+
+/* Fixes dropdown menus placed on the right side */
+.ml-auto .dropdown-menu {
+    left: auto !important;
+    right: 0px;
+}
+
+.nav-link {
+    padding-right: .5rem !important;
+    padding-left: .5rem !important;
+}
+
+
+
+.dropdown-item:hover {
+    color: #fff;
+    background-color: #330080;
+    border-color: #330080;
+}
+
+.bg-black {
+    background-color: #000000;
+}
+
+.tinted {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Just to keep it at the very top */
+    width: 100%;
+    height: 100%;
+    background: rgba(40,40,40, 0.95);
+}
+
+.lib-backdrop {
+    background-image: url('../Images/library-hero.jpg');
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Just to keep it at the very top */
+    width: 100%;
+    height: 100%;
+}
+
+.divider {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.lib-box {
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 14px;
+    width: 360px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    height: auto;
+    padding: 20px;
+    padding-bottom: 15px;
+    margin: 15px;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+    border-color: rgba(51, 0, 126, 0.6);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(51, 0, 126, 0.6);
+    outline: 0 none;
+}
+
+select.form-control:focus {
+    border-color: rgba(51, 0, 126, 0.6);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(51, 0, 126, 0.6);
+    outline: 0 none;
+}
+
+.divider hr {
+    margin: 7px 0px;
+    width: 30%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+}

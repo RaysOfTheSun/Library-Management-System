@@ -1,0 +1,178 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="LMS.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Dynamic Link Division of Libraries</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/images/cog.png" rel="shortcut icon" type="image" />
+    <link href="Content/fontawesome-all.css" rel="stylesheet" />
+</head>
+<body class="text-secondary">
+    <form runat="server">
+        <script src="Scripts/OnHoverWatch.js"></script>
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+        <div class="lib-header container-fluid" id="header" runat="server">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 style="margin-left: 8.5%; color: white"><i class="fa fa-cogs"></i>
+                        <strong>Dynamic Link </strong>| LIBRARIES</h2>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="input-group w-50" style="border: 0;">
+                            <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
+                            <div class="input-group-append">
+                                <%--<asp:Button ID="Button2" runat="server" Text="GO" CssClass="" />--%>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-git btn-lg"><i class="fa fa-search"></i></asp:LinkButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black lib-nav sticky-top" id="navbar" runat="server">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navigation">
+                <ul class="navbar-nav mr-auto" id="nav">
+                    <li id="mini-logo"><a href="#">LOGO</a></li>
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Libraries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Services</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto" style="margin-right: 200px !important;">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"><i class="fas fa-search"></i> Search Libary Resources</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> My Library Account</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:100%;">
+                            <a class="dropdown-item" href="#">Borrowed Books</a>
+                            <a class="dropdown-item" href="#">Log Out</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"><i class="far fa-comments"></i> Ask a Librarian</a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <div class="body-content bg-light">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <%--<hr />--%>
+            <%--            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+            </footer>--%>
+        </div>
+
+        <div class="wrap-50">
+            <div class="container footer-primary" id="footer_primary" runat="server">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <div class="input-group" style="border: 0;">
+                                <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="search this site"
+                                    Style="background-color: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.15); color: #fff"></asp:TextBox>
+                                <div class="input-group-append">
+                                    <asp:LinkButton ID="btn_bottomFind" runat="server" CssClass="btn btn-gray"><i class="fa fa-search"></i></asp:LinkButton>
+                                </div>
+                            </div>
+                        </div>
+                        <asp:Button ID="btn_bottom_search" runat="server" Text="Give to the Libraries" CssClass="btn btn-lg btn-library btn-block" />
+                    </div>
+                    <div class="col-sm block-25">
+                        <ul class="bullet-less">
+                            <li><a href="#">Login to Dynamic Link</a></li>
+                            <li><a href="#">Departments</a> </li>
+                            <li><a href="#">Wiki</a></li>
+                            <li><a href="#">Staff Directory</a></li>
+                            <li style="border-bottom: 0;"><a href="#">Status Page</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm block-25">
+                        <ul class="bullet-less">
+                            <li><a href="#">Research Guides</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Career Opportunties</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li style="border-bottom: 0;"><a href="#">Accessibility</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm block-25 footer-media">
+                        <asp:Label ID="Label1" runat="server" Text="
+                            Find out about upcoming programs, events, and resources."></asp:Label>
+                        <br />
+                        <a href="#" id="media-link">Subscribe to our E-mail list &#10148;</a>
+                        <br />
+                        <br />
+                        <a href="#"><i class="fab fa-twitter" id="footer-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-square" id="footer-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 footer-copyright">
+                            <div style="margin-top: 20px;">
+                                <div class="container">
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-10 mr-auto">
+                                            <div style="padding-top: 5px;"></div>
+                                            <p style="font-size: 12px;">
+                                                We extend our gratitude to the original owners of content in every page (images etc.).
+                                 Designs were inspired by the <a href="https://library.nyu.edu/" id="nyu-credit">NYU Libries website</a>.
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <img src="Images/DL%20Logo.png" style="width: 157.39px; height: 27px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-center">AKCA || CRDS </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</body>
+</html>
