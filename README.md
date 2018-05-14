@@ -11,4 +11,4 @@
 # Notes
 * This project uses several files from [`Bootstrap 4`](https://getbootstrap.com/) and [`Font Awesome`](https://fontawesome.com/).
 * The developers would like to thank the owners of the images present in the pages. 
-* We would also like to thank the developers of the [`MYU Libraries`](https://library.nyu.edu/) website for inspiring various aspects of this project.
+* We would also like to thank the developers of the [`NYU Libraries`](https://library.nyu.edu/) website for inspiring various aspects of this project.
