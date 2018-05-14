@@ -1,0 +1,5 @@
+LMS/Content/* linguist-vendored=true
+LMS/webfonts/* linguist-vendored=true
+LMS/Scripts/* linguist-vendored=true
+LMS/Content/Site.css linguist-vendored=false
+LMS/Scripts/OnHoverWatch.js linguist-vendored=false
