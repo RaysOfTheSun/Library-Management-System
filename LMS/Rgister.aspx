@@ -1,14 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="LMS.Login" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Rgister.aspx.cs" Inherits="LMS.Rgister" %>
 
-<%@ MasterType VirtualPath="~/Site.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="lib-backdrop">
         <div class="tinted d-flex align-items-center h-100 w-100">
             <div class="container">
                 <div class="row justify-content-center align-items-center">
                     <div class="lib-box">
-                        
-                        <h4 style="font-size:22px;"><i class="fa fa-cogs"></i> Dynamic Link | LIBRARIES</h4>
+
+                        <h4 style="font-size: 22px;"><i class="fa fa-cogs"></i>Dynamic Link | LIBRARIES</h4>
                     </div>
                 </div>
                 <div class="row justify-content-center align-items-center">
@@ -46,5 +45,4 @@
             </div>
         </div>
     </div>
-
 </asp:Content>
