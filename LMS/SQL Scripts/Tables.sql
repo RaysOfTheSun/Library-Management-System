@@ -104,5 +104,16 @@ CREATE OR ALTER VIEW BorrowerAccounts AS
 SELECT b.firstName, b.middleName, b.lastName, a.city, a.street, a.zipCode, 
 	u.username, u.[password] FROM BookBorrowers b, UserAccounts u, BorrowerAddresses a
 
+GO
+CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(MAX), @middle NVARCHAR(MAX), @last NVARCHAR(MAX), 
+	@mail NVARCHAR(MAX), @pass NVARCHAR(MAX), @login NVARCHAR(MAX), @city NVARCHAR(MAX), @street NVARCHAR(MAX), @zip INT) AS
+	INSERT INTO BookBorrowers(firstName,middleName,lastName,mail) VALUES (@first, @middle, @last, @mail)
+	INSERT INTO UserAccounts VALUES (IDENT_CURRENT('BookBorrowers'), @login, @pass)
+	INSERT INTO BorrowerAddresses VALUES (IDENT_CURRENT('BookBorrowers'), @city, @street, @zip)
+
+EXEC CreateUser 'first', 'middle', 'last', 'mail@example.com', 'pass123', 'mail', 'new york', '42nd', '1037'
+select * from BookBorrowers
+select * from UserAccounts
+
 --drop view BorrowerAccounts
 --select * from BorrowerAccounts
