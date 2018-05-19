@@ -38,6 +38,21 @@ IF NOT EXISTS (
 IF NOT EXISTS ( 
 		SELECT * FROM INFORMATION_SCHEMA.TABLES
 		WHERE TABLE_SCHEMA = 'dbo'
+		AND TABLE_NAME = 'BorrowerAddresses')
+	BEGIN
+		CREATE TABLE BorrowerAddresses (
+		addressID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
+		country INT FOREIGN KEY REFERENCES Countries(countryID),
+		city NVARCHAR(MAX)  NULL,
+		street NVARCHAR(MAX) NULL,
+		zipCode INT NULL)
+
+	END
+
+
+IF NOT EXISTS ( 
+		SELECT * FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_SCHEMA = 'dbo'
 		AND TABLE_NAME = 'BookBorrowers')
 	BEGIN
 		CREATE TABLE BookBorrowers (
@@ -45,7 +60,8 @@ IF NOT EXISTS (
 		firstName NVARCHAR(MAX) NULL,
 		middleName NVARCHAR(MAX) NULL,
 		lastName NVARCHAR(MAX) NULL,
-		mail NVARCHAR(MAX) NULL)
+		mail NVARCHAR(MAX) NULL,
+		addressID INT FOREIGN KEY REFERENCES BorrowerAddresses(addressID))
 	END
 
 IF NOT EXISTS ( 
@@ -74,26 +90,22 @@ IF NOT EXISTS (
 IF NOT EXISTS ( 
 		SELECT * FROM INFORMATION_SCHEMA.TABLES
 		WHERE TABLE_SCHEMA = 'dbo'
-		AND TABLE_NAME = 'BorrowerAddresses')
-	BEGIN
-		CREATE TABLE BorrowerAddresses (
-		adresslID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
-		borrowerID INT FOREIGN KEY REFERENCES BookBorrowers(borrowerID) NOT NULL,
-		city NVARCHAR(MAX) NULL,
-		street NVARCHAR(MAX) NULL,
-		zipCode INT NULL)
-
-	END
-
-IF NOT EXISTS ( 
-		SELECT * FROM INFORMATION_SCHEMA.TABLES
-		WHERE TABLE_SCHEMA = 'dbo'
 		AND TABLE_NAME = 'BookStatuses')
 	BEGIN
 		CREATE TABLE BookStatuses (
 		rentalID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
 		bookID NVARCHAR(MAX) NOT NULL,
 		borrowerID NVARCHAR(MAX) NOT NULL)
+	END
+
+IF NOT EXISTS ( 
+		SELECT * FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_SCHEMA = 'dbo'
+		AND TABLE_NAME = 'Countries')
+	BEGIN
+		CREATE TABLE Countries (
+		countryID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
+		countryName NVARCHAR(MAX) NOT NULL)
 	END
 
 
@@ -106,14 +118,16 @@ SELECT b.firstName, b.middleName, b.lastName, a.city, a.street, a.zipCode,
 
 GO
 CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(MAX), @middle NVARCHAR(MAX), @last NVARCHAR(MAX), 
-	@mail NVARCHAR(MAX), @pass NVARCHAR(MAX), @login NVARCHAR(MAX), @city NVARCHAR(MAX), @street NVARCHAR(MAX), @zip INT) AS
-	INSERT INTO BookBorrowers(firstName,middleName,lastName,mail) VALUES (@first, @middle, @last, @mail)
+	@mail NVARCHAR(MAX), @pass NVARCHAR(MAX), @login NVARCHAR(MAX), @country INT, @city NVARCHAR(MAX), @street NVARCHAR(MAX), @zip INT) AS
+	INSERT INTO BorrowerAddresses VALUES (@country, @city, @street, @zip)
+	INSERT INTO BookBorrowers(firstName,middleName,lastName,mail,addressID) VALUES (@first, @middle, @last, @mail, IDENT_CURRENT('BorrowerAdresses'))
 	INSERT INTO UserAccounts VALUES (IDENT_CURRENT('BookBorrowers'), @login, @pass)
-	INSERT INTO BorrowerAddresses VALUES (IDENT_CURRENT('BookBorrowers'), @city, @street, @zip)
 
-EXEC CreateUser 'first', 'middle', 'last', 'mail@example.com', 'pass123', 'mail', 'new york', '42nd', '1037'
-select * from BookBorrowers
-select * from UserAccounts
+--EXEC CreateUser 'first', 'middle', 'last', 'mail@example.com', 'pass123', 'mail', 'new york', '42nd', '1037'
+--select * from BookBorrowers
+--select * from UserAccounts
 
 --drop view BorrowerAccounts
 --select * from BorrowerAccounts
+
+select * from Countries
