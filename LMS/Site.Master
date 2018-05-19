@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="container">
-                        <div class="input-group w-50" style="border: 0;">
+                        <div class="input-group w-75" style="border: 0;">
                             <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
                             <div class="input-group-append">
                                 <%--<asp:Button ID="Button2" runat="server" Text="GO" CssClass="" />--%>
