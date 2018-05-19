@@ -31,7 +31,10 @@ IF NOT EXISTS (
 		title NVARCHAR(MAX) NULL,
 		authorID INT FOREIGN KEY REFERENCES BookAuthors(authorID) NULL, 
 		publisherID INT FOREIGN KEY REFERENCES BookPublishers(publisherID) NULL,
-		publishYear SMALLINT NULL, 
+		publishYear SMALLINT NULL,
+		ISBN NVARCHAR(MAX) NULL,
+		callNumber NVARCHAR(MAX) NULL,
+		edition NVARCHAR(MAX) NULL,
 		genre NVARCHAR(MAX) NULL)
 	END
 
@@ -145,6 +148,27 @@ CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(MAX), @middle NVARCHAR(MAX)
 	INSERT INTO UserAccounts VALUES (IDENT_CURRENT('BookBorrowers'), @login, @pass)
 
 GO
+--CREATE OR ALTER PROCEDURE AddBook (@authorFirstName NVARCHAR(MAX), @authorMiddleName NVARCHAR(MAX), @authorLastName NVARCHAR(MAX),
+--	@publisherName NVARCHAR(MAX), @publisherCity NVARCHAR(MAX), @bookTitle NVARCHAR, 
+
+CREATE OR ALTER PROCEDURE AddAuthor (@authorFirstName NVARCHAR(MAX), @authorMiddleName NVARCHAR(MAX), 
+	@authorLastName NVARCHAR(MAX)) AS
+	INSERT INTO BookAuthors VALUES (@authorFirstName, @authorMiddleName, @authorLastName)
+GO
+
+CREATE OR ALTER PROCEDURE AddPublisher(@publisherName NVARCHAR(MAX), @cityID INT) AS
+	INSERT INTO BookPublishers VALUES (@publisherName, @cityID)
+GO
+
+CREATE OR ALTER PROCEDURE AddBook(@authorFirstName NVARCHAR(MAX), @authorMiddleName NVARCHAR(MAX), 
+	@authorLastName NVARCHAR(MAX), @publisherName NVARCHAR(MAX), @cityID INT, @bookTitle NVARCHAR(MAX),
+	@publishYear SMALLINT, @genre NVARCHAR(MAX), @ISBN NVARCHAR(MAX), @callNumber NVARCHAR(MAX), 
+	@edition NVARCHAR(MAX)) AS 
+	EXEC AddAuthor @authorFirstName, @authorMiddleName, @authorLastName
+	EXEC AddPublisher @publisherName, @cityID
+	INSERT INTO Books VALUES (@bookTitle, IDENT_CURRENT('BookAuthors'), IDENT_CURRENT('BookPublishers'), @publishYear,
+		@ISBN, @callNumber, @edition, @genre)
+
 --EXEC CreateUser 'first', 'middle', 'last', 'mail@example.com', 'pass123', 'mail', 'new york', '42nd', '1037'
 select * from BookBorrowers
 --select * from UserAccounts
