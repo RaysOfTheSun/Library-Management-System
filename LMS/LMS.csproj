@@ -149,6 +149,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Management.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="Scripts\ModalResetClick.js" />
     <Content Include="Scripts\OnHoverWatch.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />

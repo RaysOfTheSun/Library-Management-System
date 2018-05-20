@@ -103,13 +103,31 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxConfirmPassword;
         
         /// <summary>
-        /// btn_login control.
+        /// BtnCreate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_login;
+        protected global::System.Web.UI.WebControls.Button BtnCreate;
+        
+        /// <summary>
+        /// BtnReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnReset;
+        
+        /// <summary>
+        /// BtnConfirmReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnConfirmReset;
         
         /// <summary>
         /// Countries control.

@@ -1,9 +1,16 @@
 --Library User Related Procedures
 CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50), 
 	@mail NVARCHAR(255), @pass NVARCHAR(128), @countryID INT, @cityID NVARCHAR(60), @street NVARCHAR(100), @zip INT) AS
-	INSERT INTO BorrowerAddresses VALUES (@countryID, @cityID, @street, @zip)
-	INSERT INTO BookBorrowers(firstName,middleName,lastName,mail,addressID) VALUES (@first, @middle, @last, @mail, IDENT_CURRENT('BorrowerAddresses'))
-	INSERT INTO UserAccounts VALUES (IDENT_CURRENT('BookBorrowers'), @mail, @pass)
+	BEGIN TRAN 
+		BEGIN TRY
+			INSERT INTO BorrowerAddresses VALUES (@countryID, @cityID, @street, @zip)
+			INSERT INTO BookBorrowers(firstName,middleName,lastName,mail,addressID) VALUES (@first, @middle, @last, @mail, IDENT_CURRENT('BorrowerAddresses'))
+			INSERT INTO UserAccounts VALUES (IDENT_CURRENT('BookBorrowers'), @mail, @pass)
+			COMMIT TRAN
+		END TRY
+		BEGIN CATCH
+			ROLLBACK TRAN
+		END CATCH
 GO
 
 --Book Data Related Procedures

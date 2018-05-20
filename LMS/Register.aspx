@@ -65,8 +65,17 @@
                                         placeholder="confirm password" TextMode="Password"></asp:TextBox>
                                 </div>
                             </div>
+                            <asp:Button ID="BtnCreate" runat="server" Text="Create My Account" CssClass="btn btn-library-10 form-control form-control-lg" OnClick="BtnCreate_Click" />
+                            <div class="divider">
+                                <hr class="left">
+                                <small>Need to start again?</small>
+                                <hr class="right">
+                            </div>
+                            <div class="form-group">
+                                <asp:Button ID="BtnReset" runat="server" Text="Reset All Fields" CssClass="btn btn-danger form-control form-control-lg"
+                                    Font-Size="14px" OnClientClick="return false;" data-toggle="modal" data-target="#exampleModal" />
+                            </div>
                             <div class="form-group text-center">
-                                <asp:Button ID="btn_login" runat="server" Text="Create My Account" CssClass="btn btn-library-10 form-control form-control-lg" OnClick="btn_login_Click" />
                                 <p>
                                     By signing up for a Dynamic Link Libaries account, you are agreeing to our 
                                     <a href="#">Terms of Use</a> and to our <a href="#">Privacy Policy</a>.
@@ -75,6 +84,28 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Reset</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to reset all fields?
+                </div>
+                <div class="modal-footer">
+                    <asp:Button ID="BtnConfirmReset" runat="server" Text="Yes"
+                          OnClientClick="this.form.reset(); return false;" CssClass="btn btn-danger" data-dismiss="modal" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
