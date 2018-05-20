@@ -147,6 +147,7 @@
     <Content Include="Images\DL Logo.png" />
     <Content Include="Images\library-hero.jpg" />
     <Content Include="Login.aspx" />
+    <Content Include="Management.aspx" />
     <Content Include="Rgister.aspx" />
     <Content Include="Scripts\OnHoverWatch.js" />
     <Content Include="Content\Site.css" />
@@ -194,6 +195,7 @@
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />
+    <Content Include="Administrator.Master" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -261,6 +263,13 @@
     <Content Include="webfonts\fa-solid-900.woff2" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administrator.Master.cs">
+      <DependentUpon>Administrator.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administrator.Master.designer.cs">
+      <DependentUpon>Administrator.Master</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -293,6 +302,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Management.aspx.cs">
+      <DependentUpon>Management.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Management.aspx.designer.cs">
+      <DependentUpon>Management.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rgister.aspx.cs">
