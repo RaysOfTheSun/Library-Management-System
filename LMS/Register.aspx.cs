@@ -11,7 +11,15 @@ namespace LMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Master.HideFooterHeader();
+        }
 
+        protected void btn_login_Click(object sender, EventArgs e)
+        {
+            if(IsValid)
+            {
+                LibraryDB.Insert();
+            }
         }
     }
 }
