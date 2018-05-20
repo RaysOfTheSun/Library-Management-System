@@ -14,17 +14,16 @@ CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), 
 GO
 
 --Book Data Related Procedures
-CREATE OR ALTER PROCEDURE AddAuthor (@authorFirstName NVARCHAR(MAX), @authorMiddleName NVARCHAR(MAX), 
-	@authorLastName NVARCHAR(MAX)) AS
-	INSERT INTO BookAuthors VALUES (@authorFirstName, @authorMiddleName, @authorLastName)
+CREATE OR ALTER PROCEDURE AddAuthor (@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50)) AS
+	INSERT INTO BookAuthors VALUES (@first, @middle, @last)
 GO
 
-CREATE OR ALTER PROCEDURE AddPublisher(@publisherName NVARCHAR(MAX), @cityID INT) AS
+CREATE OR ALTER PROCEDURE AddPublisher(@publisherName NVARCHAR(70), @cityID INT) AS
 	INSERT INTO BookPublishers VALUES (@publisherName, @cityID)
 GO
 
-CREATE OR ALTER PROCEDURE AddBook(@authorID NVARCHAR(MAX), @publisherID NVARCHAR(MAX), @title NVARCHAR(MAX), @ISBN NVARCHAR(MAX), 
-	@edition NVARCHAR(MAX), @genre NVARCHAR(MAX), @publishYr SMALLINT) AS
+CREATE OR ALTER PROCEDURE AddBook(@authorID INT, @publisherID INT, @title NVARCHAR(100), @ISBN NVARCHAR(20), 
+	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT) AS
 	INSERT INTO Books VALUES (@title, @authorID, @publisherID, @publishYr, @ISBN, @edition, @genre)
 GO
 
@@ -37,4 +36,12 @@ CREATE OR ALTER PROCEDURE AddCountry(@countryName NVARCHAR(MAX)) AS
 	INSERT INTO Countries VALUES (@countryName )
 GO
 
+select * from BookAuthors
+select * from BookBorrowers
+
+SELECT BookBorrowers.firstName, BookBorrowers.middleName, 
+	BookBorrowers.lastName, BorrowerAddresses.zipCode, Countries.countryName 
+	from BookBorrowers
+	INNER JOIN BorrowerAddresses ON BookBorrowers.borrowerID = BorrowerAddresses.addressID 
+	INNER JOIN Countries ON BorrowerAddresses.countryID = Countries.countryID
 --Book Rental Related Procedures

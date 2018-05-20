@@ -96,6 +96,7 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -149,7 +150,6 @@
     <Content Include="Login.aspx" />
     <Content Include="Management.aspx" />
     <Content Include="Register.aspx" />
-    <Content Include="Scripts\ModalResetClick.js" />
     <Content Include="Scripts\OnHoverWatch.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
@@ -192,6 +192,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Scripts\StackModal.js" />
     <Content Include="SQL Scripts\Inserts.sql" />
     <Content Include="SQL Scripts\Procedures.sql" />
     <Content Include="SQL Scripts\Tables.sql" />

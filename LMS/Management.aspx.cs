@@ -13,5 +13,11 @@ namespace LMS
         {
 
         }
+
+        protected void BtnAddAuthor_Click(object sender, EventArgs e)
+        {
+            SourceAuthors.Insert();
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "AddAuthorModal", "$('#AddAuthorModal').modal('hide');", true);
+        }
     }
 }

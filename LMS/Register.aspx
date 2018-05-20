@@ -105,7 +105,7 @@
                 <div class="modal-footer">
                     <asp:Button ID="BtnConfirmReset" runat="server" Text="Yes"
                           OnClientClick="this.form.reset(); return false;" CssClass="btn btn-danger" data-dismiss="modal" />
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 </div>
             </div>
         </div>
