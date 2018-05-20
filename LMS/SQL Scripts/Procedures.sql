@@ -26,8 +26,8 @@ CREATE OR ALTER PROCEDURE AddCity(@cityName NVARCHAR(MAX)) AS
 	INSERT INTO Cities VALUES (@cityName)
 GO
 
-CREATE OR ALTER PROCEDURE AddCountry(@cityName NVARCHAR(MAX)) AS
-	INSERT INTO Cities VALUES (@cityName)
+CREATE OR ALTER PROCEDURE AddCountry(@countryName NVARCHAR(MAX)) AS
+	INSERT INTO Countries VALUES (@countryName )
 GO
 
 --Book Rental Related Procedures
