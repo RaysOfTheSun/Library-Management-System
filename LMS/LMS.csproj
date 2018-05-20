@@ -191,6 +191,8 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="SQL Scripts\Inserts.sql" />
+    <Content Include="SQL Scripts\Procedures.sql" />
     <Content Include="SQL Scripts\Tables.sql" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
