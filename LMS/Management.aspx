@@ -5,9 +5,12 @@
         <div class="container" style="font-size: 1.3vw;">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link" id="nav-titles-tab" data-toggle="tab" href="#nav-titles" role="tab" aria-controls="nav-titles" aria-selected="false">Titles</a>
-                    <a class="nav-item nav-link active" id="nav-authors-tab" data-toggle="tab" href="#nav-authors" role="tab" aria-controls="nav-authors" aria-selected="true">Authors</a>
-                    <a class="nav-item nav-link" id="nav-publishers-tab" data-toggle="tab" href="#nav-publishers" role="tab" aria-controls="nav-publishers" aria-selected="false">Publishers</a>
+                    <a class="nav-item nav-link" id="nav-titles-tab" data-toggle="tab" href="#nav-titles" role="tab" aria-controls="nav-titles" aria-selected="false">
+                        <i class="fas fa-book"></i>&nbsp;Titles</a>
+                    <a class="nav-item nav-link active" id="nav-authors-tab" data-toggle="tab" href="#nav-authors" role="tab" aria-controls="nav-authors" aria-selected="true">
+                        <i class="fas fa-user"></i>&nbsp;Authors</a>
+                    <a class="nav-item nav-link" id="nav-publishers-tab" data-toggle="tab" href="#nav-publishers" role="tab" aria-controls="nav-publishers" aria-selected="false">
+                        <i class="fas fa-print"></i>&nbsp;Publishers</a>
                 </div>
             </nav>
         </div>
@@ -29,18 +32,19 @@
                 <div class="container">
                     <asp:UpdatePanel ID="UpdatePanel5" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
-                            <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False" DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table"
-                                ShowHeaderWhenEmpty="true">
+                            <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False" 
+                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table table-hover table-borderless" ShowHeaderWhenEmpty="True">
                                 <Columns>
-                                    <asp:BoundField DataField="bookID" HeaderText="bookID" InsertVisible="False" ReadOnly="True" SortExpression="bookID" />
-                                    <asp:BoundField DataField="title" HeaderText="title" SortExpression="title" />
-                                    <asp:BoundField DataField="authorID" HeaderText="authorID" SortExpression="authorID" />
-                                    <asp:BoundField DataField="publisherID" HeaderText="publisherID" SortExpression="publisherID" />
-                                    <asp:BoundField DataField="publishYear" HeaderText="publishYear" SortExpression="publishYear" />
+                                    <asp:BoundField DataField="bookID" HeaderText="Book ID" ReadOnly="True" SortExpression="bookID" />
+                                    <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
+                                    <asp:BoundField DataField="author" HeaderText="Author" SortExpression="author" ReadOnly="True" />
+                                    <asp:BoundField DataField="publisherName" HeaderText="Publisher" SortExpression="publisherName" />
+                                    <asp:BoundField DataField="publishYear" HeaderText="Year of Publication" SortExpression="publishYear" />
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
-                                    <asp:BoundField DataField="edition" HeaderText="edition" SortExpression="edition" />
-                                    <asp:BoundField DataField="genre" HeaderText="genre" SortExpression="genre" />
+                                    <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
+                                    <asp:BoundField DataField="genre" HeaderText="Genre" SortExpression="genre" />
                                 </Columns>
+                                <RowStyle BorderStyle="None" />
                             </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -53,10 +57,10 @@
                         <ContentTemplate>
                             <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" AllowPaging="True" PageSize="6">
                                 <Columns>
-                                    <asp:BoundField DataField="authorID" HeaderText="authorID" InsertVisible="False" ReadOnly="True" SortExpression="authorID" />
-                                    <asp:BoundField DataField="firstName" HeaderText="firstName" SortExpression="firstName" />
-                                    <asp:BoundField DataField="middleName" HeaderText="middleName" SortExpression="middleName" />
-                                    <asp:BoundField DataField="lastName" HeaderText="lastName" SortExpression="lastName" />
+                                    <asp:BoundField DataField="authorID" HeaderText="Author ID" InsertVisible="False" ReadOnly="True" SortExpression="authorID" />
+                                    <asp:BoundField DataField="firstName" HeaderText="First Name" SortExpression="firstName" />
+                                    <asp:BoundField DataField="middleName" HeaderText="Middle Name" SortExpression="middleName" />
+                                    <asp:BoundField DataField="lastName" HeaderText="Last Name" SortExpression="lastName" />
                                 </Columns>
                             </asp:GridView>
                         </ContentTemplate>
@@ -69,11 +73,11 @@
                 <div class="container">
                     <asp:UpdatePanel ID="UpdatePanel6" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
-                            <asp:GridView ID="GridView1" runat="server" DataSourceID="SourcePublishers" AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table">
+                            <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers" AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table">
                                 <Columns>
-                                    <asp:BoundField DataField="publisherID" HeaderText="publisherID" ReadOnly="True" SortExpression="publisherID" />
-                                    <asp:BoundField DataField="publisherName" HeaderText="publisherName" SortExpression="publisherName" />
-                                    <asp:BoundField DataField="countryName" HeaderText="countryName" SortExpression="countryName" />
+                                    <asp:BoundField DataField="publisherID" HeaderText="Publisher ID" ReadOnly="True" SortExpression="publisherID" />
+                                    <asp:BoundField DataField="publisherName" HeaderText="Name" SortExpression="publisherName" />
+                                    <asp:BoundField DataField="countryName" HeaderText="Location of Headquarters" SortExpression="countryName" />
                                 </Columns>
                             </asp:GridView>
                         </ContentTemplate>
@@ -248,7 +252,7 @@
         </div>
 
 
-        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Books]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr">
+        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr">
             <InsertParameters>
                 <asp:ControlParameter ControlID="DrpAuthors" Name="authorID" PropertyName="SelectedValue" Type="Int32" />
                 <asp:ControlParameter ControlID="DrpPublishers" Name="publisherID" PropertyName="SelectedValue" Type="Int32" />

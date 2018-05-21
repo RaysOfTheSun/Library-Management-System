@@ -85,13 +85,13 @@ namespace LMS {
         protected global::System.Web.UI.UpdatePanel UpdatePanel6;
         
         /// <summary>
-        /// GridView1 control.
+        /// GrdPublishers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView GrdPublishers;
         
         /// <summary>
         /// UpdatePanel3 control.

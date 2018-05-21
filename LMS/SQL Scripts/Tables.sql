@@ -156,11 +156,17 @@ CREATE OR ALTER VIEW PublisherWithCityName AS
 		FROM BookPublishers INNER JOIN Countries ON BookPublishers.city = Countries.countryID
 GO
 
+CREATE OR ALTER VIEW BookDisplay AS 
+	SELECT Books.bookID, books.title, AuthorNames.fullName AS author, BookPublishers.publisherName, 
+	Books.publishYear, Books.ISBN, Books.edition, Books.genre
+	FROM Books INNER JOIN AuthorNames ON Books.authorID = AuthorNames.authorID
+				INNER JOIN BookPublishers ON BookPublishers.publisherID = Books.publisherID
+GO
+
 SELECT * FROM AuthorNames
 select * from BookAuthors
 select * from BookPublishers
 select * from Books
-
 
 --DROPS
 --DROP TABLE BookRentals,UserAccounts,BookBorrowers,BorrowerAddresses
