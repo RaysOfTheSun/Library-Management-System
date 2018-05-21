@@ -24,9 +24,10 @@ namespace LMS
             TbxMiddleName.Text = "";
         }
 
-        protected void TbxFirstname_TextChanged(object sender, EventArgs e)
+        protected void BtnAddPublisher_ServerClick(object sender, EventArgs e)
         {
-
+            SourcePublishers.Insert();
+            BtnAddPublisher.Attributes.Add("data-dismiss", "modal");
         }
     }
 }

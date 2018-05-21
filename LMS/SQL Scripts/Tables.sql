@@ -146,8 +146,22 @@ SELECT b.firstName, b.middleName, b.lastName, a.cityID, a.countryID, a.street, a
 	u.username, u.[password] FROM BookBorrowers b, UserAccounts u, BorrowerAddresses a
 GO
 
+CREATE OR ALTER VIEW AuthorNames AS
+	SELECT (firstName + ' ' + middleName + ' ' + lastName) AS fullName, 
+		authorID from BookAuthors 
+GO
+
+CREATE OR ALTER VIEW PublisherWithCityName AS
+	SELECT BookPublishers.publisherID, BookPublishers.publisherName, Countries.countryName
+		FROM BookPublishers INNER JOIN Countries ON BookPublishers.city = Countries.countryID
+GO
+
+SELECT * FROM AuthorNames
+select * from BookAuthors
+select * from BookPublishers
 --DROPS
 --DROP TABLE BookRentals,UserAccounts,BookBorrowers,BorrowerAddresses
 --DROP TABLE LibraryIndex, BookStatuses
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries
+

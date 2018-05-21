@@ -76,6 +76,15 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
+        /// UpdatePanel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
+        
+        /// <summary>
         /// TbxTitle control.
         /// </summary>
         /// <remarks>
@@ -184,31 +193,49 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnAddAuthorB;
         
         /// <summary>
-        /// TextBox2 control.
+        /// UpdatePanel4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
         
         /// <summary>
-        /// Button6 control.
+        /// TbxPublisherName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button6;
+        protected global::System.Web.UI.WebControls.TextBox TbxPublisherName;
         
         /// <summary>
-        /// Button7 control.
+        /// RequiredFieldValidator4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button7;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        
+        /// <summary>
+        /// DrpCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DrpCountry;
+        
+        /// <summary>
+        /// BtnAddPublisher control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnAddPublisher;
         
         /// <summary>
         /// SourceBooks control.
@@ -227,5 +254,32 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SourceAuthors;
+        
+        /// <summary>
+        /// SourceAuthorNames control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourceAuthorNames;
+        
+        /// <summary>
+        /// SourcePublishers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourcePublishers;
+        
+        /// <summary>
+        /// SourceCountries control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourceCountries;
     }
 }

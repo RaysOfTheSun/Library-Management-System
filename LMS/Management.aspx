@@ -19,16 +19,17 @@
                 </div>
                 <div class="form-group">
                     <asp:Button ID="Button1" runat="server" Text="Add a Book" CssClass="btn btn-library-10"
-                         data-toggle="modal" data-target="#AddBookModal" UseSubmitBehavior="false" />
+                        OnClientClick="return false;" data-toggle="modal" data-target="#AddBookModal" CausesValidation="false" />
                     <asp:Button ID="Button2" runat="server" Text="Add an Author" CssClass="btn btn-library-10"
-                        OnClientClick="return false;" data-toggle="modal" data-target="#AddAuthorModal" />
-                    <asp:Button ID="Button3" runat="server" Text="Add a Publisher" CssClass="btn btn-library-10" />
+                        OnClientClick="return false;" data-toggle="modal" data-target="#AddAuthorModal" CausesValidation="false" />
+                    <asp:Button ID="Button3" runat="server" Text="Add a Publisher" CssClass="btn btn-library-10"
+                        OnClientClick="return false;" data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false" />
                 </div>
             </div>
 
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="container">
-                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
                             <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" AllowPaging="True" PageSize="6">
                                 <Columns>
@@ -46,7 +47,8 @@
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="container">
-                    <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False" DataKeyNames="bookID" DataSourceID="SourceBooks">
+                    <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False" DataKeyNames="bookID" DataSourceID="SourceBooks"
+                        ShowHeaderWhenEmpty="true">
                         <Columns>
                             <asp:BoundField DataField="bookID" HeaderText="bookID" InsertVisible="False" ReadOnly="True" SortExpression="bookID" />
                             <asp:BoundField DataField="title" HeaderText="title" SortExpression="title" />
@@ -62,13 +64,19 @@
             </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <div class="container">
-                    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+                    <asp:GridView ID="GridView1" runat="server" DataSourceID="SourcePublishers" AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table">
+                        <Columns>
+                            <asp:BoundField DataField="publisherID" HeaderText="publisherID" ReadOnly="True" SortExpression="publisherID" />
+                            <asp:BoundField DataField="publisherName" HeaderText="publisherName" SortExpression="publisherName" />
+                            <asp:BoundField DataField="countryName" HeaderText="countryName" SortExpression="countryName" />
+                        </Columns>
+                    </asp:GridView>
                 </div>
             </div>
         </div>
 
         <%--Add book modal--%>
-        <div class="modal fade" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
+        <div class="modal" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -77,20 +85,28 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="justify-content-center align-items-center">
-                                <div class="form-group mb-1">
-                                    <asp:TextBox ID="TbxTitle" runat="server" CssClass="form-control"
-                                        placeholder="title"></asp:TextBox>
+
+                    <asp:UpdatePanel ID="UpdatePanel3" runat="server" ChildrenAsTriggers="true">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="justify-content-center align-items-center">
+                                        <div class="form-group mb-1">
+                                            <asp:TextBox ID="TbxTitle" runat="server" CssClass="form-control"
+                                                placeholder="title"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="custom-select" DataSourceID="SourceAuthorNames"
+                                                DataTextField="fullName" DataValueField="authorID" AppendDataBoundItems="true">
+                                                <asp:ListItem Text="Select an Author..." Value="-99"></asp:ListItem>
+                                            </asp:DropDownList>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group mb-1">
-                                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="custom-select"></asp:DropDownList>
-                                </div>
+                                <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
-                        </div>
-                        <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                     <div class="modal-footer">
                         <asp:Button ID="BtnConfirmReset" runat="server" Text="Yes"
                             OnClientClick="this.form.reset(); return false;" CssClass="btn btn-danger" data-dismiss="modal" />
@@ -110,74 +126,96 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                            <ContentTemplate>
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
                                 <div class="form-row">
                                     <div class="form-group col-sm-4 mb-1">
                                         <asp:TextBox ID="TbxFirstname" runat="server" CssClass="form-control"
                                             placeholder="first name"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
-                                            ErrorMessage="RequiredFieldValidator" ControlToValidate="TbxFirstname" Display="Dynamic"></asp:RequiredFieldValidator>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ForeColor="Red"
+                                            ErrorMessage="This field is required" ControlToValidate="TbxFirstname" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-4 mb-1">
                                         <asp:TextBox ID="TbxMiddleName" runat="server" CssClass="form-control"
-                                            placeholder="middle name"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
-                                            ErrorMessage="RequiredFieldValidator" ControlToValidate="TbxMiddleName" Display="Dynamic"></asp:RequiredFieldValidator>
+                                            placeholder="middle name" ValidationGroup="author"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ForeColor="Red"
+                                            ErrorMessage="This field is required" ControlToValidate="TbxMiddleName" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-4 mb-1">
                                         <asp:TextBox ID="TbxLastName" runat="server" CssClass="form-control "
-                                            placeholder="last name"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
-                                            ErrorMessage="RequiredFieldValidator" ControlToValidate="TbxLastName" Display="Dynamic"></asp:RequiredFieldValidator>
+                                            placeholder="last name" ValidationGroup="author"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ForeColor="Red"
+                                            ErrorMessage="This field is required" ControlToValidate="TbxLastName" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
-
                                 </div>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
 
-                    </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
 
                     <div class="modal-footer">
-                        <%--                                <asp:Button ID="BtnAddAuthor" runat="server" Text="Add Author"
-                            OnClick="BtnAddAuthor_Click" CssClass="btn btn-library-10" data-dismiss="modal"  />--%>
                         <button id="BtnAddAuthorB" type="button" class="btn btn-library-10"
-                            runat="server" onserverclick="BtnAddAuthor_Click">
-                            Add Author
-                        </button>
+                            runat="server" onserverclick="BtnAddAuthor_Click" validationgroup="author">
+                            Add Author</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <%-- Author search modal --%>
-        <div class="modal fade" id="SearchAuthorModal" tabindex="-1" role="dialog" aria-labelledby="SearchAuthorModalLabel" aria-hidden="true">
+        <%-- Add publisher modal --%>
+        <div class="modal" id="AddPublisherModal" tabindex="-1" role="dialog" aria-labelledby="AddPublisherModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="SearchAuthorModalLabel">Find an Author</h5>
+                        <h5 class="modal-title" id="AddPublisherModalLabel">Add a Publisher</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control"
-                            placeholder="first name"></asp:TextBox>
-                        <asp:Button ID="Button6" runat="server" Text="Add a Book" CssClass="btn btn-library-10"
-                            OnClientClick="return false;" data-toggle="modal" data-target="#AddBookModal" />
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6 mb-1">
+                                        <asp:TextBox ID="TbxPublisherName" runat="server" CssClass="form-control"
+                                            placeholder="Publisher Name" ValidationGroup="publisher"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ForeColor="Red"
+                                            ErrorMessage="This field is required" ControlToValidate="TbxPublisherName" Display="Dynamic" ValidationGroup="publisher"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="form-group col-sm-6 mb-1">
+                                        <asp:DropDownList ID="DrpCountry" runat="server" DataSourceID="SourceCountries" DataTextField="countryName" DataValueField="countryID" CssClass="custom-select" AppendDataBoundItems="true" ValidationGroup="publisher">
+                                            <asp:ListItem Selected="True" Value="-99">Select the country of origin...</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                     <div class="modal-footer">
-                        <asp:Button ID="Button7" runat="server" Text="Yes"
-                            OnClientClick="this.form.reset(); return false;" CssClass="btn btn-danger" data-dismiss="modal" />
+                        <button id="BtnAddPublisher" type="button" class="btn btn-library-10"
+                            runat="server" onserverclick="BtnAddPublisher_ServerClick" validationgroup="publisher">
+                            Add Publisher</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Books]"></asp:SqlDataSource>
+
+        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Books]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr">
+            <InsertParameters>
+                <asp:Parameter Name="authorID" Type="Int32" />
+                <asp:Parameter Name="publisherID" Type="Int32" />
+                <asp:Parameter Name="title" Type="String" />
+                <asp:Parameter Name="ISBN" Type="String" />
+                <asp:Parameter Name="edition" Type="Int16" />
+                <asp:Parameter Name="genre" Type="String" />
+                <asp:Parameter Name="publishYr" Type="Int16" />
+            </InsertParameters>
+        </asp:SqlDataSource>
         <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @middle, @last">
             <InsertParameters>
                 <asp:ControlParameter ControlID="TbxFirstname" Name="first" PropertyName="Text" Type="String" />
@@ -185,6 +223,15 @@
                 <asp:ControlParameter ControlID="TbxLastName" Name="last" PropertyName="Text" Type="String" />
             </InsertParameters>
         </asp:SqlDataSource>
+        <asp:SqlDataSource ID="SourceAuthorNames" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [AuthorNames]"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SourcePublishers" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [PublisherWithCityName]" InsertCommand="EXEC AddPublisher @publisherName, @cityID">
+            <InsertParameters>
+                <asp:ControlParameter Name="publisherName" ControlID="TbxPublisherName" PropertyName="Text" Type="String" />
+                <asp:ControlParameter ControlID="DrpCountry" Name="cityID" PropertyName="SelectedValue" Type="Int32" />
+            </InsertParameters>
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="SourceCountries" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Countries]"></asp:SqlDataSource>
+
     </div>
 
 
