@@ -22,6 +22,10 @@ CREATE OR ALTER PROCEDURE AddPublisher(@publisherName NVARCHAR(70), @cityID INT)
 	INSERT INTO BookPublishers VALUES (@publisherName, @cityID)
 GO
 
+CREATE OR ALTER PROCEDURE UpdatePublisher(@publisherName NVARCHAR(70), @cityID INT, @id INT) AS
+	UPDATE BookPublishers SET publisherName = @publisherName, city = @cityID WHERE publisherID = @id
+GO
+
 CREATE OR ALTER PROCEDURE AddBook(@authorID INT, @publisherID INT, @title NVARCHAR(100), @ISBN NVARCHAR(20), 
 	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT) AS
 	INSERT INTO Books VALUES (@title, @authorID, @publisherID, @publishYr, @ISBN, @edition, @genre)
@@ -38,6 +42,7 @@ GO
 
 select * from BookAuthors
 select * from BookBorrowers
+select * from BookPublishers
 
 SELECT BookBorrowers.firstName, BookBorrowers.middleName, 
 	BookBorrowers.lastName, BorrowerAddresses.zipCode, Countries.countryName 

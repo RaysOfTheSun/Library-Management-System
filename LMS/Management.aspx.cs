@@ -49,5 +49,19 @@ namespace LMS
             SourceBooks.Insert();
             BtnAddBook.Attributes.Add("data-dismiss", "modal");
         }
+
+        protected void GrdPublishers_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            hiddenID.Value = e.CommandArgument.ToString();
+        }
+
+        protected void FvBtnUpdatePub_ServerClick(object sender, EventArgs e)
+        {
+            FormView1.UpdateItem(true);
+            GrdPublishers.DataBind();
+            GrdBooks.DataBind();
+            BtnAddBook.Attributes.Add("data-dismiss", "modal");
+
+        }
     }
 }

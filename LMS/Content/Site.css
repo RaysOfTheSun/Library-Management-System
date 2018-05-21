@@ -19,17 +19,6 @@
     display: block;
 }
 
-.table-borderless {
-    border-style: none !important;
-    /*border-bottom:solid 1px !important;*/
-}
-
-.row-bottom-only {
-    /*border-bottom: solid !important;
-    border-bottom-color: lightslategray !important;*/
-}
-
-
 .footer-copyright {
     border-top: 1px dotted #65686c;
     color: #b1b1b1;

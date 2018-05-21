@@ -13,6 +13,15 @@ namespace LMS {
     public partial class Management {
         
         /// <summary>
+        /// hiddenID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenID;
+        
+        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
@@ -40,13 +49,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.Button Button3;
         
         /// <summary>
-        /// UpdatePanel5 control.
+        /// UPBooks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        protected global::System.Web.UI.UpdatePanel UPBooks;
         
         /// <summary>
         /// GrdBooks control.
@@ -58,13 +67,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.GridView GrdBooks;
         
         /// <summary>
-        /// UpdatePanel2 control.
+        /// UPAuth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        protected global::System.Web.UI.UpdatePanel UPAuth;
         
         /// <summary>
         /// GrdAuthors control.
@@ -76,13 +85,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.GridView GrdAuthors;
         
         /// <summary>
-        /// UpdatePanel6 control.
+        /// UPPub control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
+        protected global::System.Web.UI.UpdatePanel UPPub;
         
         /// <summary>
         /// GrdPublishers control.
@@ -292,6 +301,33 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnAddPublisher;
         
         /// <summary>
+        /// UpdatePanel7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
+        
+        /// <summary>
+        /// FormView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FormView FormView1;
+        
+        /// <summary>
+        /// FvBtnUpdatePub control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton FvBtnUpdatePub;
+        
+        /// <summary>
         /// SourceBooks control.
         /// </summary>
         /// <remarks>
@@ -326,6 +362,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SourceCountries;
+        
+        /// <summary>
+        /// SourcePublisherEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourcePublisherEdit;
         
         /// <summary>
         /// SourceAuthorNames control.

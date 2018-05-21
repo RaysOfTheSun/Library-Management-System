@@ -11,6 +11,7 @@
                         <i class="fas fa-user"></i>&nbsp;Authors</a>
                     <a class="nav-item nav-link" id="nav-publishers-tab" data-toggle="tab" href="#nav-publishers" role="tab" aria-controls="nav-publishers" aria-selected="false">
                         <i class="fas fa-print"></i>&nbsp;Publishers</a>
+                    <asp:HiddenField ID="hiddenID" runat="server" />
                 </div>
             </nav>
         </div>
@@ -30,9 +31,12 @@
             </div>
             <div class="tab-pane fade" id="nav-titles" role="tabpanel" aria-labelledby="nav-titles-tab">
                 <div class="container">
-                    <asp:UpdatePanel ID="UpdatePanel5" runat="server" ChildrenAsTriggers="true">
+                    <asp:UpdatePanel ID="UPBooks" runat="server" ChildrenAsTriggers="true">
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="GrdBooks" />
+                        </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False" 
+                            <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False"
                                 DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table table-hover table-borderless" ShowHeaderWhenEmpty="True">
                                 <Columns>
                                     <asp:BoundField DataField="bookID" HeaderText="Book ID" ReadOnly="True" SortExpression="bookID" />
@@ -44,7 +48,7 @@
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="genre" HeaderText="Genre" SortExpression="genre" />
                                 </Columns>
-                                <RowStyle BorderStyle="None" />
+                                <RowStyle CssClass="row-bottom-only" />
                             </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -53,7 +57,9 @@
             </div>
             <div class="tab-pane fade show active" id="nav-authors" role="tabpanel" aria-labelledby="nav-authors-tab">
                 <div class="container">
-                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" ChildrenAsTriggers="true">
+
+
+                    <asp:UpdatePanel ID="UPAuth" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
                             <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" AllowPaging="True" PageSize="6">
                                 <Columns>
@@ -71,13 +77,22 @@
             </div>
             <div class="tab-pane fade" id="nav-publishers" role="tabpanel" aria-labelledby="nav-publishers-tab">
                 <div class="container">
-                    <asp:UpdatePanel ID="UpdatePanel6" runat="server" ChildrenAsTriggers="true">
+                    <asp:UpdatePanel ID="UPPub" runat="server" ChildrenAsTriggers="true">
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="GrdPublishers" />
+                        </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers" AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table">
+                            <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers" AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table" OnRowCommand="GrdPublishers_RowCommand">
                                 <Columns>
                                     <asp:BoundField DataField="publisherID" HeaderText="Publisher ID" ReadOnly="True" SortExpression="publisherID" />
                                     <asp:BoundField DataField="publisherName" HeaderText="Name" SortExpression="publisherName" />
                                     <asp:BoundField DataField="countryName" HeaderText="Location of Headquarters" SortExpression="countryName" />
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="GrdBtnEditPub" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
+                                                CommandArgument='<%# Eval("publisherID") %>' CausesValidation="false" data-toggle="modal" data-target="#EditPublisherModal" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
                         </ContentTemplate>
@@ -251,6 +266,48 @@
             </div>
         </div>
 
+        <%-- Edit Publisher modal --%>
+        <div class="modal" id="EditPublisherModal" tabindex="-1" role="dialog" aria-labelledby="EditPublisherModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="EditPublisherModalLabel">Add an editPub</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <asp:FormView ID="FormView1" runat="server" DataSourceID="SourcePublisherEdit" DataKeyNames="publisherID" DefaultMode="Edit">
+                                    <EditItemTemplate>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-6 mb-1">
+                                                <p class="h6">Publisher Name</p>
+                                                <asp:TextBox ID="publisherNameTextBox" runat="server" Text='<%# Bind("publisherName") %>' CssClass="form-control" />
+                                            </div>
+                                            <div class="form-group col-sm-6 mb-1">
+                                                <p class="h6">Location of Headquarters</p>
+                                                <asp:DropDownList ID="DrpCountryB" runat="server" DataSourceID="SourceCountries" DataTextField="countryName" DataValueField="countryID"
+                                                    CssClass="custom-select" AppendDataBoundItems="true" ValidationGroup="publisher" SelectedValue='<%# Bind("city") %>'>
+                                                    <asp:ListItem Selected="True" Value="-99">Select the country of origin...</asp:ListItem>
+                                                </asp:DropDownList>
+                                            </div>
+                                        </div>
+                                    </EditItemTemplate>
+                                </asp:FormView>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <div class="modal-footer">
+                        <button id="FvBtnUpdatePub" type="button" class="btn btn-library-10"
+                            runat="server" onserverclick="FvBtnUpdatePub_ServerClick" validationgroup="editPub">
+                            Add Publisher</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr">
             <InsertParameters>
@@ -277,6 +334,11 @@
             </InsertParameters>
         </asp:SqlDataSource>
         <asp:SqlDataSource ID="SourceCountries" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Countries]"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SourcePublisherEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM BookPublishers WHERE publisherID=@id" UpdateCommand="EXEC UpdatePublisher @publisherName, @city, @publisherID">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
+            </SelectParameters>
+        </asp:SqlDataSource>
         <asp:SqlDataSource ID="SourceAuthorNames" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [AuthorNames]"></asp:SqlDataSource>
 
     </div>
