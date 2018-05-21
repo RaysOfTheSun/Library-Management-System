@@ -159,6 +159,9 @@ GO
 SELECT * FROM AuthorNames
 select * from BookAuthors
 select * from BookPublishers
+select * from Books
+
+
 --DROPS
 --DROP TABLE BookRentals,UserAccounts,BookBorrowers,BorrowerAddresses
 --DROP TABLE LibraryIndex, BookStatuses

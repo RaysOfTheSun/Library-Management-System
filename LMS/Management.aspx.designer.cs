@@ -40,6 +40,24 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.Button Button3;
         
         /// <summary>
+        /// UpdatePanel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        
+        /// <summary>
+        /// GrdBooks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GrdBooks;
+        
+        /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>
@@ -58,13 +76,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.GridView GrdAuthors;
         
         /// <summary>
-        /// GrdBooks control.
+        /// UpdatePanel6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GrdBooks;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
         
         /// <summary>
         /// GridView1 control.
@@ -94,31 +112,67 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxTitle;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// DrpAuthors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList DrpAuthors;
         
         /// <summary>
-        /// TextBox1 control.
+        /// DrpPublishers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.DropDownList DrpPublishers;
         
         /// <summary>
-        /// BtnConfirmReset control.
+        /// DrpGenres control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnConfirmReset;
+        protected global::System.Web.UI.WebControls.DropDownList DrpGenres;
+        
+        /// <summary>
+        /// DrpPubYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DrpPubYear;
+        
+        /// <summary>
+        /// TbxISBN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TbxISBN;
+        
+        /// <summary>
+        /// TbxEdition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TbxEdition;
+        
+        /// <summary>
+        /// BtnAddBook control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnAddBook;
         
         /// <summary>
         /// UpdatePanel1 control.
@@ -256,15 +310,6 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.SqlDataSource SourceAuthors;
         
         /// <summary>
-        /// SourceAuthorNames control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SourceAuthorNames;
-        
-        /// <summary>
         /// SourcePublishers control.
         /// </summary>
         /// <remarks>
@@ -281,5 +326,14 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SourceCountries;
+        
+        /// <summary>
+        /// SourceAuthorNames control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourceAuthorNames;
     }
 }

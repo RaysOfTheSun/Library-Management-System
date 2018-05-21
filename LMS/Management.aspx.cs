@@ -11,7 +11,7 @@ namespace LMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            InitializeYearList();
         }
 
         protected void BtnAddAuthor_Click(object sender, EventArgs e)
@@ -28,6 +28,26 @@ namespace LMS
         {
             SourcePublishers.Insert();
             BtnAddPublisher.Attributes.Add("data-dismiss", "modal");
+        }
+
+        private void InitializeYearList()
+        {
+            int difference = DateTime.Now.Year - 1969;
+            List<ListItem> yearList = new List<ListItem>(difference);
+            yearList.Add(new ListItem("Select the year of publication..."));
+            for (int i = DateTime.Now.Year; i > 1969; i--)
+            {
+                yearList.Add(new ListItem(i.ToString()));
+            }
+
+
+            DrpPubYear.Items.AddRange(yearList.ToArray());
+        }
+
+        protected void BtnAddBook_ServerClick(object sender, EventArgs e)
+        {
+            SourceBooks.Insert();
+            BtnAddBook.Attributes.Add("data-dismiss", "modal");
         }
     }
 }
