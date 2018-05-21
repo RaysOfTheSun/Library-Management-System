@@ -17,7 +17,16 @@ namespace LMS
         protected void BtnAddAuthor_Click(object sender, EventArgs e)
         {
             SourceAuthors.Insert();
-            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "AddAuthorModal", "$('#AddAuthorModal').modal('hide');", true);
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "XXX", "this.form.reset(); return false;", true);
+            BtnAddAuthorB.Attributes.Add("data-dismiss", "modal");
+            TbxFirstname.Text = "";
+            TbxLastName.Text = "";
+            TbxMiddleName.Text = "";
+        }
+
+        protected void TbxFirstname_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
