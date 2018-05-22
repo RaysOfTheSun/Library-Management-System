@@ -123,7 +123,7 @@
             <asp:ControlParameter ControlID="DrpCountry" Name="countryID" PropertyName="SelectedValue" Type="Int32" />
             <asp:ControlParameter ControlID="DrpCity" Name="cityID" PropertyName="SelectedValue" Type="Int32" />
             <asp:ControlParameter ControlID="TbxStreet" Name="street" PropertyName="Text" Type="String" />
-            <asp:ControlParameter ControlID="TbxZipCode" Name="zip" PropertyName="Text" Type="Int32" />
+            <asp:ControlParameter ControlID="TbxZipCode" Name="zip" PropertyName="Text" Type="Int16" />
         </InsertParameters>
     </asp:SqlDataSource>
 </asp:Content>

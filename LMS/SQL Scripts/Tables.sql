@@ -142,8 +142,10 @@ IF NOT EXISTS (
 GO
 
 CREATE OR ALTER VIEW BorrowerAccounts AS
-SELECT b.firstName, b.middleName, b.lastName, a.cityID, a.countryID, a.street, a.zipCode, 
-	u.username, u.[password] FROM BookBorrowers b, UserAccounts u, BorrowerAddresses a
+	SELECT BookBorrowers.borrowerID, (BookBorrowers.firstName + ' ' 
+		+ BookBorrowers.middleName + ' ' + BookBorrowers.lastName) AS accountOwner,
+		BookBorrowers.mail AS userName, UserAccounts.[password] AS accountPassword
+		FROM BookBorrowers	INNER JOIN UserAccounts ON UserAccounts.owner = BookBorrowers.borrowerID
 GO
 
 CREATE OR ALTER VIEW AuthorNames AS
@@ -169,4 +171,3 @@ GO
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries
 --DROP VIEW PublisherWithCityName
-

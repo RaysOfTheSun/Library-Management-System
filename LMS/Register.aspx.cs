@@ -33,9 +33,9 @@ namespace LMS
                             LibraryDB.Insert();
                             tran.Complete();
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-
+                            //ClientScript.RegisterStartupScript(GetType(), "ERRLOL", $"alert('{ex.Message}');", true);
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 --Library User Related Procedures
 CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50), 
-	@mail NVARCHAR(255), @pass NVARCHAR(128), @countryID INT, @cityID NVARCHAR(60), @street NVARCHAR(100), @zip INT) AS
+	@mail NVARCHAR(255), @pass NVARCHAR(128), @countryID INT, @cityID INT, @street NVARCHAR(100), @zip SMALLINT) AS
 	BEGIN TRAN 
 		BEGIN TRY
 			INSERT INTO BorrowerAddresses VALUES (@countryID, @cityID, @street, @zip)
@@ -66,6 +66,7 @@ GO
 
 select * from BookAuthors
 select * from BookBorrowers
+SELECT * FROM BorrowerAddresses
 select * from BookPublishers
 select * from Books
 select * from PublisherWithCityName
