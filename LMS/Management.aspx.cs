@@ -84,6 +84,7 @@ namespace LMS
         protected void GrdBooks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             hiddenID.Value = e.CommandArgument.ToString();
+            Session["keys"] = e.CommandArgument.ToString();
         }
 
         protected void BtnDeletePub_ServerClick(object sender, EventArgs e)
@@ -111,6 +112,12 @@ namespace LMS
             GrdAuthors.DataBind();
             GrdBooks.DataBind();
             UpdateLists();
+        }
+
+        protected void BtnDeleteBook_ServerClick(object sender, EventArgs e)
+        {
+            SourceBookEdit.Delete();
+            GrdBooks.DataBind();
         }
     }
 }

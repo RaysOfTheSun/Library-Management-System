@@ -55,7 +55,7 @@
                                                 data-target="#EditBookModal" />
                                             <asp:Button ID="GrdBtnDeleteBook" runat="server" Text="Delete" CssClass="btn btn-danger" CommandName="deleteItem"
                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
-                                                data-target="#EditBookModal" />
+                                                data-target="#DeleteBookModal" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -492,7 +492,7 @@
                     <div class="modal-body">
                         <div class="row align-items-center">
                             <div class="col-sm-4 text-center">
-                                <i class="fa fa-question-circle display-1" style="color:rgb(0, 172, 237) !important;"></i>
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
                             </div>
                             <div class="col-sm-8">
                                 <p class="text-justify">
@@ -512,7 +512,7 @@
 
         <!-- Delete Author modal -->
         <div class="modal" id="DeleteAuthorModal" tabindex="-1" role="dialog" aria-labelledby="DeleteAuthorLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="DeleteAuthorLabel">Modal title</h5>
@@ -523,7 +523,7 @@
                     <div class="modal-body">
                         <div class="row align-items-center">
                             <div class="col-sm-4 text-center">
-                                <i class="fa fa-question-circle display-1" style="color:rgb(0, 172, 237) !important;"></i>
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
                             </div>
                             <div class="col-sm-8">
                                 <p class="text-justify">
@@ -542,8 +542,8 @@
         </div>
 
         <!-- Delete Book modal -->
-        <div class="modal" id="DeleteBook" tabindex="-1" role="dialog" aria-labelledby="DeleteBookLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal" id="DeleteBookModal" tabindex="-1" role="dialog" aria-labelledby="DeleteBookLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="DeleteBookLabel">Modal title</h5>
@@ -552,10 +552,21 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure you want to delete this Book's information from the database? 
+                                    This action cannot be undone.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-danger" id="BtnDeleteBook" runat="server" onserverclick="BtnDeleteBook_ServerClick">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     </div>
                 </div>
             </div>
@@ -596,7 +607,10 @@
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM Books WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>">
+        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM Books WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteBook @id">
+            <DeleteParameters>
+                <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
+            </DeleteParameters>
             <SelectParameters>
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
