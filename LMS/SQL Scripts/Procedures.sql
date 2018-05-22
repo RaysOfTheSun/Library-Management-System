@@ -18,12 +18,12 @@ CREATE OR ALTER PROCEDURE AddAuthor (@first NVARCHAR(50), @middle NVARCHAR(50), 
 	INSERT INTO BookAuthors VALUES (@first, @middle, @last)
 GO
 
-CREATE OR ALTER PROCEDURE AddPublisher(@publisherName NVARCHAR(70), @cityID INT) AS
-	INSERT INTO BookPublishers VALUES (@publisherName, @cityID)
+CREATE OR ALTER PROCEDURE AddPublisher(@publisherName NVARCHAR(70), @countryID INT) AS
+	INSERT INTO BookPublishers VALUES (@publisherName, @countryID)
 GO
 
-CREATE OR ALTER PROCEDURE UpdatePublisher(@publisherName NVARCHAR(70), @cityID INT, @id INT) AS
-	UPDATE BookPublishers SET publisherName = @publisherName, city = @cityID WHERE publisherID = @id
+CREATE OR ALTER PROCEDURE UpdatePublisher(@publisherName NVARCHAR(70), @countryID INT, @id INT) AS
+	UPDATE BookPublishers SET publisherName = @publisherName, countryID = @countryID WHERE publisherID = @id
 GO
 
 CREATE OR ALTER PROCEDURE UpdateAuthor(@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50), @id INT) AS
@@ -31,13 +31,13 @@ CREATE OR ALTER PROCEDURE UpdateAuthor(@first NVARCHAR(50), @middle NVARCHAR(50)
 GO
 
 CREATE OR ALTER PROCEDURE DeleteAuthor(@id INT) AS 
+	DELETE FROM Books WHERE authorID = @id
 	DELETE FROM BookAuthors WHERE authorID = @id
-	UPDATE Books SET authorID = NULL WHERE authorID = @id
 GO
 
 CREATE OR ALTER PROCEDURE DeletePublisher(@id INT) AS
+	DELETE Books WHERE publisherID = @id
 	DELETE FROM BookPublishers WHERE publisherID = @id
-	UPDATE Books SET publisherID = NULL WHERE publisherID = @id
 GO
 
 CREATE OR ALTER PROCEDURE DeleteBook(@id INT) AS
@@ -67,5 +67,9 @@ GO
 select * from BookAuthors
 select * from BookBorrowers
 select * from BookPublishers
+select * from Books
+select * from PublisherWithCityName
+
+EXEC DeletePublisher 1
 
 --Book Rental Related Procedures

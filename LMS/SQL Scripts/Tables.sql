@@ -38,7 +38,7 @@ IF NOT EXISTS (
 		CREATE TABLE BookPublishers (
 		publisherID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
 		publisherName NVARCHAR(50) NOT NULL,
-		city INT FOREIGN KEY REFERENCES Cities(cityID) NOT NULL)
+		countryID INT FOREIGN KEY REFERENCES Countries(countryID) NOT NULL)
 	END
 
 IF NOT EXISTS ( 
@@ -151,9 +151,9 @@ CREATE OR ALTER VIEW AuthorNames AS
 		authorID from BookAuthors 
 GO
 
-CREATE OR ALTER VIEW PublisherWithCityName AS
+CREATE OR ALTER VIEW PublisherWithCountryName AS
 	SELECT BookPublishers.publisherID, BookPublishers.publisherName, Countries.countryName
-		FROM BookPublishers INNER JOIN Countries ON BookPublishers.city = Countries.countryID
+		FROM BookPublishers INNER JOIN Countries ON BookPublishers.countryID = Countries.countryID
 GO
 
 CREATE OR ALTER VIEW BookDisplay AS 
@@ -168,4 +168,5 @@ GO
 --DROP TABLE LibraryIndex, BookStatuses
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries
+--DROP VIEW PublisherWithCityName
 

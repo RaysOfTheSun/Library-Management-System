@@ -126,9 +126,9 @@
                                                         data-target="#EditPublisherModal" />
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <asp:Button ID="GrdBtnDeletePub" runat="server" Text="Edit" CssClass="btn btn-danger btn-block" CommandName="editItem"
+                                                    <asp:Button ID="GrdBtnDeletePub" runat="server" Text="Delete" CssClass="btn btn-danger btn-block"
                                                         CommandArgument='<%# Eval("publisherID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#EditPublisherModal" />
+                                                        data-target="#DeletePublisher" />
                                                 </div>
                                             </div>
                                         </ItemTemplate>
@@ -459,7 +459,7 @@
                                             <div class="form-group col-sm-6 mb-1">
                                                 <p class="h6">Location of Headquarters</p>
                                                 <asp:DropDownList ID="DrpCountryB" runat="server" DataSourceID="SourceCountries" DataTextField="countryName" DataValueField="countryID"
-                                                    CssClass="custom-select" AppendDataBoundItems="true" ValidationGroup="publisher" SelectedValue='<%# Bind("city") %>'>
+                                                    CssClass="custom-select" AppendDataBoundItems="true" ValidationGroup="publisher" SelectedValue='<%# Bind("countryID") %>'>
                                                     <asp:ListItem Selected="True" Value="-99">Select the country of origin...</asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
@@ -479,6 +479,78 @@
             </div>
         </div>
 
+        <!-- Delete Publisher modal -->
+        <div class="modal" id="DeletePublisher" tabindex="-1" role="dialog" aria-labelledby="DeletePublisherLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DeletePublisherLabel">Delete Publisher Information</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color:rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure you want to delete this publisher's information from the database? 
+                                    Doing so will delete ALL associated books. This action cannot be undone.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="BtnDeletePub" runat="server" onserverclick="BtnDeletePub_ServerClick">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Author modal -->
+        <div class="modal" id="DeleteAuthor" tabindex="-1" role="dialog" aria-labelledby="DeleteAuthorLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DeleteAuthorLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Book modal -->
+        <div class="modal" id="DeleteBook" tabindex="-1" role="dialog" aria-labelledby="DeleteBookLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DeleteBookLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr">
             <InsertParameters>
@@ -498,13 +570,16 @@
                 <asp:ControlParameter ControlID="TbxLastName" Name="last" PropertyName="Text" Type="String" />
             </InsertParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourcePublishers" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [PublisherWithCityName]" InsertCommand="EXEC AddPublisher @publisherName, @cityID">
+        <asp:SqlDataSource ID="SourcePublishers" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [PublisherWithCountryName]" InsertCommand="EXEC AddPublisher @publisherName, @cityID">
             <InsertParameters>
                 <asp:ControlParameter Name="publisherName" ControlID="TbxPublisherName" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="DrpCountry" Name="cityID" PropertyName="SelectedValue" Type="Int32" />
             </InsertParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourcePublisherEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM BookPublishers WHERE publisherID=@id" UpdateCommand="EXEC UpdatePublisher @publisherName, @city, @publisherID">
+        <asp:SqlDataSource ID="SourcePublisherEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM BookPublishers WHERE publisherID=@id" UpdateCommand="EXEC UpdatePublisher @publisherName, @countryID, @publisherID" DeleteCommand="EXEC DeletePublisher @id">
+            <DeleteParameters>
+                <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
+            </DeleteParameters>
             <SelectParameters>
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>

@@ -3,7 +3,6 @@ EXEC AddCountry 'Philippines'
 EXEC AddCountry 'Brazil'
 EXEC AddCountry 'France'
 EXEC AddCountry 'Libia'
-EXEC AddCountry 'Philippines'
 EXEC AddCountry 'Germany'
 EXEC AddCountry 'United States'
 EXEC AddCountry 'England'
@@ -37,3 +36,5 @@ GO
 
 EXEC AddBook 1, 1, 'The Sea of Monsters', '0-7868-5686-6', 'LB2395.C61.2011', '2', 'Fantasy', 2011
 GO
+
+select * from BookPublishers

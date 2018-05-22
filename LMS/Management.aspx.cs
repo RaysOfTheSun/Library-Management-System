@@ -17,17 +17,20 @@ namespace LMS
         protected void BtnAddAuthor_Click(object sender, EventArgs e)
         {
             SourceAuthors.Insert();
-            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "XXX", "this.form.reset(); return false;", true);
             BtnAddAuthorB.Attributes.Add("data-dismiss", "modal");
             TbxFirstname.Text = "";
             TbxLastName.Text = "";
             TbxMiddleName.Text = "";
+            UpdateLists();
         }
 
         protected void BtnAddPublisher_ServerClick(object sender, EventArgs e)
         {
             SourcePublishers.Insert();
             BtnAddPublisher.Attributes.Add("data-dismiss", "modal");
+            TbxPublisherName.Text = "";
+            DrpCountry.SelectedValue = "-99";
+            UpdateLists();
         }
 
         private void InitializeYearList(DropDownList dl)
@@ -53,6 +56,7 @@ namespace LMS
         protected void GrdPublishers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             hiddenID.Value = e.CommandArgument.ToString();
+            Session["keys"] = e.CommandArgument.ToString();
         }
 
         protected void FvBtnUpdatePub_ServerClick(object sender, EventArgs e)
@@ -60,6 +64,7 @@ namespace LMS
             FormView1.UpdateItem(true);
             GrdPublishers.DataBind();
             GrdBooks.DataBind();
+            UpdateLists();
         }
 
         protected void FvBtnUpdateAuth_ServerClick(object sender, EventArgs e)
@@ -67,6 +72,7 @@ namespace LMS
             FvwAuthors.UpdateItem(true);
             GrdAuthors.DataBind();
             GrdBooks.DataBind();
+            UpdateLists();
         }
 
         protected void BtnEditBook_ServerClick(object sender, EventArgs e)
@@ -81,6 +87,25 @@ namespace LMS
             //DropDownList dl = ((DropDownList)FvwBooks.FindControl("DrpPubYearB"));
             //dl.Attributes.Add("SelectedValue", @"'<%# Bind(""publishYear"") %>'");
             //InitializeYearList(dl);
+        }
+
+        protected void BtnDeletePub_ServerClick(object sender, EventArgs e)
+        {
+            SourcePublisherEdit.Delete();
+            GrdPublishers.DataBind();
+            GrdBooks.DataBind();
+            UpdateLists();
+        }
+
+        private void UpdateLists()
+        {
+            DrpCountry.Items.Clear();
+            DrpPublishers.Items.Clear();
+            DrpAuthors.Items.Clear();
+
+            DrpAuthors.DataBind();
+            DrpPublishers.DataBind();
+            DrpCountry.DataBind();
         }
     }
 }
