@@ -385,7 +385,7 @@
                     <div class="modal-footer">
                         <button id="BtnEditBook" type="button" class="btn btn-library-10"
                             runat="server" onserverclick="BtnEditBook_ServerClick" validationgroup="editBook">
-                            Add Author</button>
+                            Update</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -429,7 +429,7 @@
                     <div class="modal-footer">
                         <button id="FvBtnUpdateAuth" type="button" class="btn btn-library-10"
                             runat="server" onserverclick="FvBtnUpdateAuth_ServerClick" validationgroup="editAuthor">
-                            Add Publisher</button>
+                            Update</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -472,7 +472,7 @@
                     <div class="modal-footer">
                         <button id="FvBtnUpdatePub" type="button" class="btn btn-library-10"
                             runat="server" onserverclick="FvBtnUpdatePub_ServerClick" validationgroup="editPub">
-                            Add Publisher</button>
+                            Update</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
