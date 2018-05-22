@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Management" Language="C#" MasterPageFile="~/Administrator.Master" AutoEventWireup="true" CodeBehind="Management.aspx.cs" Inherits="LMS.Management" %>
+﻿<%@ Page Title="Books" Language="C#" MasterPageFile="~/Administrator.Master" AutoEventWireup="true" CodeBehind="MangeBooks.aspx.cs" Inherits="LMS.Management" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="wrap">
@@ -55,7 +55,7 @@
                                                 data-target="#EditBookModal" />
                                             <asp:Button ID="GrdBtnDeleteBook" runat="server" Text="Delete" CssClass="btn btn-danger" CommandName="deleteItem"
                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
-                                                data-target="#EditBookModal" />
+                                                data-target="#DeleteBookModal" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -89,7 +89,7 @@
                                                 <div class="col-sm-6">
                                                     <asp:Button ID="GrdBtnDeleteAuth" runat="server" Text="Delete" CssClass="btn btn-danger btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("authorID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#EditAuthorModal" />
+                                                        data-target="#DeleteAuthorModal" />
                                                 </div>
                                             </div>
                                         </ItemTemplate>
@@ -143,14 +143,12 @@
             </div>
         </div>
 
-
-
         <%--Add Book modal--%>
         <div class="modal" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="AddBookModalLabel">Add a Book</h5>
+                        <h5 class="modal-title" id="AddBookModalLabel"><strong>Add a Book</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -161,22 +159,25 @@
                             <div class="modal-body">
                                 <div class="justify-content-center align-items-center">
                                     <div class="form-group mb-1">
+                                        <p class="h6">Title</p>
                                         <asp:TextBox ID="TbxTitle" runat="server" CssClass="form-control"
-                                            placeholder="title"></asp:TextBox>
+                                            placeholder="e.g. The Sea of Monsters"></asp:TextBox>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Author</p>
                                         <asp:DropDownList ID="DrpAuthors" runat="server" CssClass="custom-select" DataSourceID="SourceAuthorNames"
                                             DataTextField="fullName" DataValueField="authorID" AppendDataBoundItems="true">
-                                            <asp:ListItem Text="Select an Author..." Value="-99"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Publisher</p>
                                         <asp:DropDownList ID="DrpPublishers" runat="server" CssClass="custom-select" DataSourceID="SourcePublishers"
                                             DataTextField="publisherName" DataValueField="publisherID" AppendDataBoundItems="True">
                                             <asp:ListItem Value="-99">Select a publisher...</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Genre</p>
                                         <asp:DropDownList ID="DrpGenres" runat="server" CssClass="custom-select">
                                             <asp:ListItem>Select a genre...</asp:ListItem>
                                             <asp:ListItem>Science fiction</asp:ListItem>
@@ -198,15 +199,18 @@
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Year of Publication</p>
                                         <asp:DropDownList ID="DrpPubYear" runat="server" CssClass="custom-select"></asp:DropDownList>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">ISBN</p>
                                         <asp:TextBox ID="TbxISBN" runat="server" CssClass="form-control"
-                                            placeholder="ISBN" MaxLength="20"></asp:TextBox>
+                                            placeholder="e.g. 0-7868-5686-6" MaxLength="20"></asp:TextBox>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Edition</p>
                                         <asp:TextBox ID="TbxEdition" runat="server" CssClass="form-control" TextMode="Number"
-                                            placeholder="Edition" min="1"></asp:TextBox>
+                                            placeholder="e.g. 1" min="1"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +231,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="AddAuthorModalLabel">Add an Author</h5>
+                        <h5 class="modal-title" id="AddAuthorModalLabel"><strong>Add an Author</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -237,20 +241,23 @@
                             <div class="modal-body">
                                 <div class="form-row">
                                     <div class="form-group col-sm-4 mb-1">
+                                        <p class="h6">First Name</p>
                                         <asp:TextBox ID="TbxFirstname" runat="server" CssClass="form-control"
-                                            placeholder="first name"></asp:TextBox>
+                                            placeholder="e.g. John"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxFirstname" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-4 mb-1">
+                                        <p class="h6">Middle Name</p>
                                         <asp:TextBox ID="TbxMiddleName" runat="server" CssClass="form-control"
-                                            placeholder="middle name" ValidationGroup="author"></asp:TextBox>
+                                            placeholder="e.g. Russell" ValidationGroup="author"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxMiddleName" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-4 mb-1">
+                                        <p class="h6">Last Name</p>
                                         <asp:TextBox ID="TbxLastName" runat="server" CssClass="form-control "
-                                            placeholder="last name" ValidationGroup="author"></asp:TextBox>
+                                            placeholder="e.g. Smith" ValidationGroup="author"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxLastName" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
@@ -275,7 +282,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="AddPublisherModalLabel">Add a Publisher</h5>
+                        <h5 class="modal-title" id="AddPublisherModalLabel"><strong>Add a Publisher</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -285,14 +292,15 @@
                             <div class="modal-body">
                                 <div class="form-row">
                                     <div class="form-group col-sm-6 mb-1">
+                                        <p class="h6">Publisher Name</p>
                                         <asp:TextBox ID="TbxPublisherName" runat="server" CssClass="form-control"
                                             placeholder="Publisher Name" ValidationGroup="publisher"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxPublisherName" Display="Dynamic" ValidationGroup="publisher"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-6 mb-1">
+                                        <p class="h6">Location of Headquarters</p>
                                         <asp:DropDownList ID="DrpCountry" runat="server" DataSourceID="SourceCountries" DataTextField="countryName" DataValueField="countryID" CssClass="custom-select" AppendDataBoundItems="true" ValidationGroup="publisher">
-                                            <asp:ListItem Selected="True" Value="-99">Select the country of origin...</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                 </div>
@@ -315,7 +323,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="EditBookModalLabel">Update Book Information</h5>
+                        <h5 class="modal-title" id="EditBookModalLabel"><strong>Update Book Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -323,25 +331,29 @@
                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                         <ContentTemplate>
                             <div class="modal-body">
-                                <asp:FormView ID="FvwBooks" runat="server" DataKeyNames="bookID" DataSourceID="SourceBookEdit" DefaultMode="Edit">
+                                <asp:FormView ID="Books" runat="server" DataKeyNames="bookID" DataSourceID="SourceBookEdit" DefaultMode="Edit" CssClass="w-100">
                                     <EditItemTemplate>
                                         <div class="justify-content-center align-items-center">
                                             <div class="form-group mb-1">
+                                                <p class="h6">Title</p>
                                                 <asp:TextBox ID="titleTextBox" runat="server" Text='<%# Bind("title") %>' CssClass="form-control" />
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Author</p>
                                                 <asp:DropDownList ID="DrpAuthors" runat="server" CssClass="custom-select" DataSourceID="SourceAuthorNames"
                                                     DataTextField="fullName" DataValueField="authorID" AppendDataBoundItems="true" SelectedValue='<%# Bind("authorID") %>'>
                                                     <asp:ListItem Text="Select an Author..." Value="-99"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Publisher</p>
                                                 <asp:DropDownList ID="DrpPublishersB" runat="server" CssClass="custom-select" DataSourceID="SourcePublishers"
                                                     DataTextField="publisherName" DataValueField="publisherID" AppendDataBoundItems="True" SelectedValue='<%# Bind("publisherID") %>'>
                                                     <asp:ListItem Value="-99">Select a publisher...</asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Genre</p>
                                                 <asp:DropDownList ID="DrpGenresB" runat="server" CssClass="custom-select" SelectedValue='<%# Bind("genre") %>'>
                                                     <asp:ListItem>Select a genre...</asp:ListItem>
                                                     <asp:ListItem>Science fiction</asp:ListItem>
@@ -363,14 +375,17 @@
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Year of Publication</p>
                                                 <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("publishYear") %>' CssClass="form-control"
                                                     TextMode="Number"
                                                     min="1970"></asp:TextBox>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">ISBN</p>
                                                 <asp:TextBox ID="ISBNTextBox" runat="server" Text='<%# Bind("ISBN") %>' CssClass="form-control"></asp:TextBox>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Edition</p>
                                                 <asp:TextBox ID="editionTextBox" runat="server" Text='<%# Bind("edition") %>' CssClass="form-control"
                                                     TextMode="Number"
                                                     min="1"></asp:TextBox>
@@ -385,7 +400,7 @@
                     <div class="modal-footer">
                         <button id="BtnEditBook" type="button" class="btn btn-library-10"
                             runat="server" onserverclick="BtnEditBook_ServerClick" validationgroup="editBook">
-                            Add Author</button>
+                            Update</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -397,7 +412,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editAuthorlisherModalLabel">Update Author Information</h5>
+                        <h5 class="modal-title" id="editAuthorlisherModalLabel"><strong>Update Author Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -429,7 +444,7 @@
                     <div class="modal-footer">
                         <button id="FvBtnUpdateAuth" type="button" class="btn btn-library-10"
                             runat="server" onserverclick="FvBtnUpdateAuth_ServerClick" validationgroup="editAuthor">
-                            Add Publisher</button>
+                            Update</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -441,7 +456,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="EditPublisherModalLabel">Update Publisher Information</h5>
+                        <h5 class="modal-title" id="EditPublisherModalLabel"><strong>Update Publisher Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -472,7 +487,7 @@
                     <div class="modal-footer">
                         <button id="FvBtnUpdatePub" type="button" class="btn btn-library-10"
                             runat="server" onserverclick="FvBtnUpdatePub_ServerClick" validationgroup="editPub">
-                            Add Publisher</button>
+                            Update</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -484,7 +499,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="DeletePublisherLabel">Delete Publisher Information</h5>
+                        <h5 class="modal-title" id="DeletePublisherLabel"><strong>Delete Publisher Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -492,7 +507,7 @@
                     <div class="modal-body">
                         <div class="row align-items-center">
                             <div class="col-sm-4 text-center">
-                                <i class="fa fa-question-circle display-1" style="color:rgb(0, 172, 237) !important;"></i>
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
                             </div>
                             <div class="col-sm-8">
                                 <p class="text-justify">
@@ -505,48 +520,68 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" id="BtnDeletePub" runat="server" onserverclick="BtnDeletePub_ServerClick">Yes</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Delete Author modal -->
-        <div class="modal" id="DeleteAuthor" tabindex="-1" role="dialog" aria-labelledby="DeleteAuthorLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal" id="DeleteAuthorModal" tabindex="-1" role="dialog" aria-labelledby="DeleteAuthorLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="DeleteAuthorLabel">Modal title</h5>
+                        <h5 class="modal-title" id="DeleteAuthorLabel"><strong>Delete Author Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure you want to delete this author's information from the database? 
+                                    Doing so will delete ALL associated books. This action cannot be undone.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-danger" id="BtnDeleteAuthor" runat="server" onserverclick="BtnDeleteAuthor_ServerClick">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Delete Book modal -->
-        <div class="modal" id="DeleteBook" tabindex="-1" role="dialog" aria-labelledby="DeleteBookLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal" id="DeleteBookModal" tabindex="-1" role="dialog" aria-labelledby="DeleteBookLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="DeleteBookLabel">Modal title</h5>
+                        <h5 class="modal-title" id="DeleteBookLabel"><strong>Delete Book Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure you want to delete this Book's information from the database? 
+                                    This action cannot be undone.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-danger" id="BtnDeleteBook" runat="server" onserverclick="BtnDeleteBook_ServerClick">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     </div>
                 </div>
             </div>
@@ -563,7 +598,10 @@
                 <asp:ControlParameter ControlID="DrpPubYear" Name="publishYr" PropertyName="SelectedValue" Type="Int16" />
             </InsertParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @middle, @last">
+        <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @middle, @last" DeleteCommand="EXEC DeleteAuthor @id">
+            <DeleteParameters>
+                <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
+            </DeleteParameters>
             <InsertParameters>
                 <asp:ControlParameter ControlID="TbxFirstname" Name="first" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="TbxMiddleName" Name="middle" PropertyName="Text" Type="String" />
@@ -584,12 +622,18 @@
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM Books WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>">
+        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM Books WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteBook @id">
+            <DeleteParameters>
+                <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
+            </DeleteParameters>
             <SelectParameters>
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceAuthorEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors] WHERE authorID = @id" UpdateCommand="EXEC UpdateAuthor @firstName, @middleName, @lastName, @authorID">
+        <asp:SqlDataSource ID="SourceAuthorEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors] WHERE authorID = @id" UpdateCommand="EXEC UpdateAuthor @firstName, @middleName, @lastName, @authorID" DeleteCommand="EXEC DeleteAuthor @id">
+            <DeleteParameters>
+                <asp:SessionParameter Name="id" SessionField="keys" />
+            </DeleteParameters>
             <SelectParameters>
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>

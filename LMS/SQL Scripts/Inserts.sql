@@ -38,3 +38,4 @@ EXEC AddBook 1, 1, 'The Sea of Monsters', '0-7868-5686-6', 'LB2395.C61.2011', '2
 GO
 
 select * from BookPublishers
+select * from BookBorrowers

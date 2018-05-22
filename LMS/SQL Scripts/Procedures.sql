@@ -1,6 +1,6 @@
 --Library User Related Procedures
 CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50), 
-	@mail NVARCHAR(255), @pass NVARCHAR(128), @countryID INT, @cityID NVARCHAR(60), @street NVARCHAR(100), @zip INT) AS
+	@mail NVARCHAR(255), @pass NVARCHAR(128), @countryID INT, @cityID INT, @street NVARCHAR(100), @zip SMALLINT) AS
 	BEGIN TRAN 
 		BEGIN TRY
 			INSERT INTO BorrowerAddresses VALUES (@countryID, @cityID, @street, @zip)
@@ -11,6 +11,14 @@ CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), 
 		BEGIN CATCH
 			ROLLBACK TRAN
 		END CATCH
+GO
+
+CREATE OR ALTER PROCEDURE UpdateUserAccount (@userName NVARCHAR(255), @pass NVARCHAR(128), @id INT) AS
+	UPDATE UserAccounts SET username = @userName, [password] = @pass WHERE [owner] = @id
+GO
+
+CREATE OR ALTER PROCEDURE DeleteUserAccount (@id INT) AS
+	DELETE FROM UserAccounts WHERE [owner] = @id
 GO
 
 --Book Data Related Procedures
@@ -64,12 +72,23 @@ CREATE OR ALTER PROCEDURE AddCountry(@countryName NVARCHAR(MAX)) AS
 	INSERT INTO Countries VALUES (@countryName )
 GO
 
-select * from BookAuthors
-select * from BookBorrowers
-select * from BookPublishers
-select * from Books
-select * from PublisherWithCityName
+CREATE OR ALTER VIEW completeBorrowerData AS
+	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
+		BookBorrowers.mail, Countries.countryName, Cities.cityName, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
+		BookBorrowers.addressID
+		FROM BookBorrowers
+			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
+			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
+			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
+GO
 
+SELECT * FROM BookDisplay
+SELECT * FROM BookBorrowers
 EXEC DeletePublisher 1
 
+select * from completeBorrowerData
+select * from BorrowerAccounts
+
 --Book Rental Related Procedures
+
+SELECT * FROM BorrowerAccounts

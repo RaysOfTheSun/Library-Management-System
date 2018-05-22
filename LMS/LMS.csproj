@@ -148,7 +148,8 @@
     <Content Include="Images\DL Logo.png" />
     <Content Include="Images\library-hero.jpg" />
     <Content Include="Login.aspx" />
-    <Content Include="Management.aspx" />
+    <Content Include="ManageUsers.aspx" />
+    <Content Include="MangeBooks.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Scripts\OnHoverWatch.js" />
     <Content Include="Content\Site.css" />
@@ -308,12 +309,19 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Management.aspx.cs">
-      <DependentUpon>Management.aspx</DependentUpon>
+    <Compile Include="ManageUsers.aspx.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Management.aspx.designer.cs">
-      <DependentUpon>Management.aspx</DependentUpon>
+    <Compile Include="ManageUsers.aspx.designer.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MangeBooks.aspx.cs">
+      <DependentUpon>MangeBooks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MangeBooks.aspx.designer.cs">
+      <DependentUpon>MangeBooks.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">
