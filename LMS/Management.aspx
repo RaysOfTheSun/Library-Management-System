@@ -323,7 +323,7 @@
                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                         <ContentTemplate>
                             <div class="modal-body">
-                                <asp:FormView ID="FvwBooks" runat="server" DataKeyNames="bookID" DataSourceID="SourceBookEdit" DefaultMode="Edit">
+                                <asp:FormView ID="Books" runat="server" DataKeyNames="bookID" DataSourceID="SourceBookEdit" DefaultMode="Edit" CssClass="w-100">
                                     <EditItemTemplate>
                                         <div class="justify-content-center align-items-center">
                                             <div class="form-group mb-1">

@@ -21,7 +21,9 @@ namespace LMS
             TbxFirstname.Text = "";
             TbxLastName.Text = "";
             TbxMiddleName.Text = "";
-            UpdateLists();
+
+            DrpAuthors.Items.Clear();
+            DrpAuthors.DataBind();
         }
 
         protected void BtnAddPublisher_ServerClick(object sender, EventArgs e)
@@ -30,7 +32,9 @@ namespace LMS
             BtnAddPublisher.Attributes.Add("data-dismiss", "modal");
             TbxPublisherName.Text = "";
             DrpCountry.SelectedValue = "-99";
-            UpdateLists();
+
+            DrpPublishers.Items.Clear();
+            DrpPublishers.DataBind();
         }
 
         private void InitializeYearList(DropDownList dl)
@@ -64,7 +68,9 @@ namespace LMS
             FormView1.UpdateItem(true);
             GrdPublishers.DataBind();
             GrdBooks.DataBind();
-            UpdateLists();
+
+            DrpPublishers.Items.Clear();
+            DrpPublishers.DataBind();
         }
 
         protected void FvBtnUpdateAuth_ServerClick(object sender, EventArgs e)
@@ -72,12 +78,14 @@ namespace LMS
             FvwAuthors.UpdateItem(true);
             GrdAuthors.DataBind();
             GrdBooks.DataBind();
-            UpdateLists();
+
+            DrpAuthors.Items.Clear();
+            DrpAuthors.DataBind();
         }
 
         protected void BtnEditBook_ServerClick(object sender, EventArgs e)
         {
-            FvwBooks.UpdateItem(true);
+            Books.UpdateItem(true);
             GrdBooks.DataBind();
         }
 
@@ -92,7 +100,9 @@ namespace LMS
             SourcePublisherEdit.Delete();
             GrdPublishers.DataBind();
             GrdBooks.DataBind();
-            UpdateLists();
+
+            DrpPublishers.Items.Clear();
+            DrpPublishers.DataBind();
         }
 
         private void UpdateLists()
@@ -111,7 +121,9 @@ namespace LMS
             SourceAuthorEdit.Delete();
             GrdAuthors.DataBind();
             GrdBooks.DataBind();
-            UpdateLists();
+
+            DrpAuthors.Items.Clear();
+            DrpAuthors.DataBind();
         }
 
         protected void BtnDeleteBook_ServerClick(object sender, EventArgs e)
