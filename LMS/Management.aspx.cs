@@ -31,7 +31,6 @@ namespace LMS
             SourcePublishers.Insert();
             BtnAddPublisher.Attributes.Add("data-dismiss", "modal");
             TbxPublisherName.Text = "";
-            DrpCountry.SelectedValue = "-99";
 
             DrpPublishers.Items.Clear();
             DrpPublishers.DataBind();

@@ -143,14 +143,12 @@
             </div>
         </div>
 
-
-
         <%--Add Book modal--%>
         <div class="modal" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="AddBookModalLabel">Add a Book</h5>
+                        <h5 class="modal-title" id="AddBookModalLabel"><strong>Add a Book</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -161,22 +159,25 @@
                             <div class="modal-body">
                                 <div class="justify-content-center align-items-center">
                                     <div class="form-group mb-1">
+                                        <p class="h6">Title</p>
                                         <asp:TextBox ID="TbxTitle" runat="server" CssClass="form-control"
-                                            placeholder="title"></asp:TextBox>
+                                            placeholder="e.g. The Sea of Monsters"></asp:TextBox>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Author</p>
                                         <asp:DropDownList ID="DrpAuthors" runat="server" CssClass="custom-select" DataSourceID="SourceAuthorNames"
                                             DataTextField="fullName" DataValueField="authorID" AppendDataBoundItems="true">
-                                            <asp:ListItem Text="Select an Author..." Value="-99"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Publisher</p>
                                         <asp:DropDownList ID="DrpPublishers" runat="server" CssClass="custom-select" DataSourceID="SourcePublishers"
                                             DataTextField="publisherName" DataValueField="publisherID" AppendDataBoundItems="True">
                                             <asp:ListItem Value="-99">Select a publisher...</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Genre</p>
                                         <asp:DropDownList ID="DrpGenres" runat="server" CssClass="custom-select">
                                             <asp:ListItem>Select a genre...</asp:ListItem>
                                             <asp:ListItem>Science fiction</asp:ListItem>
@@ -198,15 +199,18 @@
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Year of Publication</p>
                                         <asp:DropDownList ID="DrpPubYear" runat="server" CssClass="custom-select"></asp:DropDownList>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">ISBN</p>
                                         <asp:TextBox ID="TbxISBN" runat="server" CssClass="form-control"
-                                            placeholder="ISBN" MaxLength="20"></asp:TextBox>
+                                            placeholder="e.g. 0-7868-5686-6" MaxLength="20"></asp:TextBox>
                                     </div>
                                     <div class="form-group mb-1">
+                                        <p class="h6">Edition</p>
                                         <asp:TextBox ID="TbxEdition" runat="server" CssClass="form-control" TextMode="Number"
-                                            placeholder="Edition" min="1"></asp:TextBox>
+                                            placeholder="e.g. 1" min="1"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +231,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="AddAuthorModalLabel">Add an Author</h5>
+                        <h5 class="modal-title" id="AddAuthorModalLabel"><strong>Add an Author</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -237,20 +241,23 @@
                             <div class="modal-body">
                                 <div class="form-row">
                                     <div class="form-group col-sm-4 mb-1">
+                                        <p class="h6">First Name</p>
                                         <asp:TextBox ID="TbxFirstname" runat="server" CssClass="form-control"
-                                            placeholder="first name"></asp:TextBox>
+                                            placeholder="e.g. John"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxFirstname" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-4 mb-1">
+                                        <p class="h6">Middle Name</p>
                                         <asp:TextBox ID="TbxMiddleName" runat="server" CssClass="form-control"
-                                            placeholder="middle name" ValidationGroup="author"></asp:TextBox>
+                                            placeholder="e.g. Russell" ValidationGroup="author"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxMiddleName" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-4 mb-1">
+                                        <p class="h6">Last Name</p>
                                         <asp:TextBox ID="TbxLastName" runat="server" CssClass="form-control "
-                                            placeholder="last name" ValidationGroup="author"></asp:TextBox>
+                                            placeholder="e.g. Smith" ValidationGroup="author"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxLastName" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
@@ -275,7 +282,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="AddPublisherModalLabel">Add a Publisher</h5>
+                        <h5 class="modal-title" id="AddPublisherModalLabel"><strong>Add a Publisher</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -285,14 +292,15 @@
                             <div class="modal-body">
                                 <div class="form-row">
                                     <div class="form-group col-sm-6 mb-1">
+                                        <p class="h6">Publisher Name</p>
                                         <asp:TextBox ID="TbxPublisherName" runat="server" CssClass="form-control"
                                             placeholder="Publisher Name" ValidationGroup="publisher"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxPublisherName" Display="Dynamic" ValidationGroup="publisher"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-6 mb-1">
+                                        <p class="h6">Location of Headquarters</p>
                                         <asp:DropDownList ID="DrpCountry" runat="server" DataSourceID="SourceCountries" DataTextField="countryName" DataValueField="countryID" CssClass="custom-select" AppendDataBoundItems="true" ValidationGroup="publisher">
-                                            <asp:ListItem Selected="True" Value="-99">Select the country of origin...</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                 </div>
@@ -315,7 +323,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="EditBookModalLabel">Update Book Information</h5>
+                        <h5 class="modal-title" id="EditBookModalLabel"><strong>Update Book Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -327,21 +335,25 @@
                                     <EditItemTemplate>
                                         <div class="justify-content-center align-items-center">
                                             <div class="form-group mb-1">
+                                                <p class="h6">Title</p>
                                                 <asp:TextBox ID="titleTextBox" runat="server" Text='<%# Bind("title") %>' CssClass="form-control" />
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Author</p>
                                                 <asp:DropDownList ID="DrpAuthors" runat="server" CssClass="custom-select" DataSourceID="SourceAuthorNames"
                                                     DataTextField="fullName" DataValueField="authorID" AppendDataBoundItems="true" SelectedValue='<%# Bind("authorID") %>'>
                                                     <asp:ListItem Text="Select an Author..." Value="-99"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Publisher</p>
                                                 <asp:DropDownList ID="DrpPublishersB" runat="server" CssClass="custom-select" DataSourceID="SourcePublishers"
                                                     DataTextField="publisherName" DataValueField="publisherID" AppendDataBoundItems="True" SelectedValue='<%# Bind("publisherID") %>'>
                                                     <asp:ListItem Value="-99">Select a publisher...</asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Genre</p>
                                                 <asp:DropDownList ID="DrpGenresB" runat="server" CssClass="custom-select" SelectedValue='<%# Bind("genre") %>'>
                                                     <asp:ListItem>Select a genre...</asp:ListItem>
                                                     <asp:ListItem>Science fiction</asp:ListItem>
@@ -363,14 +375,17 @@
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Year of Publication</p>
                                                 <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("publishYear") %>' CssClass="form-control"
                                                     TextMode="Number"
                                                     min="1970"></asp:TextBox>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">ISBN</p>
                                                 <asp:TextBox ID="ISBNTextBox" runat="server" Text='<%# Bind("ISBN") %>' CssClass="form-control"></asp:TextBox>
                                             </div>
                                             <div class="form-group mb-1">
+                                                <p class="h6">Edition</p>
                                                 <asp:TextBox ID="editionTextBox" runat="server" Text='<%# Bind("edition") %>' CssClass="form-control"
                                                     TextMode="Number"
                                                     min="1"></asp:TextBox>
@@ -397,7 +412,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editAuthorlisherModalLabel">Update Author Information</h5>
+                        <h5 class="modal-title" id="editAuthorlisherModalLabel"><strong>Update Author Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -441,7 +456,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="EditPublisherModalLabel">Update Publisher Information</h5>
+                        <h5 class="modal-title" id="EditPublisherModalLabel"><strong>Update Publisher Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -484,7 +499,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="DeletePublisherLabel">Delete Publisher Information</h5>
+                        <h5 class="modal-title" id="DeletePublisherLabel"><strong>Delete Publisher Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -515,7 +530,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="DeleteAuthorLabel">Modal title</h5>
+                        <h5 class="modal-title" id="DeleteAuthorLabel"><strong>Delete Author Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -546,7 +561,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="DeleteBookLabel">Modal title</h5>
+                        <h5 class="modal-title" id="DeleteBookLabel"><strong>Delete Book Information</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
