@@ -236,7 +236,7 @@ a:hover { color: #0aa3fc; }
 
 .lib-header {
     background-color: #330080 !important;
-    padding: 20px 50px;
+    padding: 20px;
 }
 
 #searchbox-inner { background-color: white; }
@@ -252,8 +252,8 @@ a:hover { color: #0aa3fc; }
 .lib-nav {
     font-size: 18px !important;
     padding-bottom: 20px !important;
-    padding-left: 135px;
-    padding-right: 135px;
+    /*padding-left: 135px;
+    padding-right: 135px;*/
     padding-top: 20px !important;
     /*display:inline-flex;*/
 }

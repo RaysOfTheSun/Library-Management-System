@@ -170,9 +170,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </form>
+    <script src="Scripts/StackModal.js"></script>
 </body>
 </html>

@@ -7,27 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LMS {
+namespace LMS.UserControl {
     
     
-    public partial class Rgister {
+    public partial class ProductCardControl {
         
         /// <summary>
-        /// FormView1 control.
+        /// nameLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FormView FormView1;
+        protected global::System.Web.UI.WebControls.Label nameLabel;
         
         /// <summary>
-        /// LibraryDB control.
+        /// priceLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource LibraryDB;
+        protected global::System.Web.UI.WebControls.Label priceLabel;
+        
+        /// <summary>
+        /// BtnAddToCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnAddToCart;
     }
 }

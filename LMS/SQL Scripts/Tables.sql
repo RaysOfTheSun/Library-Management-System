@@ -38,7 +38,7 @@ IF NOT EXISTS (
 		CREATE TABLE BookPublishers (
 		publisherID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
 		publisherName NVARCHAR(50) NOT NULL,
-		city INT FOREIGN KEY REFERENCES Cities(cityID) NOT NULL)
+		countryID INT FOREIGN KEY REFERENCES Countries(countryID) NOT NULL)
 	END
 
 IF NOT EXISTS ( 
@@ -62,8 +62,8 @@ IF NOT EXISTS (
 		CREATE TABLE Books (
 		bookID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
 		title NVARCHAR(100) NOT NULL,
-		authorID INT FOREIGN KEY REFERENCES BookAuthors(authorID) NOT NULL, 
-		publisherID INT FOREIGN KEY REFERENCES BookPublishers(publisherID) NOT NULL,
+		authorID INT FOREIGN KEY REFERENCES BookAuthors(authorID) NULL, 
+		publisherID INT FOREIGN KEY REFERENCES BookPublishers(publisherID) NULL,
 		publishYear SMALLINT NULL,
 		ISBN NVARCHAR(20) NULL,
 		edition TINYINT NULL,
@@ -146,8 +146,27 @@ SELECT b.firstName, b.middleName, b.lastName, a.cityID, a.countryID, a.street, a
 	u.username, u.[password] FROM BookBorrowers b, UserAccounts u, BorrowerAddresses a
 GO
 
+CREATE OR ALTER VIEW AuthorNames AS
+	SELECT (firstName + ' ' + middleName + ' ' + lastName) AS fullName, 
+		authorID from BookAuthors 
+GO
+
+CREATE OR ALTER VIEW PublisherWithCountryName AS
+	SELECT BookPublishers.publisherID, BookPublishers.publisherName, Countries.countryName
+		FROM BookPublishers INNER JOIN Countries ON BookPublishers.countryID = Countries.countryID
+GO
+
+CREATE OR ALTER VIEW BookDisplay AS 
+	SELECT Books.bookID, books.title, AuthorNames.fullName AS author, BookPublishers.publisherName, 
+	Books.publishYear, Books.ISBN, Books.edition, Books.genre
+	FROM Books INNER JOIN AuthorNames ON Books.authorID = AuthorNames.authorID
+				INNER JOIN BookPublishers ON BookPublishers.publisherID = Books.publisherID
+GO
+
 --DROPS
 --DROP TABLE BookRentals,UserAccounts,BookBorrowers,BorrowerAddresses
 --DROP TABLE LibraryIndex, BookStatuses
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries
+--DROP VIEW PublisherWithCityName
+

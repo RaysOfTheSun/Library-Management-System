@@ -40,19 +40,16 @@
             </Scripts>
         </asp:ScriptManager>
         <div class="lib-header container-fluid" id="header" runat="server">
-            <div class="row">
-                <div class="col-md-8">
-                    <h2 style="margin-left: 8.5%; color: white"><i class="fa fa-cogs"></i>
-                        <strong>Dynamic Link </strong>| LIBRARIES</h2>
+            <div class="row px-5">
+                <div class="col-md-8 align-middle h2 text-white my-0 px-0">
+                    <span class="fa fa-cogs"></span><strong>&nbsp;Dynamic Link&nbsp;</strong>| LIBRARIES
                 </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="input-group w-75" style="border: 0;">
-                            <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
-                            <div class="input-group-append">
-                                <%--<asp:Button ID="Button2" runat="server" Text="GO" CssClass="" />--%>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-git btn-lg"><i class="fa fa-search"></i></asp:LinkButton>
-                            </div>
+                <div class="col-md-4 text-right">
+                    <div class="input-group w-75 mx-auto">
+                        <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
+                        <div class="input-group-append">
+                            <%--<asp:Button ID="Button2" runat="server" Text="GO" CssClass="" />--%>
+                            <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-git btn-lg"><i class="fa fa-search"></i></asp:LinkButton>
                         </div>
                     </div>
                 </div>
@@ -63,7 +60,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navigation">
-                <ul class="navbar-nav mr-auto" id="nav">
+                <ul class="navbar-nav" style="padding-left: 1.8rem;" id="nav">
                     <li id="mini-logo"><a href="#">LOGO</a></li>
                     <li class="nav-item active">
                         <a href="#" class="nav-link">Home</a>
@@ -77,17 +74,17 @@
                 </ul>
                 <ul class="navbar-nav ml-auto" style="margin-right: 200px !important;">
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="fas fa-search"></i> Search Libary Resources</a>
+                        <a href="#" class="nav-link"><i class="fas fa-search"></i>Search Libary Resources</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> My Library Account</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:100%;">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i>My Library Account</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 100%;">
                             <a class="dropdown-item" href="#">Borrowed Books</a>
                             <a class="dropdown-item" href="#">Log Out</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="far fa-comments"></i> Ask a Librarian</a>
+                        <a href="#" class="nav-link"><i class="far fa-comments"></i>Ask a Librarian</a>
                     </li>
                 </ul>
             </div>
