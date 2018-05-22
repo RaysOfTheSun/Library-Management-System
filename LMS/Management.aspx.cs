@@ -84,9 +84,6 @@ namespace LMS
         protected void GrdBooks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             hiddenID.Value = e.CommandArgument.ToString();
-            //DropDownList dl = ((DropDownList)FvwBooks.FindControl("DrpPubYearB"));
-            //dl.Attributes.Add("SelectedValue", @"'<%# Bind(""publishYear"") %>'");
-            //InitializeYearList(dl);
         }
 
         protected void BtnDeletePub_ServerClick(object sender, EventArgs e)
@@ -106,6 +103,14 @@ namespace LMS
             DrpAuthors.DataBind();
             DrpPublishers.DataBind();
             DrpCountry.DataBind();
+        }
+
+        protected void BtnDeleteAuthor_ServerClick(object sender, EventArgs e)
+        {
+            SourceAuthorEdit.Delete();
+            GrdAuthors.DataBind();
+            GrdBooks.DataBind();
+            UpdateLists();
         }
     }
 }

@@ -89,7 +89,7 @@
                                                 <div class="col-sm-6">
                                                     <asp:Button ID="GrdBtnDeleteAuth" runat="server" Text="Delete" CssClass="btn btn-danger btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("authorID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#EditAuthorModal" />
+                                                        data-target="#DeleteAuthorModal" />
                                                 </div>
                                             </div>
                                         </ItemTemplate>
@@ -505,14 +505,13 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" id="BtnDeletePub" runat="server" onserverclick="BtnDeletePub_ServerClick">Yes</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Delete Author modal -->
-        <div class="modal" id="DeleteAuthor" tabindex="-1" role="dialog" aria-labelledby="DeleteAuthorLabel" aria-hidden="true">
+        <div class="modal" id="DeleteAuthorModal" tabindex="-1" role="dialog" aria-labelledby="DeleteAuthorLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -522,11 +521,21 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color:rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure you want to delete this author's information from the database? 
+                                    Doing so will delete ALL associated books. This action cannot be undone.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-danger" id="BtnDeleteAuthor" runat="server" onserverclick="BtnDeleteAuthor_ServerClick">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     </div>
                 </div>
             </div>
@@ -563,7 +572,10 @@
                 <asp:ControlParameter ControlID="DrpPubYear" Name="publishYr" PropertyName="SelectedValue" Type="Int16" />
             </InsertParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @middle, @last">
+        <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @middle, @last" DeleteCommand="EXEC DeleteAuthor @id">
+            <DeleteParameters>
+                <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
+            </DeleteParameters>
             <InsertParameters>
                 <asp:ControlParameter ControlID="TbxFirstname" Name="first" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="TbxMiddleName" Name="middle" PropertyName="Text" Type="String" />
@@ -589,7 +601,10 @@
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceAuthorEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors] WHERE authorID = @id" UpdateCommand="EXEC UpdateAuthor @firstName, @middleName, @lastName, @authorID">
+        <asp:SqlDataSource ID="SourceAuthorEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors] WHERE authorID = @id" UpdateCommand="EXEC UpdateAuthor @firstName, @middleName, @lastName, @authorID" DeleteCommand="EXEC DeleteAuthor @id">
+            <DeleteParameters>
+                <asp:SessionParameter Name="id" SessionField="keys" />
+            </DeleteParameters>
             <SelectParameters>
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>

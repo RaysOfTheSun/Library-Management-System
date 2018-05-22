@@ -391,6 +391,15 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeletePub;
         
         /// <summary>
+        /// BtnDeleteAuthor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeleteAuthor;
+        
+        /// <summary>
         /// SourceBooks control.
         /// </summary>
         /// <remarks>
