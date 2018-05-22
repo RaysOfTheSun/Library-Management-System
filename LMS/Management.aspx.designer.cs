@@ -67,13 +67,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.GridView GrdBooks;
         
         /// <summary>
-        /// UPAuth control.
+        /// UPLAddAuth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UPAuth;
+        protected global::System.Web.UI.UpdatePanel UPLAddAuth;
         
         /// <summary>
         /// GrdAuthors control.
@@ -301,6 +301,33 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnAddPublisher;
         
         /// <summary>
+        /// UPDLupAuth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UPDLupAuth;
+        
+        /// <summary>
+        /// FvwAuthors control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FormView FvwAuthors;
+        
+        /// <summary>
+        /// FvBtnUpdateAuth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton FvBtnUpdateAuth;
+        
+        /// <summary>
         /// UpdatePanel7 control.
         /// </summary>
         /// <remarks>
@@ -355,15 +382,6 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.SqlDataSource SourcePublishers;
         
         /// <summary>
-        /// SourceCountries control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SourceCountries;
-        
-        /// <summary>
         /// SourcePublisherEdit control.
         /// </summary>
         /// <remarks>
@@ -373,6 +391,15 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.SqlDataSource SourcePublisherEdit;
         
         /// <summary>
+        /// SourceAuthorEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourceAuthorEdit;
+        
+        /// <summary>
         /// SourceAuthorNames control.
         /// </summary>
         /// <remarks>
@@ -380,5 +407,14 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SourceAuthorNames;
+        
+        /// <summary>
+        /// SourceCountries control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourceCountries;
     }
 }

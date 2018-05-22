@@ -29,6 +29,7 @@
                         OnClientClick="return false;" data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false" />
                 </div>
             </div>
+            <%--Titles tab--%>
             <div class="tab-pane fade" id="nav-titles" role="tabpanel" aria-labelledby="nav-titles-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UPBooks" runat="server" ChildrenAsTriggers="true">
@@ -52,21 +53,28 @@
                             </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
                 </div>
             </div>
+            <%--Authors tab--%>
             <div class="tab-pane fade show active" id="nav-authors" role="tabpanel" aria-labelledby="nav-authors-tab">
                 <div class="container">
 
-
-                    <asp:UpdatePanel ID="UPAuth" runat="server" ChildrenAsTriggers="true">
+                    <asp:UpdatePanel ID="UPLAddAuth" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
-                            <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" AllowPaging="True" PageSize="6">
+                            <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" 
+                                CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" AllowPaging="True" PageSize="6" OnRowCommand="GrdPublishers_RowCommand">
                                 <Columns>
                                     <asp:BoundField DataField="authorID" HeaderText="Author ID" InsertVisible="False" ReadOnly="True" SortExpression="authorID" />
                                     <asp:BoundField DataField="firstName" HeaderText="First Name" SortExpression="firstName" />
                                     <asp:BoundField DataField="middleName" HeaderText="Middle Name" SortExpression="middleName" />
                                     <asp:BoundField DataField="lastName" HeaderText="Last Name" SortExpression="lastName" />
+                                    <asp:TemplateField HeaderText="Actions">
+                                        <ItemTemplate>
+                                            <asp:Button ID="GrdBtnEditAuth" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
+                                                CommandArgument='<%# Eval("authorID") %>' CausesValidation="false" data-toggle="modal"
+                                                data-target="#EditAuthorModal" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
                         </ContentTemplate>
@@ -75,6 +83,7 @@
                 </div>
 
             </div>
+            <%--Publishers Tab--%>
             <div class="tab-pane fade" id="nav-publishers" role="tabpanel" aria-labelledby="nav-publishers-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UPPub" runat="server" ChildrenAsTriggers="true">
@@ -90,7 +99,8 @@
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="GrdBtnEditPub" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
-                                                CommandArgument='<%# Eval("publisherID") %>' CausesValidation="false" data-toggle="modal" data-target="#EditPublisherModal" />
+                                                CommandArgument='<%# Eval("publisherID") %>' CausesValidation="false" data-toggle="modal"
+                                                data-target="#EditPublisherModal" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -101,7 +111,7 @@
             </div>
         </div>
 
-        <%--Add book modal--%>
+        <%--Add Book modal--%>
         <div class="modal" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -178,7 +188,7 @@
             </div>
         </div>
 
-        <%-- Add author modal --%>
+        <%-- Add Author modal --%>
         <div class="modal" id="AddAuthorModal" tabindex="-1" role="dialog" aria-labelledby="AddAuthorModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -266,12 +276,56 @@
             </div>
         </div>
 
+        <%--Edit Author modal--%>
+        <div class="modal" id="EditAuthorModal" tabindex="-1" role="dialog" aria-labelledby="EditAuthorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editAuthorlisherModalLabel">Update Author Information</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <asp:UpdatePanel ID="UPDLupAuth" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <asp:FormView ID="FvwAuthors" runat="server" DataKeyNames="authorID" DataSourceID="SourceAuthorEdit" DefaultMode="Edit">
+                                    <EditItemTemplate>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-4 mb-1">
+                                                <p class="h6">First Name</p>
+                                                <asp:TextBox ID="firstNameTextBox" runat="server" Text='<%# Bind("firstName") %>' CssClass="form-control" />
+                                            </div>
+                                            <div class="form-group col-sm-4 mb-1">
+                                                <p class="h6">Middle Name</p>
+                                                <asp:TextBox ID="middleNameTextBox" runat="server" Text='<%# Bind("middleName") %>' CssClass="form-control" />
+                                            </div>
+                                            <div class="form-group col-sm-4 mb-1">
+                                                <p class="h6">Last Name</p>
+                                                <asp:TextBox ID="lastNameTextBox" runat="server" Text='<%# Bind("lastName") %>' CssClass="form-control" />
+                                            </div>
+                                        </div>
+                                    </EditItemTemplate>
+                                </asp:FormView>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <div class="modal-footer">
+                        <button id="FvBtnUpdateAuth" type="button" class="btn btn-library-10"
+                            runat="server" onserverclick="FvBtnUpdateAuth_ServerClick" validationgroup="editAuthor">
+                            Add Publisher</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <%-- Edit Publisher modal --%>
         <div class="modal" id="EditPublisherModal" tabindex="-1" role="dialog" aria-labelledby="EditPublisherModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="EditPublisherModalLabel">Add an editPub</h5>
+                        <h5 class="modal-title" id="EditPublisherModalLabel">Update Publisher Information</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -309,6 +363,7 @@
             </div>
         </div>
 
+
         <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr">
             <InsertParameters>
                 <asp:ControlParameter ControlID="DrpAuthors" Name="authorID" PropertyName="SelectedValue" Type="Int32" />
@@ -333,14 +388,18 @@
                 <asp:ControlParameter ControlID="DrpCountry" Name="cityID" PropertyName="SelectedValue" Type="Int32" />
             </InsertParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceCountries" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Countries]"></asp:SqlDataSource>
         <asp:SqlDataSource ID="SourcePublisherEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM BookPublishers WHERE publisherID=@id" UpdateCommand="EXEC UpdatePublisher @publisherName, @city, @publisherID">
             <SelectParameters>
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
+        <asp:SqlDataSource ID="SourceAuthorEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors] WHERE authorID = @id" UpdateCommand="EXEC UpdateAuthor @firstName, @middleName, @lastName, @authorID">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
+            </SelectParameters>
+        </asp:SqlDataSource>
         <asp:SqlDataSource ID="SourceAuthorNames" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [AuthorNames]"></asp:SqlDataSource>
-
+        <asp:SqlDataSource ID="SourceCountries" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Countries]"></asp:SqlDataSource>
     </div>
 
 

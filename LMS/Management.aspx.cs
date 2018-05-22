@@ -60,8 +60,13 @@ namespace LMS
             FormView1.UpdateItem(true);
             GrdPublishers.DataBind();
             GrdBooks.DataBind();
-            BtnAddBook.Attributes.Add("data-dismiss", "modal");
+        }
 
+        protected void FvBtnUpdateAuth_ServerClick(object sender, EventArgs e)
+        {
+            FvwAuthors.UpdateItem(true);
+            GrdAuthors.DataBind();
+            GrdBooks.DataBind();
         }
     }
 }
