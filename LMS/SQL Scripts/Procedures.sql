@@ -64,13 +64,19 @@ CREATE OR ALTER PROCEDURE AddCountry(@countryName NVARCHAR(MAX)) AS
 	INSERT INTO Countries VALUES (@countryName )
 GO
 
-select * from BookAuthors
-select * from BookBorrowers
-SELECT * FROM BorrowerAddresses
-select * from BookPublishers
-select * from Books
-select * from PublisherWithCityName
+CREATE OR ALTER VIEW completeBorrowerData AS
+	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
+		BookBorrowers.mail, Countries.countryName, Cities.cityName, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
+		BookBorrowers.addressID
+		FROM BookBorrowers
+			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
+			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
+			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
+GO
 
+SELECT * FROM BookDisplay
+SELECT * FROM BookBorrowers
 EXEC DeletePublisher 1
 
+select * from completeBorrowerData
 --Book Rental Related Procedures
