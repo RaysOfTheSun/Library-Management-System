@@ -30,6 +30,20 @@ CREATE OR ALTER PROCEDURE UpdateAuthor(@first NVARCHAR(50), @middle NVARCHAR(50)
 	UPDATE BookAuthors SET firstName = @first, middleName = @middle, lastName = @last  WHERE authorID = @id
 GO
 
+CREATE OR ALTER PROCEDURE DeleteAuthor(@id INT) AS 
+	DELETE FROM BookAuthors WHERE authorID = @id
+	UPDATE Books SET authorID = NULL WHERE authorID = @id
+GO
+
+CREATE OR ALTER PROCEDURE DeletePublisher(@id INT) AS
+	DELETE FROM BookPublishers WHERE publisherID = @id
+	UPDATE Books SET publisherID = NULL WHERE publisherID = @id
+GO
+
+CREATE OR ALTER PROCEDURE DeleteBook(@id INT) AS
+	DELETE FROM Books WHERE bookID = @id
+GO
+
 CREATE OR ALTER PROCEDURE UpdateBook(@authorID INT, @publisherID INT, @title NVARCHAR(100), @ISBN NVARCHAR(20), 
 	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @id INT) AS
 	UPDATE Books SET title = @title, authorID = @authorID, publisherID = @publisherID, 
@@ -54,9 +68,4 @@ select * from BookAuthors
 select * from BookBorrowers
 select * from BookPublishers
 
-SELECT BookBorrowers.firstName, BookBorrowers.middleName, 
-	BookBorrowers.lastName, BorrowerAddresses.zipCode, Countries.countryName 
-	from BookBorrowers
-	INNER JOIN BorrowerAddresses ON BookBorrowers.borrowerID = BorrowerAddresses.addressID 
-	INNER JOIN Countries ON BorrowerAddresses.countryID = Countries.countryID
 --Book Rental Related Procedures

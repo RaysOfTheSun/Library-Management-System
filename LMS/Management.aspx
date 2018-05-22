@@ -38,25 +38,29 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False"
-                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table table-hover table-borderless" ShowHeaderWhenEmpty="True" OnRowCommand="GrdBooks_RowCommand">
+                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" ShowHeaderWhenEmpty="True" OnRowCommand="GrdBooks_RowCommand" BorderStyle="None" GridLines="Horizontal">
                                 <Columns>
                                     <asp:BoundField DataField="bookID" HeaderText="Book ID" ReadOnly="True" SortExpression="bookID" />
                                     <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
                                     <asp:BoundField DataField="author" HeaderText="Author" SortExpression="author" ReadOnly="True" />
                                     <asp:BoundField DataField="publisherName" HeaderText="Publisher" SortExpression="publisherName" />
-                                    <asp:BoundField DataField="publishYear" HeaderText="Year of Publication" SortExpression="publishYear" />
+                                    <asp:BoundField DataField="publishYear" HeaderText="Publication" SortExpression="publishYear" />
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="genre" HeaderText="Genre" SortExpression="genre" />
-                                    <asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
                                             <asp:Button ID="GrdBtnEditBook" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
+                                                CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
+                                                data-target="#EditBookModal" />
+                                            <asp:Button ID="GrdBtnDeleteBook" runat="server" Text="Delete" CssClass="btn btn-danger" CommandName="deleteItem"
                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
                                                 data-target="#EditBookModal" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
-                                <RowStyle CssClass="row-bottom-only" />
+                                <HeaderStyle BorderStyle="Solid" VerticalAlign="Middle" Wrap="False" />
+                                <RowStyle VerticalAlign="Middle" />
                             </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -65,24 +69,34 @@
             <%-- Authors Tab --%>
             <div class="tab-pane fade show active" id="nav-authors" role="tabpanel" aria-labelledby="nav-authors-tab">
                 <div class="container">
-
                     <asp:UpdatePanel ID="UPLAddAuth" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
                             <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True"
-                                CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" AllowPaging="True" PageSize="6" OnRowCommand="GrdPublishers_RowCommand" GridLines="Vertical">
+                                CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" AllowPaging="True" PageSize="6" OnRowCommand="GrdPublishers_RowCommand" GridLines="Horizontal" BorderStyle="None">
                                 <Columns>
                                     <asp:BoundField DataField="authorID" HeaderText="Author ID" InsertVisible="False" ReadOnly="True" SortExpression="authorID" />
                                     <asp:BoundField DataField="firstName" HeaderText="First Name" SortExpression="firstName" />
                                     <asp:BoundField DataField="middleName" HeaderText="Middle Name" SortExpression="middleName" />
                                     <asp:BoundField DataField="lastName" HeaderText="Last Name" SortExpression="lastName" />
-                                    <asp:TemplateField HeaderText="Actions">
+                                    <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
-                                            <asp:Button ID="GrdBtnEditAuth" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
-                                                CommandArgument='<%# Eval("authorID") %>' CausesValidation="false" data-toggle="modal"
-                                                data-target="#EditAuthorModal" />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <asp:Button ID="GrdBtnEditAuth" runat="server" Text="Edit" CssClass="btn btn-primary btn-block" CommandName="editItem"
+                                                        CommandArgument='<%# Eval("authorID") %>' CausesValidation="false" data-toggle="modal"
+                                                        data-target="#EditAuthorModal" />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <asp:Button ID="GrdBtnDeleteAuth" runat="server" Text="Delete" CssClass="btn btn-danger btn-block" CommandName="editItem"
+                                                        CommandArgument='<%# Eval("authorID") %>' CausesValidation="false" data-toggle="modal"
+                                                        data-target="#EditAuthorModal" />
+                                                </div>
+                                            </div>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
+                                <HeaderStyle BorderStyle="Solid" VerticalAlign="Middle" Wrap="False" />
+                                <RowStyle VerticalAlign="Middle" />
                             </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -98,19 +112,30 @@
                             <asp:AsyncPostBackTrigger ControlID="GrdPublishers" />
                         </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers" AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table" OnRowCommand="GrdPublishers_RowCommand">
+                            <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers" AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table" OnRowCommand="GrdPublishers_RowCommand" BorderStyle="None" GridLines="Horizontal">
                                 <Columns>
                                     <asp:BoundField DataField="publisherID" HeaderText="Publisher ID" ReadOnly="True" SortExpression="publisherID" />
                                     <asp:BoundField DataField="publisherName" HeaderText="Name" SortExpression="publisherName" />
                                     <asp:BoundField DataField="countryName" HeaderText="Location of Headquarters" SortExpression="countryName" />
-                                    <asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
-                                            <asp:Button ID="GrdBtnEditPub" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
-                                                CommandArgument='<%# Eval("publisherID") %>' CausesValidation="false" data-toggle="modal"
-                                                data-target="#EditPublisherModal" />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <asp:Button ID="GrdBtnEditPub" runat="server" Text="Edit" CssClass="btn btn-primary btn-block" CommandName="editItem"
+                                                        CommandArgument='<%# Eval("publisherID") %>' CausesValidation="false" data-toggle="modal"
+                                                        data-target="#EditPublisherModal" />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <asp:Button ID="GrdBtnDeletePub" runat="server" Text="Edit" CssClass="btn btn-danger btn-block" CommandName="editItem"
+                                                        CommandArgument='<%# Eval("publisherID") %>' CausesValidation="false" data-toggle="modal"
+                                                        data-target="#EditPublisherModal" />
+                                                </div>
+                                            </div>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
+                                <HeaderStyle BorderStyle="Solid" VerticalAlign="Middle" />
+                                <RowStyle VerticalAlign="Middle" />
                             </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -494,7 +519,7 @@
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceAuthorNames" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [AuthorNames]"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SourceAuthorNames" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [AuthorNames]" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"></asp:SqlDataSource>
         <asp:SqlDataSource ID="SourceCountries" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Countries]"></asp:SqlDataSource>
     </div>
 

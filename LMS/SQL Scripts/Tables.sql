@@ -62,8 +62,8 @@ IF NOT EXISTS (
 		CREATE TABLE Books (
 		bookID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
 		title NVARCHAR(100) NOT NULL,
-		authorID INT FOREIGN KEY REFERENCES BookAuthors(authorID) NOT NULL, 
-		publisherID INT FOREIGN KEY REFERENCES BookPublishers(publisherID) NOT NULL,
+		authorID INT FOREIGN KEY REFERENCES BookAuthors(authorID) NULL, 
+		publisherID INT FOREIGN KEY REFERENCES BookPublishers(publisherID) NULL,
 		publishYear SMALLINT NULL,
 		ISBN NVARCHAR(20) NULL,
 		edition TINYINT NULL,
@@ -162,11 +162,6 @@ CREATE OR ALTER VIEW BookDisplay AS
 	FROM Books INNER JOIN AuthorNames ON Books.authorID = AuthorNames.authorID
 				INNER JOIN BookPublishers ON BookPublishers.publisherID = Books.publisherID
 GO
-
-SELECT * FROM AuthorNames
-select * from BookAuthors
-select * from BookPublishers
-select * from Books
 
 --DROPS
 --DROP TABLE BookRentals,UserAccounts,BookBorrowers,BorrowerAddresses

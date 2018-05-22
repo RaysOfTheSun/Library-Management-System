@@ -23,6 +23,8 @@ GO
 
 SELECT * FROM Cities
 
+SELECT * FROM Cities
+
 EXEC CreateUser 'Arvin', 'Collado', 'Alvarez', 'arvin@mail.com', '1111', 2, 1, 'Elm st.', '18'
 EXEC CreateUser 'John', 'Smith', 'Heather', 'john@mail.com', '21241', 2, 1, 'flem st.', 1010
 EXEC CreateUser 'Skratta', 'Purora', 'Mommin', 'scaty@mail.com', 'password', 2, 1, 'lost st.', 1042
