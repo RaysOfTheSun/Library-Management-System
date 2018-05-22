@@ -68,5 +68,16 @@ namespace LMS
             GrdAuthors.DataBind();
             GrdBooks.DataBind();
         }
+
+        protected void BtnEditBook_ServerClick(object sender, EventArgs e)
+        {
+            FvwBooks.UpdateItem(true);
+            GrdBooks.DataBind();
+        }
+
+        protected void GrdBooks_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            hiddenID.Value = e.CommandArgument.ToString();
+        }
     }
 }
