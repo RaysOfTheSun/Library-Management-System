@@ -11,7 +11,7 @@ namespace LMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            InitializeYearList();
+            InitializeYearList(DrpPubYear);
         }
 
         protected void BtnAddAuthor_Click(object sender, EventArgs e)
@@ -30,7 +30,7 @@ namespace LMS
             BtnAddPublisher.Attributes.Add("data-dismiss", "modal");
         }
 
-        private void InitializeYearList()
+        private void InitializeYearList(DropDownList dl)
         {
             int difference = DateTime.Now.Year - 1969;
             List<ListItem> yearList = new List<ListItem>(difference);
@@ -41,7 +41,7 @@ namespace LMS
             }
 
 
-            DrpPubYear.Items.AddRange(yearList.ToArray());
+           dl.Items.AddRange(yearList.ToArray());
         }
 
         protected void BtnAddBook_ServerClick(object sender, EventArgs e)
@@ -78,6 +78,9 @@ namespace LMS
         protected void GrdBooks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             hiddenID.Value = e.CommandArgument.ToString();
+            //DropDownList dl = ((DropDownList)FvwBooks.FindControl("DrpPubYearB"));
+            //dl.Attributes.Add("SelectedValue", @"'<%# Bind(""publishYear"") %>'");
+            //InitializeYearList(dl);
         }
     }
 }

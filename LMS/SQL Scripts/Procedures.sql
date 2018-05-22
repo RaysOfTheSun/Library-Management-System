@@ -33,7 +33,7 @@ GO
 CREATE OR ALTER PROCEDURE UpdateBook(@authorID INT, @publisherID INT, @title NVARCHAR(100), @ISBN NVARCHAR(20), 
 	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @id INT) AS
 	UPDATE Books SET title = @title, authorID = @authorID, publisherID = @publisherID, 
-		@publishYr = @publishYr, ISBN = @ISBN, edition = @edition, genre = @genre WHERE bookID = @id
+		publishYear = @publishYr, ISBN = @ISBN, edition = @edition, genre = @genre WHERE bookID = @id
 GO
 
 CREATE OR ALTER PROCEDURE AddBook(@authorID INT, @publisherID INT, @title NVARCHAR(100), @ISBN NVARCHAR(20), 
