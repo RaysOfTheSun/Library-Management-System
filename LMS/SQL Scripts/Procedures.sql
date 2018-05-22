@@ -13,6 +13,14 @@ CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), 
 		END CATCH
 GO
 
+CREATE OR ALTER PROCEDURE UpdateUserAccount (@userName NVARCHAR(255), @pass NVARCHAR(128), @id INT) AS
+	UPDATE UserAccounts SET username = @userName, [password] = @pass WHERE [owner] = @id
+GO
+
+CREATE OR ALTER PROCEDURE DeleteUserAccount (@id INT) AS
+	DELETE FROM UserAccounts WHERE [owner] = @id
+GO
+
 --Book Data Related Procedures
 CREATE OR ALTER PROCEDURE AddAuthor (@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50)) AS
 	INSERT INTO BookAuthors VALUES (@first, @middle, @last)
@@ -79,4 +87,8 @@ SELECT * FROM BookBorrowers
 EXEC DeletePublisher 1
 
 select * from completeBorrowerData
+select * from BorrowerAccounts
+
 --Book Rental Related Procedures
+
+SELECT * FROM BorrowerAccounts
