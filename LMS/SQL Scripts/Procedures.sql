@@ -13,6 +13,28 @@ CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), 
 		END CATCH
 GO
 
+CREATE OR ALTER PROCEDURE UpdateUserDetails (@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50),
+	@mail NVARCHAR(255), @countryID INT, @cityID INT, @street NVARCHAR(100), @zip SMALLINT, @addressID INT, @bID INT) AS
+		UPDATE BookBorrowers SET firstName = @first, middleName = @middle, lastName = @last,
+		mail = @mail WHERE borrowerID = @bID
+		UPDATE BorrowerAddresses SET countryID = @countryID, cityID = @cityID, zipCode = @zip, street = @street
+			WHERE addressID = @addressID
+GO
+
+--select * from completeBorrowerData
+--SELECT * FROM UserAccounts
+--SELECT * FROM BookBorrowers
+
+CREATE OR ALTER PROCEDURE DeleteUserDetails (@bID INT) AS
+	DECLARE @addressID INT
+	SELECT @addressID = addressID FROM BookBorrowers WHERE borrowerID = @bID
+	DELETE FROM BookRentals WHERE borrowerID = @bID
+	DELETE FROM UserAccounts WHERE [owner] = @bID
+	DELETE FROM BookBorrowers WHERE borrowerID = @bID
+	DELETE FROM BorrowerAddresses WHERE addressID = @addressID
+GO
+
+--SELECT * FROM UserAccounts
 CREATE OR ALTER PROCEDURE UpdateUserAccount (@userName NVARCHAR(255), @pass NVARCHAR(128), @id INT) AS
 	UPDATE UserAccounts SET username = @userName, [password] = @pass WHERE [owner] = @id
 GO
@@ -70,16 +92,6 @@ GO
 
 CREATE OR ALTER PROCEDURE AddCountry(@countryName NVARCHAR(MAX)) AS
 	INSERT INTO Countries VALUES (@countryName )
-GO
-
-CREATE OR ALTER VIEW completeBorrowerData AS
-	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
-		BookBorrowers.mail, Countries.countryName, Cities.cityName, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
-		BookBorrowers.addressID
-		FROM BookBorrowers
-			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
-			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
-			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
 GO
 
 SELECT * FROM BookDisplay
