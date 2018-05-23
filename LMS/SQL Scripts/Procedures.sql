@@ -13,6 +13,21 @@ CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), 
 		END CATCH
 GO
 
+CREATE OR ALTER PROCEDURE UpdateUserDetails (@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50),
+	@mail NVARCHAR(255), @countryID INT, @cityID INT, @street NVARCHAR(100), @zip SMALLINT, @addressID INT, @bID INT) AS
+		UPDATE BookBorrowers SET firstName = @first, middleName = @middle, lastName = @last,
+		mail = @mail WHERE borrowerID = @bID
+		UPDATE BorrowerAddresses SET countryID = @countryID, cityID = @cityID, zipCode = @zip, street = @street
+			WHERE addressID = @addressID
+GO
+
+--select * from completeBorrowerData
+
+CREATE OR ALTER PROCEDURE DeleteUserDetails (@bID INT, @aID INT) AS
+	DELETE FROM BorrowerAddresses WHERE addressID = @aID
+	DELETE FROM BookBorrowers WHERE borrowerID = @bID
+GO
+
 CREATE OR ALTER PROCEDURE UpdateUserAccount (@userName NVARCHAR(255), @pass NVARCHAR(128), @id INT) AS
 	UPDATE UserAccounts SET username = @userName, [password] = @pass WHERE [owner] = @id
 GO
@@ -75,6 +90,16 @@ GO
 CREATE OR ALTER VIEW completeBorrowerData AS
 	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
 		BookBorrowers.mail, Countries.countryName, Cities.cityName, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
+		BookBorrowers.addressID
+		FROM BookBorrowers
+			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
+			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
+			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
+GO
+
+CREATE OR ALTER VIEW completeBorrowerDataB AS
+	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
+		BookBorrowers.mail, Countries.countryID, Cities.cityID, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
 		BookBorrowers.addressID
 		FROM BookBorrowers
 			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID

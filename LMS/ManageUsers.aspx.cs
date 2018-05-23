@@ -31,5 +31,16 @@ namespace LMS
             SourceAccountsEdit.Delete();
             GvwAccounts.DataBind();
         }
+
+        protected void BtnUpdateUserDet_ServerClick(object sender, EventArgs e)
+        {
+            FvwUserDet.UpdateItem(true);
+            GvwDetails.DataBind();
+        }
+
+        protected void GvwDetails_RowCommand1(object sender, GridViewCommandEventArgs e)
+        {
+            hideenID.Value = e.CommandArgument.ToString();
+        }
     }
 }
