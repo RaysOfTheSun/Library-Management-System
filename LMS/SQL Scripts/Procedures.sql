@@ -22,12 +22,19 @@ CREATE OR ALTER PROCEDURE UpdateUserDetails (@first NVARCHAR(50), @middle NVARCH
 GO
 
 --select * from completeBorrowerData
+--SELECT * FROM UserAccounts
+--SELECT * FROM BookBorrowers
 
-CREATE OR ALTER PROCEDURE DeleteUserDetails (@bID INT, @aID INT) AS
-	DELETE FROM BorrowerAddresses WHERE addressID = @aID
+CREATE OR ALTER PROCEDURE DeleteUserDetails (@bID INT) AS
+	DECLARE @addressID INT
+	SELECT @addressID = addressID FROM BookBorrowers WHERE borrowerID = @bID
+	DELETE FROM BookRentals WHERE borrowerID = @bID
+	DELETE FROM UserAccounts WHERE [owner] = @bID
 	DELETE FROM BookBorrowers WHERE borrowerID = @bID
+	DELETE FROM BorrowerAddresses WHERE addressID = @addressID
 GO
 
+--SELECT * FROM UserAccounts
 CREATE OR ALTER PROCEDURE UpdateUserAccount (@userName NVARCHAR(255), @pass NVARCHAR(128), @id INT) AS
 	UPDATE UserAccounts SET username = @userName, [password] = @pass WHERE [owner] = @id
 GO
@@ -85,26 +92,6 @@ GO
 
 CREATE OR ALTER PROCEDURE AddCountry(@countryName NVARCHAR(MAX)) AS
 	INSERT INTO Countries VALUES (@countryName )
-GO
-
-CREATE OR ALTER VIEW completeBorrowerData AS
-	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
-		BookBorrowers.mail, Countries.countryName, Cities.cityName, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
-		BookBorrowers.addressID
-		FROM BookBorrowers
-			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
-			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
-			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
-GO
-
-CREATE OR ALTER VIEW completeBorrowerDataB AS
-	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
-		BookBorrowers.mail, Countries.countryID, Cities.cityID, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
-		BookBorrowers.addressID
-		FROM BookBorrowers
-			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
-			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
-			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
 GO
 
 SELECT * FROM BookDisplay

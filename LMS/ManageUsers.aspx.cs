@@ -40,7 +40,15 @@ namespace LMS
 
         protected void GvwDetails_RowCommand1(object sender, GridViewCommandEventArgs e)
         {
+            Session["borrowerID"] = e.CommandArgument.ToString();
             hideenID.Value = e.CommandArgument.ToString();
+        }
+
+        protected void BtnDeleteUser_ServerClick(object sender, EventArgs e)
+        {
+            SourceUsersEdit.Delete();
+            GvwDetails.DataBind();
+            GvwAccounts.DataBind();
         }
     }
 }

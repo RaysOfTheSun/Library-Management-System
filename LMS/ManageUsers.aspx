@@ -81,7 +81,7 @@
                                                 data-target="#editUserModal" />
                                             <asp:Button ID="GrdBtnDeleteUserDet" runat="server" Text="Delete" CssClass="btn btn-danger" CommandName="deleteItem"
                                                 CommandArgument='<%# Eval("borrowerID") %>' CausesValidation="false" data-toggle="modal"
-                                                data-target="#DeleteBookModal" />
+                                                data-target="#DeleteUserDetModal" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -243,7 +243,39 @@
             </div>
         </div>
 
+        <!-- Delete User UserDet modal -->
+        <div class="modal" id="DeleteUserDetModal" tabindex="-1" role="dialog" aria-labelledby="DeleteUserDetLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DeleteUserDetLabel"><strong>Delete User Information</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure you want to delete this user's information from the database? 
+                                    This action cannot be undone.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="BtnDeleteUser" runat="server" 
+                            onserverclick="BtnDeleteUser_ServerClick">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <asp:SqlDataSource ID="SourceAccounts" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [BorrowerAccounts]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SourceAccountsEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM BorrowerAccounts WHERE borrowerID = @id" UpdateCommand="EXEC UpdateUserAccount @userName, @accountPassword, @borrowerID" DeleteCommand="EXEC DeleteUserAccount @id">
         <DeleteParameters>
@@ -254,7 +286,11 @@
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SourceUsers" runat="server" SelectCommand="SELECT borrowerID, firstName, middleName, lastName, countryName, cityName, street, zipCode FROM completeBorrowerData" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SourceUsersEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM completeBorrowerDataB WHERE borrowerID = @id" UpdateCommand="EXEC UpdateUserDetails @firstName, @middleName, @lastName, @mail, @countryID, @cityID, @street, @zipCode, @addressID, @borrowerID">
+    <asp:SqlDataSource ID="SourceUsersEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM completeBorrowerDataB WHERE borrowerID = @id" UpdateCommand="EXEC UpdateUserDetails @firstName, @middleName, @lastName, @mail, @countryID, @cityID, @street, @zipCode, @addressID, @borrowerID" DeleteCommand="DeleteUserDetails @bID
+">
+        <DeleteParameters>
+            <asp:SessionParameter Name="bID" SessionField="borrowerID" Type="Int32" />
+        </DeleteParameters>
         <SelectParameters>
             <asp:ControlParameter ControlID="hideenID" Name="id" PropertyName="Value" Type="Int32" />
         </SelectParameters>

@@ -165,6 +165,27 @@ CREATE OR ALTER VIEW BookDisplay AS
 				INNER JOIN BookPublishers ON BookPublishers.publisherID = Books.publisherID
 GO
 
+CREATE OR ALTER VIEW completeBorrowerData AS
+	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
+		BookBorrowers.mail, Countries.countryName, Cities.cityName, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
+		BookBorrowers.addressID
+		FROM BookBorrowers
+			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
+			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
+			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
+GO
+
+CREATE OR ALTER VIEW completeBorrowerDataB AS
+	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
+		BookBorrowers.mail, Countries.countryID, Cities.cityID, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
+		BookBorrowers.addressID
+		FROM BookBorrowers
+			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
+			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
+			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
+GO
+
+
 --DROPS
 --DROP TABLE BookRentals,UserAccounts,BookBorrowers,BorrowerAddresses
 --DROP TABLE LibraryIndex, BookStatuses
