@@ -22,6 +22,15 @@ namespace LMS {
         protected global::System.Web.UI.UpdatePanel UPDLRequests;
         
         /// <summary>
+        /// HfdRentalID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HfdRentalID;
+        
+        /// <summary>
         /// GvwRequests control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GvwRequests;
+        
+        /// <summary>
+        /// BtnDeleteRequest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeleteRequest;
         
         /// <summary>
         /// SourceRequests control.

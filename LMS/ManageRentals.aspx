@@ -22,10 +22,12 @@
                             <asp:AsyncPostBackTrigger ControlID="GvwRequests" />
                         </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="GvwRequests" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" DataKeyNames="rentalID" DataSourceID="SourceRequests" GridLines="Horizontal">
+                            <asp:HiddenField ID="HfdRentalID" runat="server" />
+                            <asp:GridView ID="GvwRequests" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" DataKeyNames="rentalID"
+                                DataSourceID="SourceRequests" GridLines="Horizontal" OnRowCommand="GvwRequests_RowCommand">
                                 <EmptyDataTemplate>
-                                    <div class="content-wrapper">
-                                        <div class="display-2">There are currently no book rental requests.</div>
+                                    <div class="container text-center">
+                                        <p class="lead">There are currently no book rental requests.</p>
                                     </div>
                                 </EmptyDataTemplate>
                                 <Columns>
@@ -46,7 +48,7 @@
                                                 <div class="col-sm-6">
                                                     <asp:Button ID="GrdBtnRejectRequest" runat="server" Text="Reject" CssClass="btn btn-danger btn-block" CommandName="deleteItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#DeleteAccountModal" />
+                                                        data-target="#DeleteRequestModal" />
                                                 </div>
                                             </div>
                                         </ItemTemplate>
@@ -61,7 +63,46 @@
             <div class="tab-pane fade" id="rentals" role="tabpanel" aria-labelledby="rentals-tab">
             </div>
         </div>
+
+        <!-- Delete Request modal -->
+        <div class="modal" id="DeleteRequestModal" tabindex="-1" role="dialog" aria-labelledby="DeleteRequestLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DeleteRequestLabel"><strong>Delete Request Information</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure you want to reject this request and delete any associated 
+                                    information to it from the database? This action cannot be undone.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="BtnDeleteRequest" runat="server"
+                            onserverclick="BtnDeleteRequest_ServerClick">
+                            Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
     <asp:SqlDataSource ID="SourceRequests" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"
-        SelectCommand="SELECT * FROM RentalRequestDetails"></asp:SqlDataSource>
+        SelectCommand="SELECT * FROM RentalRequestDetails" DeleteCommand="DeleteRequest @rentalID">
+        <DeleteParameters>
+            <asp:ControlParameter Name="rentalID" Type="Int32" ControlID="HfdRentalID" PropertyName="Value" />
+        </DeleteParameters>
+    </asp:SqlDataSource>
 </asp:Content>

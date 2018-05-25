@@ -13,5 +13,16 @@ namespace LMS
         {
 
         }
+
+        protected void BtnDeleteRequest_ServerClick(object sender, EventArgs e)
+        {
+            SourceRequests.Delete();
+            GvwRequests.DataBind();
+        }
+
+        protected void GvwRequests_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            HfdRentalID.Value = e.CommandArgument.ToString();
+        }
     }
 }
