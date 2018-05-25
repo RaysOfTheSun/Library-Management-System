@@ -84,7 +84,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2 align-self-center">
-                                                    <asp:Button ID="Button2" runat="server" Text="Request" CssClass="btn btn-library btn-block" />
+                                                    <asp:Button ID="BtnRequestRent" runat="server" Text="Request" CssClass="btn btn-library btn-block"
+                                                        CommandArgument='<%# Eval("bookID") %>'/>
                                                 </div>
                                             </div>
                                         </div>

@@ -24,14 +24,14 @@
                                     placeholder="password" TextMode="Password"></asp:TextBox>
                             </div>
 
-                            <asp:Button ID="btn_login" runat="server" Text="Login" CssClass="btn btn-library-10 form-control form-control-lg" OnClick="btn_login_Click" />
+                            <asp:Button ID="BtnLogin" runat="server" Text="Login" CssClass="btn btn-library-10 form-control form-control-lg" OnClick="btn_login_Click" />
                             <div class="divider">
                                 <hr class="left">
                                 <small>New to the library?</small>
                                 <hr class="right">
                             </div>
                             <div class="form-group">
-                                <asp:Button ID="btn_contact" runat="server" Text="Contact Administrator" CssClass="btn btn-info form-control form-control-lg"
+                                <asp:Button ID="BtnContact" runat="server" Text="Contact Administrator" CssClass="btn btn-info form-control form-control-lg"
                                     Font-Size="14px" />
                             </div>
                             <div class="form-group text-center">
