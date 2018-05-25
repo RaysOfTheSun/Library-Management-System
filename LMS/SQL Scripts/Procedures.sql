@@ -70,14 +70,16 @@ CREATE OR ALTER PROCEDURE DeleteBook(@id INT) AS
 GO
 
 CREATE OR ALTER PROCEDURE UpdateBook(@authorID INT, @publisherID INT, @title NVARCHAR(100), @ISBN NVARCHAR(20), 
-	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @id INT) AS
+	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @bookCount INT, @id INT) AS
 	UPDATE Books SET title = @title, authorID = @authorID, publisherID = @publisherID, 
 		publishYear = @publishYr, ISBN = @ISBN, edition = @edition, genre = @genre WHERE bookID = @id
+	UPDATE BookStatuses SET bookCount = @bookCount WHERE bookID = @id
 GO
 
 CREATE OR ALTER PROCEDURE AddBook(@authorID INT, @publisherID INT, @title NVARCHAR(100), @ISBN NVARCHAR(20), 
-	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT) AS
+	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @bookCount SMALLINT) AS
 	INSERT INTO Books VALUES (@title, @authorID, @publisherID, @publishYr, @ISBN, @edition, @genre)
+	INSERT INTO BookStatuses VALUES (IDENT_CURRENT('Books'), @bookCount)
 GO
 
 --Location Related Procedures
@@ -97,4 +99,12 @@ GO
 
 CREATE OR ALTER PROCEDURE DeleteRequest(@rentalID INT) AS
 	DELETE FROM RentalRequests WHERE rentalID = @rentalID
+GO
+
+CREATE OR ALTER PROCEDURE AddRental(@requestID INT) AS
+	DECLARE @borrowerID INT
+	DECLARE @bookID INT
+	SELECT @borrowerID = borrowerID FROM RentalRequests WHERE rentalID = @requestID
+	SELECT @bookID = bookID FROM RentalRequests WHERE rentalID = @requestID
+	INSERT INTO BookRentals VALUES (@bookID,@borrowerID,DATEADD(day, 14, GETDATE()))
 GO

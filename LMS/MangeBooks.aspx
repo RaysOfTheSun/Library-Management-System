@@ -40,7 +40,7 @@
                             <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False"
                                 DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" ShowHeaderWhenEmpty="True" OnRowCommand="GrdBooks_RowCommand" BorderStyle="None" GridLines="Horizontal">
                                 <Columns>
-                                    <asp:BoundField DataField="bookID" HeaderText="Book ID" ReadOnly="True" SortExpression="bookID" />
+                                    <asp:BoundField DataField="bookID" HeaderText="ID" ReadOnly="True" SortExpression="bookID" />
                                     <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
                                     <asp:BoundField DataField="author" HeaderText="Author" SortExpression="author" ReadOnly="True" />
                                     <asp:BoundField DataField="publisherName" HeaderText="Publisher" SortExpression="publisherName" />
@@ -48,6 +48,7 @@
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="genre" HeaderText="Genre" SortExpression="genre" />
+                                    <asp:BoundField DataField="bookCount" HeaderText="Quantity" SortExpression="bookCount" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
                                             <asp:Button ID="GrdBtnEditBook" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
@@ -210,6 +211,11 @@
                                     <div class="form-group mb-1">
                                         <p class="h6">Edition</p>
                                         <asp:TextBox ID="TbxEdition" runat="server" CssClass="form-control" TextMode="Number"
+                                            placeholder="e.g. 1" min="1"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group mb-1">
+                                        <p class="h6">Quantity</p>
+                                        <asp:TextBox ID="TbxQuantity" runat="server" CssClass="form-control" TextMode="Number"
                                             placeholder="e.g. 1" min="1"></asp:TextBox>
                                     </div>
                                 </div>
@@ -387,6 +393,12 @@
                                             <div class="form-group mb-1">
                                                 <p class="h6">Edition</p>
                                                 <asp:TextBox ID="editionTextBox" runat="server" Text='<%# Bind("edition") %>' CssClass="form-control"
+                                                    TextMode="Number"
+                                                    min="1"></asp:TextBox>
+                                            </div>
+                                            <div class="form-group mb-1">
+                                                <p class="h6">Quantity</p>
+                                                <asp:TextBox ID="TbxQuantity" runat="server" Text='<%# Bind("bookCount") %>' CssClass="form-control"
                                                     TextMode="Number"
                                                     min="1"></asp:TextBox>
                                             </div>
@@ -587,7 +599,7 @@
             </div>
         </div>
 
-        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr">
+        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr, @bookCount">
             <InsertParameters>
                 <asp:ControlParameter ControlID="DrpAuthors" Name="authorID" PropertyName="SelectedValue" Type="Int32" />
                 <asp:ControlParameter ControlID="DrpPublishers" Name="publisherID" PropertyName="SelectedValue" Type="Int32" />
@@ -596,6 +608,7 @@
                 <asp:ControlParameter ControlID="TbxEdition" Name="edition" PropertyName="Text" Type="Int16" />
                 <asp:ControlParameter ControlID="DrpGenres" Name="genre" PropertyName="SelectedValue" Type="String" />
                 <asp:ControlParameter ControlID="DrpPubYear" Name="publishYr" PropertyName="SelectedValue" Type="Int16" />
+                <asp:ControlParameter Name="bookCount" Type="Int16" ControlID="TbxQuantity" PropertyName="Text" />
             </InsertParameters>
         </asp:SqlDataSource>
         <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @middle, @last" DeleteCommand="EXEC DeleteAuthor @id">
@@ -622,7 +635,7 @@
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM Books WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteBook @id">
+        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM EditBookView WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookCount, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteBook @id">
             <DeleteParameters>
                 <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
             </DeleteParameters>
