@@ -103,7 +103,7 @@ CREATE OR ALTER PROCEDURE DeleteRequest(@rentalID INT) AS
 	DECLARE @bookID INT
 	SELECT @bookID = bookID FROM RentalRequests WHERE rentalID = @rentalID
 	DELETE FROM RentalRequests WHERE rentalID = @rentalID
-	UPDATE BookStatuses SET bookCount = bookCount + 1 WHERE bookID = @bookID
+	UPDATE BookStatuses SET bookCount = (bookCount + 1) WHERE bookID = @bookID
 GO
 
 CREATE OR ALTER PROCEDURE AddRental(@requestID INT) AS
@@ -119,6 +119,12 @@ GO
 
 CREATE OR ALTER PROCEDURE DeleteRentalDetails(@rentalID INT) AS
 	DECLARE @bookID INT
+	SELECT @bookID = bookID FROM BookRentals WHERE rentalID = @rentalID
 	DELETE FROM BookRentals WHERE rentalID = @rentalID
 	UPDATE BookStatuses SET bookCount = bookCount + 1 WHERE bookID = @bookID
 GO
+
+CREATE OR ALTER PROCEDURE ExtendRetal(@rentalID INT, @date DATE) AS
+	UPDATE BookRentals SET returnDate = @date WHERE rentalID = @rentalID
+
+select * from BookRentals

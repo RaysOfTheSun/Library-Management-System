@@ -220,8 +220,8 @@ CREATE OR ALTER VIEW EditBookView AS
 		Books.edition, Books.genre, BookStatuses.bookCount FROM Books
 		INNER JOIN BookStatuses ON Books.bookID = BookStatuses.bookID
 GO
-
 select * from BookDisplay
+select * from RentalDetails
 ----DROPS
 --DROP TABLE BookImages
 --DROP TABLE RentalRequests

@@ -28,11 +28,24 @@ namespace LMS
         protected void BtnConfirmAcceptRequest__ServerClick(object sender, EventArgs e)
         {
             SourceRequests.Insert();
+            GvwRentals.DataBind();
         }
 
         protected void GvwRentals_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             HfdRentalID.Value = e.CommandArgument.ToString();
+        }
+
+        protected void BtnReturnRental_ServerClick(object sender, EventArgs e)
+        {
+            SourceRentals.Delete();
+            GvwRentals.DataBind();
+        }
+
+        protected void BtnExtendRental_ServerClick(object sender, EventArgs e)
+        {
+            SourceRentals.Update();
+            GvwRentals.DataBind();
         }
     }
 }

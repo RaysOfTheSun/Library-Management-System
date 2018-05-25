@@ -6,11 +6,11 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="requests-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="requests" aria-selected="true">
-                        <i class="fas fa-envelope"></i>&nbsp;requests</a>
+                        <i class="fas fa-envelope"></i>&nbsp;Requests</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="rentals-tab" data-toggle="tab" href="#rentals" role="tab" aria-controls="rentals" aria-selected="false">
-                        <i class="fas fa-book"></i>&nbsp;rentals</a>
+                        <i class="fas fa-book"></i>&nbsp;Rentals</a>
                 </li>
             </ul>
         </div>
@@ -69,8 +69,13 @@
                             <asp:AsyncPostBackTrigger ControlID="GvwRentals" />
                         </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="GvwRentals" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" 
+                            <asp:GridView ID="GvwRentals" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table"
                                 DataKeyNames="rentalID" DataSourceID="SourceRentals" GridLines="Horizontal" OnRowCommand="GvwRentals_RowCommand">
+                                <EmptyDataTemplate>
+                                    <div class="container text-center">
+                                        <p class="lead">There are currently no book rented books.</p>
+                                    </div>
+                                </EmptyDataTemplate>
                                 <Columns>
                                     <asp:BoundField DataField="rentalID" HeaderText="rentalID" ReadOnly="True" SortExpression="rentalID" />
                                     <asp:BoundField DataField="accountOwner" HeaderText="Renter" ReadOnly="True" SortExpression="accountOwner" />
@@ -85,12 +90,12 @@
                                                 <div class="col-sm-6 pr-1">
                                                     <asp:Button ID="GrdBtnExtendRental" runat="server" Text="Extend" CssClass="btn btn-success btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#ConfirmAcceptRequestModal" />
+                                                        data-target="#ExtendRentalModal" />
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <asp:Button ID="GrdBtnReturnRental" runat="server" Text="Return" CssClass="btn btn-danger btn-block" CommandName="deleteItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#DeleteRequestModal" />
+                                                        data-target="#ReturnRentalModal" />
                                                 </div>
                                             </div>
                                         </ItemTemplate>
@@ -171,6 +176,73 @@
             </div>
         </div>
 
+        <!-- Return modal -->
+        <div class="modal" id="ReturnRentalModal" tabindex="-1" role="dialog" aria-labelledby="ReturnRentalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ReturnRentalLabel"><strong>Delete Request Information</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure this user has properly and successfully returned the book he/she borrowed?
+                                    This process will remove all rental details from the database. This action cannot be undone.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="BtnReturnRental" runat="server"
+                            onserverclick="BtnReturnRental_ServerClick">
+                            Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%-- Extend Rental modal --%>
+        <div class="modal" id="ExtendRentalModal" tabindex="-1" role="dialog" aria-labelledby="ExtendRentalModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ExtendRentalModalLabel"><strong>Extend Rental</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <div class="justify-content-center align-items-center">
+                                    <div class="form-group mb-1">
+                                        <p class="h6">New Return Date</p>
+                                        <asp:TextBox ID="TbxExtensionDate" runat="server" CssClass="form-control"
+                                            placeholder="Date" ValidationGroup="extend" TextMode="Date"></asp:TextBox>
+                                    </div>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                    <div class="modal-footer">
+                        <button id="BtnExtendRental" type="button" class="btn btn-library-10"
+                            runat="server" onserverclick="BtnExtendRental_ServerClick" validationgroup="extend">
+                            Extend Rental</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
     <asp:SqlDataSource ID="SourceRequests" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"
@@ -182,10 +254,14 @@
             <asp:ControlParameter ControlID="HfdRentalID" Name="id" PropertyName="Value" Type="Int32" />
         </InsertParameters>
     </asp:SqlDataSource>
-    <asp:SqlDataSource runat="server" ID="SourceRentals" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteRentalDetails @rentalID" 
-        ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM RentalDetails">
+    <asp:SqlDataSource runat="server" ID="SourceRentals" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteRentalDetails @rentalID"
+        ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM RentalDetails" UpdateCommand="EXEC ExtendRetal @rentalID, @date">
         <DeleteParameters>
             <asp:ControlParameter ControlID="HfdRentalID" Name="rentalID" PropertyName="Value" Type="Int32" />
         </DeleteParameters>
+        <UpdateParameters>
+            <asp:ControlParameter ControlID="HfdRentalID" Name="rentalID" PropertyName="Value" />
+            <asp:ControlParameter ControlID="TbxExtensionDate" Name="date" PropertyName="Text" />
+        </UpdateParameters>
     </asp:SqlDataSource>
 </asp:Content>
