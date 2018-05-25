@@ -66,6 +66,7 @@ CREATE OR ALTER PROCEDURE DeletePublisher(@id INT) AS
 GO
 
 CREATE OR ALTER PROCEDURE DeleteBook(@id INT) AS
+	DELETE FROM BookStatuses WHERE bookID = @id
 	DELETE FROM Books WHERE bookID = @id
 GO
 
@@ -94,7 +95,7 @@ GO
 --Book Rental Related Procedures
 
 CREATE OR ALTER PROCEDURE AddRequest(@bookID INT, @borrowerID INT) AS
-	INSERT INTO RentalRequests VALUES (@bookID, @borrowerID)
+	INSERT INTO RentalRequests VALUES (@bookID, @borrowerID, DATEADD(day, 14, GETDATE()))
 GO
 
 CREATE OR ALTER PROCEDURE DeleteRequest(@rentalID INT) AS
