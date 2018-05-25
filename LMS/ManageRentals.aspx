@@ -27,7 +27,7 @@
                                 DataSourceID="SourceRequests" GridLines="Horizontal" OnRowCommand="GvwRequests_RowCommand">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
-                                        <p class="lead">There are currently no book rental requests.</p>
+                                        <p class="lead">There are currently no book rental requests to show.</p>
                                     </div>
                                 </EmptyDataTemplate>
                                 <Columns>
@@ -73,7 +73,7 @@
                                 DataKeyNames="rentalID" DataSourceID="SourceRentals" GridLines="Horizontal" OnRowCommand="GvwRentals_RowCommand">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
-                                        <p class="lead">There are currently no book rented books.</p>
+                                        <p class="lead">There are currently no rental details to show.</p>
                                     </div>
                                 </EmptyDataTemplate>
                                 <Columns>

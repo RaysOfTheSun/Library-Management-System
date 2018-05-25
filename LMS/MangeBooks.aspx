@@ -38,7 +38,12 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False"
-                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" ShowHeaderWhenEmpty="True" OnRowCommand="GrdBooks_RowCommand" BorderStyle="None" GridLines="Horizontal">
+                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" OnRowCommand="GrdBooks_RowCommand" BorderStyle="None" GridLines="Horizontal">
+                                <EmptyDataTemplate>
+                                    <div class="container text-center">
+                                        <p class="lead">There is currently nothing to show.</p>
+                                    </div>
+                                </EmptyDataTemplate>
                                 <Columns>
                                     <asp:BoundField DataField="bookID" HeaderText="ID" ReadOnly="True" SortExpression="bookID" />
                                     <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
@@ -72,8 +77,13 @@
                 <div class="container">
                     <asp:UpdatePanel ID="UPLAddAuth" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
-                            <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True"
+                            <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False"
                                 CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" AllowPaging="True" PageSize="6" OnRowCommand="GrdPublishers_RowCommand" GridLines="Horizontal" BorderStyle="None">
+                                <EmptyDataTemplate>
+                                    <div class="container text-center">
+                                        <p class="lead">There is currently nothing to show.</p>
+                                    </div>
+                                </EmptyDataTemplate>
                                 <Columns>
                                     <asp:BoundField DataField="authorID" HeaderText="Author ID" InsertVisible="False" ReadOnly="True" SortExpression="authorID" />
                                     <asp:BoundField DataField="firstName" HeaderText="First Name" SortExpression="firstName" />
@@ -81,8 +91,8 @@
                                     <asp:BoundField DataField="lastName" HeaderText="Last Name" SortExpression="lastName" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
-                                            <div class="row">
-                                                <div class="col-sm-6">
+                                            <div class="row no-gutters">
+                                                <div class="col-sm-6 pr-1">
                                                     <asp:Button ID="GrdBtnEditAuth" runat="server" Text="Edit" CssClass="btn btn-primary btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("authorID") %>' CausesValidation="false" data-toggle="modal"
                                                         data-target="#EditAuthorModal" />
@@ -114,14 +124,19 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers" AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table" OnRowCommand="GrdPublishers_RowCommand" BorderStyle="None" GridLines="Horizontal">
+                                <EmptyDataTemplate>
+                                    <div class="container text-center">
+                                        <p class="lead">There is currently nothing to show.</p>
+                                    </div>
+                                </EmptyDataTemplate>
                                 <Columns>
                                     <asp:BoundField DataField="publisherID" HeaderText="Publisher ID" ReadOnly="True" SortExpression="publisherID" />
                                     <asp:BoundField DataField="publisherName" HeaderText="Name" SortExpression="publisherName" />
                                     <asp:BoundField DataField="countryName" HeaderText="Location of Headquarters" SortExpression="countryName" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
-                                            <div class="row">
-                                                <div class="col-sm-6">
+                                            <div class="row no-gutters">
+                                                <div class="col-sm-6 pr-1">
                                                     <asp:Button ID="GrdBtnEditPub" runat="server" Text="Edit" CssClass="btn btn-primary btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("publisherID") %>' CausesValidation="false" data-toggle="modal"
                                                         data-target="#EditPublisherModal" />
