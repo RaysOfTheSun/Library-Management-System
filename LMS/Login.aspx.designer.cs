@@ -31,22 +31,22 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox tbx_password;
         
         /// <summary>
-        /// btn_login control.
+        /// BtnLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_login;
+        protected global::System.Web.UI.WebControls.Button BtnLogin;
         
         /// <summary>
-        /// btn_contact control.
+        /// BtnContact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_contact;
+        protected global::System.Web.UI.WebControls.Button BtnContact;
         
         /// <summary>
         /// Master property.

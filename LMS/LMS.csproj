@@ -149,6 +149,7 @@
     <Content Include="Images\DL Logo.png" />
     <Content Include="Images\library-hero.jpg" />
     <Content Include="Login.aspx" />
+    <Content Include="ManageRentals.aspx" />
     <Content Include="ManageUsers.aspx" />
     <Content Include="MangeBooks.aspx" />
     <Content Include="Register.aspx" />
@@ -310,6 +311,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageRentals.aspx.cs">
+      <DependentUpon>ManageRentals.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageRentals.aspx.designer.cs">
+      <DependentUpon>ManageRentals.aspx</DependentUpon>
     </Compile>
     <Compile Include="ManageUsers.aspx.cs">
       <DependentUpon>ManageUsers.aspx</DependentUpon>

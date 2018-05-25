@@ -115,7 +115,20 @@ IF NOT EXISTS (
 		CREATE TABLE BookRentals (
 		rentalID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
 		bookID INT FOREIGN KEY REFERENCES Books(bookID) NOT NULL,
-		borrowerID INT FOREIGN KEY REFERENCES BookBorrowers(borrowerID) NOT NULL)
+		borrowerID INT FOREIGN KEY REFERENCES BookBorrowers(borrowerID) NOT NULL,
+		returnDate DATE NOT NULL)
+	END
+
+IF NOT EXISTS ( 
+		SELECT * FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_SCHEMA = 'dbo'
+		AND TABLE_NAME = 'RentalRequests')
+	BEGIN
+		CREATE TABLE RentalRequests (
+		rentalID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
+		bookID INT FOREIGN KEY REFERENCES Books(bookID) NOT NULL,
+		borrowerID INT FOREIGN KEY REFERENCES BookBorrowers(borrowerID) NOT NULL,
+		returnDate DATE NOT NULL)
 	END
 
 IF NOT EXISTS ( 
@@ -160,9 +173,10 @@ GO
 
 CREATE OR ALTER VIEW BookDisplay AS 
 	SELECT Books.bookID, books.title, AuthorNames.fullName AS author, BookPublishers.publisherName, 
-	Books.publishYear, Books.ISBN, Books.edition, Books.genre
+	Books.publishYear, Books.ISBN, Books.edition, Books.genre, BookStatuses.bookCount
 	FROM Books INNER JOIN AuthorNames ON Books.authorID = AuthorNames.authorID
 				INNER JOIN BookPublishers ON BookPublishers.publisherID = Books.publisherID
+				INNER JOIN BookStatuses ON Books.bookID = BookStatuses.bookID
 GO
 
 CREATE OR ALTER VIEW completeBorrowerData AS
@@ -185,9 +199,36 @@ CREATE OR ALTER VIEW completeBorrowerDataB AS
 			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
 GO
 
+CREATE OR ALTER VIEW RentalRequestDetails AS
+	SELECT RentalRequests.rentalID, BorrowerAccounts.accountOwner, Books.title, AuthorNames.fullName, 
+		Books.edition, Books.ISBN, returnDate FROM RentalRequests
+		INNER JOIN Books ON RentalRequests.bookID = Books.bookID
+		INNER JOIN AuthorNames ON AuthorNames.authorID = Books.authorID
+		INNER JOIN BorrowerAccounts ON BorrowerAccounts.borrowerID = RentalRequests.borrowerID
+GO
 
---DROPS
---DROP TABLE BookRentals,UserAccounts,BookBorrowers,BorrowerAddresses
+CREATE OR ALTER VIEW RentalDetails AS
+	SELECT BookRentals.rentalID, BorrowerAccounts.accountOwner, Books.title, AuthorNames.fullName, 
+		Books.edition, Books.ISBN, returnDate FROM BookRentals
+		INNER JOIN Books ON BookRentals.bookID = Books.bookID
+		INNER JOIN AuthorNames ON AuthorNames.authorID = Books.authorID
+		INNER JOIN BorrowerAccounts ON BorrowerAccounts.borrowerID = BookRentals.borrowerID
+GO
+
+CREATE OR ALTER VIEW EditBookView AS
+	SELECT Books.bookID, Books.title, Books.authorID, Books.publisherID, Books.publishYear, Books.ISBN,
+		Books.edition, Books.genre, BookStatuses.bookCount FROM Books
+		INNER JOIN BookStatuses ON Books.bookID = BookStatuses.bookID
+GO
+select * from BookDisplay
+select * from RentalDetails
+----DROPS
+--DROP TABLE BookImages
+--DROP TABLE RentalRequests
+--DROP TABLE BookRentals
+--DROP TABLE UserAccounts
+--DROP TABLE BookBorrowers
+--DROP TABLE BorrowerAddresses
 --DROP TABLE LibraryIndex, BookStatuses
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries

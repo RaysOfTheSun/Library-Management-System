@@ -10,106 +10,115 @@
 namespace LMS {
     
     
-    public partial class Search {
+    public partial class ManageRentals {
         
         /// <summary>
-        /// LblSearchBox control.
+        /// UPDLRequests control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblSearchBox;
+        protected global::System.Web.UI.UpdatePanel UPDLRequests;
         
         /// <summary>
-        /// TbxSearchbox control.
+        /// HfdRentalID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TbxSearchbox;
+        protected global::System.Web.UI.WebControls.HiddenField HfdRentalID;
         
         /// <summary>
-        /// Label3 control.
+        /// GvwRequests control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.GridView GvwRequests;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// UPLDRentals control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.UpdatePanel UPLDRentals;
         
         /// <summary>
-        /// DropDownList2 control.
+        /// GvwRentals control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        protected global::System.Web.UI.WebControls.GridView GvwRentals;
         
         /// <summary>
-        /// DropDownList3 control.
+        /// BtnDeleteRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeleteRequest;
         
         /// <summary>
-        /// Button1 control.
+        /// BtnConfirmAcceptRequest_ control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnConfirmAcceptRequest_;
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// BtnReturnRental control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnReturnRental;
         
         /// <summary>
-        /// HfdBookID control.
+        /// UpdatePanel4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HfdBookID;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
         
         /// <summary>
-        /// ListViewSearchResults control.
+        /// TbxExtensionDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ListViewSearchResults;
+        protected global::System.Web.UI.WebControls.TextBox TbxExtensionDate;
         
         /// <summary>
-        /// BtnConfirmRental control.
+        /// BtnExtendRental control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton BtnConfirmRental;
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnExtendRental;
+        
+        /// <summary>
+        /// SourceRequests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourceRequests;
         
         /// <summary>
         /// SourceRentals control.
@@ -119,14 +128,5 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SourceRentals;
-        
-        /// <summary>
-        /// SourceBooks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SourceBooks;
     }
 }

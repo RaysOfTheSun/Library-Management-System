@@ -12,7 +12,6 @@
                 </div>
             </nav>
         </div>
-
         <div class="tab-content" id="myTabContent">
             <div class="container">
                 <div class="jumbotron">
@@ -27,7 +26,12 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GvwAccounts" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" DataKeyNames="borrowerID" DataSourceID="SourceAccounts"
-                                GridLines="Horizontal" OnRowCommand="GvwDetails_RowCommand" ShowHeaderWhenEmpty="true">
+                                GridLines="Horizontal" OnRowCommand="GvwDetails_RowCommand">
+                                <EmptyDataTemplate>
+                                    <div class="container text-center">
+                                        <p class="lead">There is currently nothing to show.</p>
+                                    </div>
+                                </EmptyDataTemplate>
                                 <Columns>
                                     <asp:BoundField DataField="borrowerID" HeaderText="Borrower ID" ReadOnly="True" SortExpression="borrowerID" />
                                     <asp:BoundField DataField="accountOwner" HeaderText="Owner" ReadOnly="True" SortExpression="accountOwner" />
@@ -35,8 +39,8 @@
                                     <asp:BoundField DataField="accountPassword" HeaderText="Password" SortExpression="accountPassword" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
-                                            <div class="row">
-                                                <div class="col-sm-6">
+                                            <div class="row no-gutters">
+                                                <div class="col-sm-6 pr-1">
                                                     <asp:Button ID="GrdBtnEditaccountDet" runat="server" Text="Edit" CssClass="btn btn-primary btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("borrowerID") %>' CausesValidation="false" data-toggle="modal"
                                                         data-target="#editAccountModal" />
@@ -57,7 +61,7 @@
                     </asp:UpdatePanel>
                 </div>
             </div>
-            <div class="tab-pane fade show" id="nav-users" role="tabpanel" aria-labelledby="nav-users-tab">
+            <div class="tab-pane fade" id="nav-users" role="tabpanel" aria-labelledby="nav-users-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UPDLdet" runat="server" ChildrenAsTriggers="true">
                         <Triggers>
@@ -65,6 +69,11 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GvwDetails" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" DataKeyNames="borrowerID" DataSourceID="SourceUsers" GridLines="Horizontal" OnRowCommand="GvwDetails_RowCommand1">
+                                <EmptyDataTemplate>
+                                    <div class="container text-center">
+                                        <p class="lead">There is currently nothing to show.</p>
+                                    </div>
+                                </EmptyDataTemplate>
                                 <Columns>
                                     <asp:BoundField DataField="borrowerID" HeaderText="Borrower ID" ReadOnly="True" SortExpression="borrowerID" />
                                     <asp:BoundField DataField="firstName" HeaderText="First Name" SortExpression="firstName" />
@@ -267,8 +276,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnDeleteUser" runat="server" 
-                            onserverclick="BtnDeleteUser_ServerClick">Yes</button>
+                        <button type="button" class="btn btn-danger" id="BtnDeleteUser" runat="server"
+                            onserverclick="BtnDeleteUser_ServerClick">
+                            Yes</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     </div>
                 </div>

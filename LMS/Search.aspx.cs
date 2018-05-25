@@ -13,5 +13,27 @@ namespace LMS
         {
 
         }
+
+        protected void ListViewSearchResults_ItemCommand(object sender, ListViewCommandEventArgs e)
+        {
+            HfdBookID.Value = e.CommandArgument.ToString();
+        }
+
+        protected void BtnConfirmRental_ServerClick(object sender, EventArgs e)
+        {
+            SourceRentals.Insert();
+        }
+
+        public bool IsLoggedIn()
+        {
+            if(Session["bID"] == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
