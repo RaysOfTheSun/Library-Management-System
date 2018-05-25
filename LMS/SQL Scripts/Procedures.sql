@@ -104,3 +104,5 @@ select * from BorrowerAccounts
 --Book Rental Related Procedures
 
 SELECT * FROM BorrowerAccounts
+
+SELECT * FROM BookDisplay

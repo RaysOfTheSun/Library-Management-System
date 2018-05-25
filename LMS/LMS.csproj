@@ -144,6 +144,7 @@
     <Content Include="Content\fontawesome-all.css" />
     <Content Include="Content\fontawesome-all.min.css" />
     <Content Include="Images\bookcase-books-bookshelves-270571.jpg" />
+    <Content Include="Images\Books\sea_of_monsters\01.jpg" />
     <Content Include="Images\cog.png" />
     <Content Include="Images\DL Logo.png" />
     <Content Include="Images\library-hero.jpg" />
