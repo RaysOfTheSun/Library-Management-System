@@ -42,9 +42,9 @@
                                         <ItemTemplate>
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <asp:Button ID="GrdBtnAcceptRequest" runat="server" Text="Accept" CssClass="btn btn-primary btn-block" CommandName="editItem"
+                                                    <asp:Button ID="GrdBtnAcceptRequest" runat="server" Text="Accept" CssClass="btn btn-success btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#editAccountModal" />
+                                                        data-target="#ConfirmAcceptRequestModal" />
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <asp:Button ID="GrdBtnRejectRequest" runat="server" Text="Reject" CssClass="btn btn-danger btn-block" CommandName="deleteItem"
@@ -63,6 +63,45 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="rentals" role="tabpanel" aria-labelledby="rentals-tab">
+                <div class="container">
+                    <asp:UpdatePanel ID="UPLDRentals" runat="server" ChildrenAsTriggers="true">
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="GvwRentals" />
+                        </Triggers>
+                        <ContentTemplate>
+                            <asp:GridView ID="GvwRentals" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" 
+                                DataKeyNames="rentalID" DataSourceID="SourceRentals" GridLines="Horizontal" OnRowCommand="GvwRentals_RowCommand">
+                                <Columns>
+                                    <asp:BoundField DataField="rentalID" HeaderText="rentalID" ReadOnly="True" SortExpression="rentalID" />
+                                    <asp:BoundField DataField="accountOwner" HeaderText="Renter" ReadOnly="True" SortExpression="accountOwner" />
+                                    <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
+                                    <asp:BoundField DataField="fullName" HeaderText="FullName" ReadOnly="True" SortExpression="fullName" />
+                                    <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
+                                    <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
+                                    <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" DataFormatString="{0:d}" />
+                                    <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
+                                        <ItemTemplate>
+                                            <div class="row no-gutters">
+                                                <div class="col-sm-6 pr-1">
+                                                    <asp:Button ID="GrdBtnExtendRental" runat="server" Text="Extend" CssClass="btn btn-success btn-block" CommandName="editItem"
+                                                        CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
+                                                        data-target="#ConfirmAcceptRequestModal" />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <asp:Button ID="GrdBtnReturnRental" runat="server" Text="Return" CssClass="btn btn-danger btn-block" CommandName="deleteItem"
+                                                        CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
+                                                        data-target="#DeleteRequestModal" />
+                                                </div>
+                                            </div>
+                                        </ItemTemplate>
+                                        <ItemStyle Wrap="False" />
+                                    </asp:TemplateField>
+                                </Columns>
+                                <HeaderStyle BorderStyle="Solid" VerticalAlign="Middle" />
+                            </asp:GridView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
             </div>
         </div>
 
@@ -142,5 +181,11 @@
         <InsertParameters>
             <asp:ControlParameter ControlID="HfdRentalID" Name="id" PropertyName="Value" Type="Int32" />
         </InsertParameters>
+    </asp:SqlDataSource>
+    <asp:SqlDataSource runat="server" ID="SourceRentals" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteRentalDetails @rentalID" 
+        ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM RentalDetails">
+        <DeleteParameters>
+            <asp:ControlParameter ControlID="HfdRentalID" Name="rentalID" PropertyName="Value" Type="Int32" />
+        </DeleteParameters>
     </asp:SqlDataSource>
 </asp:Content>

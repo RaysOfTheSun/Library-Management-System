@@ -207,6 +207,14 @@ CREATE OR ALTER VIEW RentalRequestDetails AS
 		INNER JOIN BorrowerAccounts ON BorrowerAccounts.borrowerID = RentalRequests.borrowerID
 GO
 
+CREATE OR ALTER VIEW RentalDetails AS
+	SELECT BookRentals.rentalID, BorrowerAccounts.accountOwner, Books.title, AuthorNames.fullName, 
+		Books.edition, Books.ISBN, returnDate FROM BookRentals
+		INNER JOIN Books ON BookRentals.bookID = Books.bookID
+		INNER JOIN AuthorNames ON AuthorNames.authorID = Books.authorID
+		INNER JOIN BorrowerAccounts ON BorrowerAccounts.borrowerID = BookRentals.borrowerID
+GO
+
 CREATE OR ALTER VIEW EditBookView AS
 	SELECT Books.bookID, Books.title, Books.authorID, Books.publisherID, Books.publishYear, Books.ISBN,
 		Books.edition, Books.genre, BookStatuses.bookCount FROM Books

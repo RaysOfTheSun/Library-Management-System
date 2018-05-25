@@ -29,5 +29,10 @@ namespace LMS
         {
             SourceRequests.Insert();
         }
+
+        protected void GvwRentals_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            HfdRentalID.Value = e.CommandArgument.ToString();
+        }
     }
 }

@@ -40,6 +40,24 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.GridView GvwRequests;
         
         /// <summary>
+        /// UPLDRentals control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UPLDRentals;
+        
+        /// <summary>
+        /// GvwRentals control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GvwRentals;
+        
+        /// <summary>
         /// BtnDeleteRequest control.
         /// </summary>
         /// <remarks>
@@ -65,5 +83,14 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SourceRequests;
+        
+        /// <summary>
+        /// SourceRentals control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourceRentals;
     }
 }
