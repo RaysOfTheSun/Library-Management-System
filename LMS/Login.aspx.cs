@@ -22,7 +22,7 @@ namespace LMS
         {
             if (IsValidAccount(tbx_username.Text, tbx_password.Text))
             {
-                Session["borrowerID"] = GetID(tbx_username.Text, tbx_password.Text);
+                Session["bID"] = GetID(tbx_username.Text, tbx_password.Text);
                 Response.Redirect(@"~/Home.aspx");
             }
             else

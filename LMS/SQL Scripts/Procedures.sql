@@ -21,10 +21,6 @@ CREATE OR ALTER PROCEDURE UpdateUserDetails (@first NVARCHAR(50), @middle NVARCH
 			WHERE addressID = @addressID
 GO
 
---select * from completeBorrowerData
---SELECT * FROM UserAccounts
---SELECT * FROM BookBorrowers
-
 CREATE OR ALTER PROCEDURE DeleteUserDetails (@bID INT) AS
 	DECLARE @addressID INT
 	SELECT @addressID = addressID FROM BookBorrowers WHERE borrowerID = @bID
@@ -34,7 +30,6 @@ CREATE OR ALTER PROCEDURE DeleteUserDetails (@bID INT) AS
 	DELETE FROM BorrowerAddresses WHERE addressID = @addressID
 GO
 
---SELECT * FROM UserAccounts
 CREATE OR ALTER PROCEDURE UpdateUserAccount (@userName NVARCHAR(255), @pass NVARCHAR(128), @id INT) AS
 	UPDATE UserAccounts SET username = @userName, [password] = @pass WHERE [owner] = @id
 GO
@@ -94,15 +89,12 @@ CREATE OR ALTER PROCEDURE AddCountry(@countryName NVARCHAR(MAX)) AS
 	INSERT INTO Countries VALUES (@countryName )
 GO
 
-SELECT * FROM BookDisplay
-SELECT * FROM BookBorrowers
-EXEC DeletePublisher 1
-
-select * from completeBorrowerData
-select * from BorrowerAccounts
-
 --Book Rental Related Procedures
 
-SELECT * FROM BorrowerAccounts
+CREATE OR ALTER PROCEDURE AddRequest(@bookID INT, @borrowerID INT) AS
+	INSERT INTO RentalRequests VALUES (@bookID, @borrowerID)
+GO
 
-SELECT * FROM BookDisplay
+CREATE OR ALTER PROCEDURE DeleteRequest(@rentalID INT) AS
+	DELETE FROM RentalRequests WHERE rentalID = @rentalID
+GO

@@ -12,7 +12,6 @@
                 </div>
             </nav>
         </div>
-
         <div class="tab-content" id="myTabContent">
             <div class="container">
                 <div class="jumbotron">
@@ -57,7 +56,7 @@
                     </asp:UpdatePanel>
                 </div>
             </div>
-            <div class="tab-pane fade show" id="nav-users" role="tabpanel" aria-labelledby="nav-users-tab">
+            <div class="tab-pane fade" id="nav-users" role="tabpanel" aria-labelledby="nav-users-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UPDLdet" runat="server" ChildrenAsTriggers="true">
                         <Triggers>
@@ -267,8 +266,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnDeleteUser" runat="server" 
-                            onserverclick="BtnDeleteUser_ServerClick">Yes</button>
+                        <button type="button" class="btn btn-danger" id="BtnDeleteUser" runat="server"
+                            onserverclick="BtnDeleteUser_ServerClick">
+                            Yes</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     </div>
                 </div>
