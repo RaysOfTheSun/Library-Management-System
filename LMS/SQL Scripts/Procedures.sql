@@ -96,16 +96,29 @@ GO
 
 CREATE OR ALTER PROCEDURE AddRequest(@bookID INT, @borrowerID INT) AS
 	INSERT INTO RentalRequests VALUES (@bookID, @borrowerID, DATEADD(day, 14, GETDATE()))
+	UPDATE BookStatuses SET bookCount = bookCount - 1 WHERE bookID = @bookID
 GO
 
 CREATE OR ALTER PROCEDURE DeleteRequest(@rentalID INT) AS
+	DECLARE @bookID INT
+	SELECT @bookID = bookID FROM RentalRequests WHERE rentalID = @rentalID
 	DELETE FROM RentalRequests WHERE rentalID = @rentalID
+	UPDATE BookStatuses SET bookCount = bookCount + 1 WHERE bookID = @bookID
 GO
 
 CREATE OR ALTER PROCEDURE AddRental(@requestID INT) AS
 	DECLARE @borrowerID INT
 	DECLARE @bookID INT
+	DECLARE @returnDate DATE
 	SELECT @borrowerID = borrowerID FROM RentalRequests WHERE rentalID = @requestID
 	SELECT @bookID = bookID FROM RentalRequests WHERE rentalID = @requestID
-	INSERT INTO BookRentals VALUES (@bookID,@borrowerID,DATEADD(day, 14, GETDATE()))
+	SELECT @returnDate = returnDate FROM RentalRequests WHERE rentalID = @requestID
+	INSERT INTO BookRentals VALUES ( @bookID, @borrowerID, @returnDate)
+	DELETE FROM RentalRequests WHERE rentalID = @requestID
+GO
+
+CREATE OR ALTER PROCEDURE DeleteRentalDetails(@rentalID INT) AS
+	DECLARE @bookID INT
+	DELETE FROM BookRentals WHERE rentalID = @rentalID
+	UPDATE BookStatuses SET bookCount = bookCount + 1 WHERE bookID = @bookID
 GO

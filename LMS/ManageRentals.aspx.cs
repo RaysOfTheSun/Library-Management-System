@@ -24,5 +24,10 @@ namespace LMS
         {
             HfdRentalID.Value = e.CommandArgument.ToString();
         }
+
+        protected void BtnConfirmAcceptRequest__ServerClick(object sender, EventArgs e)
+        {
+            SourceRequests.Insert();
+        }
     }
 }

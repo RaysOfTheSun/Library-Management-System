@@ -201,7 +201,7 @@ GO
 
 CREATE OR ALTER VIEW RentalRequestDetails AS
 	SELECT RentalRequests.rentalID, BorrowerAccounts.accountOwner, Books.title, AuthorNames.fullName, 
-		Books.edition, Books.ISBN FROM RentalRequests
+		Books.edition, Books.ISBN, returnDate FROM RentalRequests
 		INNER JOIN Books ON RentalRequests.bookID = Books.bookID
 		INNER JOIN AuthorNames ON AuthorNames.authorID = Books.authorID
 		INNER JOIN BorrowerAccounts ON BorrowerAccounts.borrowerID = RentalRequests.borrowerID

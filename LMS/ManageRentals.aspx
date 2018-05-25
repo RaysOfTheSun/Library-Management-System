@@ -33,10 +33,11 @@
                                 <Columns>
                                     <asp:BoundField DataField="rentalID" HeaderText="rentalID" ReadOnly="True" SortExpression="rentalID" />
                                     <asp:BoundField DataField="accountOwner" HeaderText="Requestor" SortExpression="accountOwner" ReadOnly="True" />
-                                    <asp:BoundField DataField="title" HeaderText="Book" SortExpression="title" />
+                                    <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
                                     <asp:BoundField DataField="fullName" HeaderText="Author" ReadOnly="True" SortExpression="fullName" />
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
+                                    <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" DataFormatString="{0:d}" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
                                             <div class="row">
@@ -52,6 +53,7 @@
                                                 </div>
                                             </div>
                                         </ItemTemplate>
+                                        <ItemStyle Wrap="False" />
                                     </asp:TemplateField>
                                 </Columns>
                                 <HeaderStyle BorderStyle="Solid" VerticalAlign="Middle" />
@@ -97,12 +99,48 @@
             </div>
         </div>
 
+        <!-- Accept Request modal -->
+        <div class="modal" id="ConfirmAcceptRequestModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmAcceptRequestLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ConfirmAcceptRequestLabel"><strong>Delete Request Information</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure you want to accept this user's rental request? 
+                                    This action cannot be undone.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="BtnConfirmAcceptRequest_" runat="server"
+                            onserverclick="BtnConfirmAcceptRequest__ServerClick">
+                            Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
     <asp:SqlDataSource ID="SourceRequests" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"
-        SelectCommand="SELECT * FROM RentalRequestDetails" DeleteCommand="DeleteRequest @rentalID">
+        SelectCommand="SELECT * FROM RentalRequestDetails" DeleteCommand="DeleteRequest @rentalID" InsertCommand="EXEC AddRental @id">
         <DeleteParameters>
             <asp:ControlParameter Name="rentalID" Type="Int32" ControlID="HfdRentalID" PropertyName="Value" />
         </DeleteParameters>
+        <InsertParameters>
+            <asp:ControlParameter ControlID="HfdRentalID" Name="id" PropertyName="Value" Type="Int32" />
+        </InsertParameters>
     </asp:SqlDataSource>
 </asp:Content>

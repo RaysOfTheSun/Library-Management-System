@@ -23,5 +23,17 @@ namespace LMS
         {
             SourceRentals.Insert();
         }
+
+        public bool IsLoggedIn()
+        {
+            if(Session["bID"] == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
