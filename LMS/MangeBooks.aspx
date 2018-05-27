@@ -34,7 +34,7 @@
                 </div>
             </div>
             <%--Libray tab--%>
-            <div class="tab-pane fade" id="nav-library" role="tabpanel" aria-labelledby="nav-library-tab">
+            <div class="tab-pane fade show active" id="nav-library" role="tabpanel" aria-labelledby="nav-library-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UpdatePanel9" runat="server" ChildrenAsTriggers="true">
                         <Triggers>
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <%-- Authors tab --%>
-            <div class="tab-pane fade show active" id="nav-authors" role="tabpanel" aria-labelledby="nav-authors-tab">
+            <div class="tab-pane fade" id="nav-authors" role="tabpanel" aria-labelledby="nav-authors-tab">
 
                 <div class="container">
                     <asp:UpdatePanel ID="UPLAddAuth" runat="server" ChildrenAsTriggers="true">
