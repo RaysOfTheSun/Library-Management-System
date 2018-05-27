@@ -71,12 +71,18 @@ namespace LMS
 
         protected void FvBtnUpdateAuth_ServerClick(object sender, EventArgs e)
         {
-            FvwAuthors.UpdateItem(true);
-            GrdAuthors.DataBind();
-            GrdBooks.DataBind();
+            if (IsValid)
+            {
+                FvwAuthors.UpdateItem(true);
+                GrdAuthors.DataBind();
+                GrdBooks.DataBind();
 
-            DrpAuthors.Items.Clear();
-            DrpAuthors.DataBind();
+                DrpAuthors.Items.Clear();
+                DrpAuthors.DataBind();
+
+                ScriptManager.RegisterStartupScript(FvBtnUpdateAuth, GetType(), "EditAuthorModal",
+                    @"$('#EditAuthorModal').modal('hide');", true);
+            }
         }
 
         protected void BtnEditBook_ServerClick(object sender, EventArgs e)
@@ -104,6 +110,7 @@ namespace LMS
 
             DrpPublishers.Items.Clear();
             DrpPublishers.DataBind();
+
         }
 
         protected void BtnDeleteAuthor_ServerClick(object sender, EventArgs e)
