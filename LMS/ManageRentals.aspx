@@ -111,7 +111,7 @@
         </div>
 
         <!-- Delete Request modal -->
-        <div class="modal" id="DeleteRequestModal" tabindex="-1" role="dialog" aria-labelledby="DeleteRequestLabel" aria-hidden="true">
+        <div class="modal fade" id="DeleteRequestModal" tabindex="-1" role="dialog" aria-labelledby="DeleteRequestLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -144,7 +144,7 @@
         </div>
 
         <!-- Accept Request modal -->
-        <div class="modal" id="ConfirmAcceptRequestModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmAcceptRequestLabel" aria-hidden="true">
+        <div class="modal fade" id="ConfirmAcceptRequestModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmAcceptRequestLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -177,7 +177,7 @@
         </div>
 
         <!-- Return modal -->
-        <div class="modal" id="ReturnRentalModal" tabindex="-1" role="dialog" aria-labelledby="ReturnRentalLabel" aria-hidden="true">
+        <div class="modal fade" id="ReturnRentalModal" tabindex="-1" role="dialog" aria-labelledby="ReturnRentalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -210,7 +210,7 @@
         </div>
 
         <%-- Extend Rental modal --%>
-        <div class="modal" id="ExtendRentalModal" tabindex="-1" role="dialog" aria-labelledby="ExtendRentalModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ExtendRentalModal" tabindex="-1" role="dialog" aria-labelledby="ExtendRentalModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -227,18 +227,22 @@
                                         <p class="h6">New Return Date</p>
                                         <asp:TextBox ID="TbxExtensionDate" runat="server" CssClass="form-control"
                                             placeholder="Date" ValidationGroup="extend" TextMode="Date"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="ReqValDate" runat="server"
+                                            ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                            ControlToValidate="TbxExtensionDate" ValidationGroup="extend"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="BtnExtendRental" type="button" class="btn btn-library-10"
+                                    runat="server" onserverclick="BtnExtendRental_ServerClick" validationgroup="extend">
+                                    Extend Rental</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
 
-                    <div class="modal-footer">
-                        <button id="BtnExtendRental" type="button" class="btn btn-library-10"
-                            runat="server" onserverclick="BtnExtendRental_ServerClick" validationgroup="extend">
-                            Extend Rental</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
+
                 </div>
             </div>
         </div>

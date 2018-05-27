@@ -89,7 +89,7 @@
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-2 align-self-center">
+                                                        <div class="col-sm-0 align-self-center">
                                                             <asp:Button ID="BtnRequestRent" runat="server" Text="Request to Rent" CssClass="btn btn-library btn-block"
                                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
                                                                 data-target="#rentalNotifModal" Enabled='<%# IsLoggedIn() %>' />
@@ -120,13 +120,12 @@
                             </asp:ListView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
                 </div>
             </div>
         </div>
 
         <!-- Rental Notification modal -->
-        <div class="modal" id="rentalNotifModal" tabindex="-1" role="dialog" aria-labelledby="rentalNotifLabel" aria-hidden="true">
+        <div class="modal fade" id="rentalNotifModal" tabindex="-1" role="dialog" aria-labelledby="rentalNotifLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -148,9 +147,15 @@
                             </div>
                         </div>
                     </div>
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" id="BtnConfirmRental" runat="server" onserverclick="BtnConfirmRental_ServerClick">OK</button>
+                        <button type="button" class="btn btn-secondary" id="BtnConfirmRental" runat="server" 
+                            onserverclick="BtnConfirmRental_ServerClick">OK</button>
                     </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>

@@ -46,6 +46,8 @@ namespace LMS
         {
             SourceRentals.Update();
             GvwRentals.DataBind();
+            ScriptManager.RegisterStartupScript(BtnExtendRental, GetType(), "ExtendRentalModal",
+                     @"$('#ExtendRentalModal').modal('hide');", true);
         }
     }
 }
