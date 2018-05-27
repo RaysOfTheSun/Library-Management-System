@@ -71,6 +71,7 @@ GO
 
 CREATE OR ALTER PROCEDURE DeleteBook(@id INT) AS
 	DELETE FROM BookStatuses WHERE bookID = @id
+	DELETE FROM LibraryIndex WHERE bookID = @id
 	DELETE FROM Books WHERE bookID = @id
 GO
 
@@ -85,6 +86,11 @@ CREATE OR ALTER PROCEDURE AddBook(@authorID INT, @publisherID INT, @title NVARCH
 	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @bookCount SMALLINT) AS
 	INSERT INTO Books VALUES (@title, @authorID, @publisherID, @publishYr, @ISBN, @edition, @genre)
 	INSERT INTO BookStatuses VALUES (IDENT_CURRENT('Books'), @bookCount)
+	INSERT INTO LibraryIndex (bookID) VALUES (IDENT_CURRENT('Books'))
+GO
+
+CREATE OR ALTER PROCEDURE UpdateCallNumber (@bookID INT, @callNumber NVARCHAR(20)) AS
+	UPDATE LibraryIndex SET callNumber = @callNumber WHERE bookID = @bookID
 GO
 
 --Location Related Procedures

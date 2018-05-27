@@ -227,6 +227,7 @@ CREATE OR ALTER VIEW RentedBooksWithAuthorID AS
 	INNER JOIN BookPublishers ON Books.publisherID = BookPublishers.publisherID
 GO
 
+select * from LibraryIndex
 ----DROPS
 --DROP TABLE BookImages
 --DROP TABLE RentalRequests
