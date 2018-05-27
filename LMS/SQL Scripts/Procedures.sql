@@ -39,8 +39,8 @@ CREATE OR ALTER PROCEDURE DeleteUserAccount (@id INT) AS
 GO
 
 --Book Data Related Procedures
-CREATE OR ALTER PROCEDURE AddAuthor (@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50)) AS
-	INSERT INTO BookAuthors VALUES (@first, @middle, @last)
+CREATE OR ALTER PROCEDURE AddAuthor (@first NVARCHAR(50), @last NVARCHAR(50)) AS
+	INSERT INTO BookAuthors VALUES (@first, @last)
 GO
 
 CREATE OR ALTER PROCEDURE AddPublisher(@publisherName NVARCHAR(70), @countryID INT) AS
@@ -51,8 +51,8 @@ CREATE OR ALTER PROCEDURE UpdatePublisher(@publisherName NVARCHAR(70), @countryI
 	UPDATE BookPublishers SET publisherName = @publisherName, countryID = @countryID WHERE publisherID = @id
 GO
 
-CREATE OR ALTER PROCEDURE UpdateAuthor(@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50), @id INT) AS
-	UPDATE BookAuthors SET firstName = @first, middleName = @middle, lastName = @last  WHERE authorID = @id
+CREATE OR ALTER PROCEDURE UpdateAuthor(@first NVARCHAR(50), @last NVARCHAR(50), @id INT) AS
+	UPDATE BookAuthors SET firstName = @first, lastName = @last  WHERE authorID = @id
 GO
 
 CREATE OR ALTER PROCEDURE DeleteAuthor(@id INT) AS 

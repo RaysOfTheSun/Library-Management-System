@@ -58,6 +58,15 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.GridView GvwRentals;
         
         /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// BtnDeleteRequest control.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeleteRequest;
         
         /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
+        /// <summary>
         /// BtnConfirmAcceptRequest_ control.
         /// </summary>
         /// <remarks>
@@ -74,6 +92,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnConfirmAcceptRequest_;
+        
+        /// <summary>
+        /// UpdatePanel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
         
         /// <summary>
         /// BtnReturnRental control.
@@ -110,6 +137,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValDate;
+        
+        /// <summary>
+        /// ReqNotPastValDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator ReqNotPastValDate;
         
         /// <summary>
         /// BtnExtendRental control.

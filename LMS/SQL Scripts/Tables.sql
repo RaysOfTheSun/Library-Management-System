@@ -26,7 +26,6 @@ IF NOT EXISTS (
 		CREATE TABLE BookAuthors (
 		authorID INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
 		firstName NVARCHAR(50) NOT NULL,
-		middleName NVARCHAR(50) NOT NULL,
 		lastName NVARCHAR(50) NOT NULL)
 	END
 
@@ -162,7 +161,7 @@ CREATE OR ALTER VIEW BorrowerAccounts AS
 GO
 
 CREATE OR ALTER VIEW AuthorNames AS
-	SELECT (firstName + ' ' + middleName + ' ' + lastName) AS fullName, 
+	SELECT (firstName + ' ' + lastName) AS fullName, 
 		authorID from BookAuthors 
 GO
 

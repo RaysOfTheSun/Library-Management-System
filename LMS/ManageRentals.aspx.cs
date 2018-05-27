@@ -18,6 +18,8 @@ namespace LMS
         {
             SourceRequests.Delete();
             GvwRequests.DataBind();
+            ScriptManager.RegisterStartupScript(BtnDeleteRequest, GetType(), "DeleteRequestModal",
+                     @"$('#DeleteRequestModal').modal('hide');", true);       
         }
 
         protected void GvwRequests_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -29,6 +31,8 @@ namespace LMS
         {
             SourceRequests.Insert();
             GvwRentals.DataBind();
+            ScriptManager.RegisterStartupScript(BtnConfirmAcceptRequest_, GetType(), "ConfirmAcceptRequestModal",
+                     @"$('#ConfirmAcceptRequestModal').modal('hide');", true);
         }
 
         protected void GvwRentals_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -40,14 +44,29 @@ namespace LMS
         {
             SourceRentals.Delete();
             GvwRentals.DataBind();
+            ScriptManager.RegisterStartupScript(BtnReturnRental, GetType(), "ReturnRentalModal",
+                     @"$('#ReturnRentalModal').modal('hide');", true);
         }
 
         protected void BtnExtendRental_ServerClick(object sender, EventArgs e)
         {
-            SourceRentals.Update();
-            GvwRentals.DataBind();
-            ScriptManager.RegisterStartupScript(BtnExtendRental, GetType(), "ExtendRentalModal",
-                     @"$('#ExtendRentalModal').modal('hide');", true);
+            ReqNotPastValDate.Validate();
+            if (IsValid)
+            {
+                SourceRentals.Update();
+                GvwRentals.DataBind();
+                ScriptManager.RegisterStartupScript(BtnExtendRental, GetType(), "ExtendRentalModal",
+                         @"$('#ExtendRentalModal').modal('hide');", true); 
+            }
+        }
+
+        protected void ReqNotPastValDate_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            DateTime minDate = DateTime.Now;
+            DateTime dt;
+
+            args.IsValid = (DateTime.TryParse(args.Value, out dt)
+                && dt >= minDate);
         }
     }
 }

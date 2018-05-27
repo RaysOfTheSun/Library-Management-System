@@ -22,7 +22,6 @@ namespace LMS
                 SourceAuthors.Insert();
                 TbxFirstname.Text = "";
                 TbxLastName.Text = "";
-                TbxMiddleName.Text = "";
 
                 DrpAuthors.Items.Clear();
                 DrpAuthors.DataBind();
@@ -159,7 +158,6 @@ namespace LMS
         protected void BtnResetAuthorFields_ServerClick(object sender, EventArgs e)
         {
             ClientScript.RegisterStartupScript(GetType(), "disableFirstNameErr", @"$(#ReqValFirstName).hide();", true);
-            ClientScript.RegisterStartupScript(GetType(), "disableMiddleNameErr", @"$(#ReqValMiddleName).hide();", true);
             ClientScript.RegisterStartupScript(GetType(), "disableLastNameErr", @"$(#ReqValLastName).hide();", true);
         }
 

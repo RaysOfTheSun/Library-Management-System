@@ -87,7 +87,6 @@
                                 <Columns>
                                     <asp:BoundField DataField="authorID" HeaderText="Author ID" InsertVisible="False" ReadOnly="True" SortExpression="authorID" />
                                     <asp:BoundField DataField="firstName" HeaderText="First Name" SortExpression="firstName" />
-                                    <asp:BoundField DataField="middleName" HeaderText="Middle Name" SortExpression="middleName" />
                                     <asp:BoundField DataField="lastName" HeaderText="Last Name" SortExpression="lastName" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
@@ -293,7 +292,7 @@
                         <ContentTemplate>
                             <div class="modal-body">
                                 <div class="form-row">
-                                    <div class="form-group col-sm-4 mb-1">
+                                    <div class="form-group col-sm-6 mb-1">
                                         <p class="h6">First Name</p>
                                         <asp:TextBox ID="TbxFirstname" runat="server" CssClass="form-control"
                                             placeholder="e.g. John"></asp:TextBox>
@@ -301,15 +300,7 @@
                                             ErrorMessage="This field is required" ControlToValidate="TbxFirstname" Display="Dynamic"
                                             ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
-                                    <div class="form-group col-sm-4 mb-1">
-                                        <p class="h6">Middle Name</p>
-                                        <asp:TextBox ID="TbxMiddleName" runat="server" CssClass="form-control"
-                                            placeholder="e.g. Russell" ValidationGroup="author"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="ReqValMiddleName" runat="server" ForeColor="Red"
-                                            ErrorMessage="This field is required" ControlToValidate="TbxMiddleName" Display="Dynamic"
-                                            ValidationGroup="author"></asp:RequiredFieldValidator>
-                                    </div>
-                                    <div class="form-group col-sm-4 mb-1">
+                                    <div class="form-group col-sm-6 mb-1">
                                         <p class="h6">Last Name</p>
                                         <asp:TextBox ID="TbxLastName" runat="server" CssClass="form-control "
                                             placeholder="e.g. Smith" ValidationGroup="author"></asp:TextBox>
@@ -496,10 +487,11 @@
                     <asp:UpdatePanel ID="UPDLupAuth" runat="server">
                         <ContentTemplate>
                             <div class="modal-body">
-                                <asp:FormView ID="FvwAuthors" runat="server" DataKeyNames="authorID" DataSourceID="SourceAuthorEdit" DefaultMode="Edit">
+                                <asp:FormView ID="FvwAuthors" runat="server" DataKeyNames="authorID" DataSourceID="SourceAuthorEdit" 
+                                    DefaultMode="Edit" CssClass="w-100">
                                     <EditItemTemplate>
                                         <div class="form-row">
-                                            <div class="form-group col-sm-4 mb-1">
+                                            <div class="form-group col-sm-6 mb-1">
                                                 <p class="h6">First Name</p>
                                                 <asp:TextBox ID="firstNameTextBox" runat="server" Text='<%# Bind("firstName") %>'
                                                     CssClass="form-control" ValidationGroup="editAuth" />
@@ -507,15 +499,7 @@
                                                     ErrorMessage="This field is required" ControlToValidate="firstNameTextBox"
                                                     Display="Dynamic" ValidationGroup="editAuth"></asp:RequiredFieldValidator>
                                             </div>
-                                            <div class="form-group col-sm-4 mb-1">
-                                                <p class="h6">Middle Name</p>
-                                                <asp:TextBox ID="middleNameTextBox" runat="server" Text='<%# Bind("middleName") %>'
-                                                    CssClass="form-control" ValidationGroup="editAuth" />
-                                                <asp:RequiredFieldValidator ID="ReqValMiddleNameU" runat="server" ForeColor="Red"
-                                                    ErrorMessage="This field is required" ControlToValidate="middleNameTextBox" Display="Dynamic"
-                                                    ValidationGroup="editAuth"></asp:RequiredFieldValidator>
-                                            </div>
-                                            <div class="form-group col-sm-4 mb-1">
+                                            <div class="form-group col-sm-6 mb-1">
                                                 <p class="h6">Last Name</p>
                                                 <asp:TextBox ID="lastNameTextBox" runat="server" Text='<%# Bind("lastName") %>'
                                                     CssClass="form-control" ValidationGroup="editAuth" />
@@ -529,7 +513,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="FvBtnUpdateAuth" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="FvBtnUpdateAuth_ServerClick" validationgroup="editAuthor">
+                                    runat="server" onserverclick="FvBtnUpdateAuth_ServerClick" validationgroup="editAuth">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
@@ -553,7 +537,8 @@
                     <asp:UpdatePanel ID="UpdatePanel7" runat="server">
                         <ContentTemplate>
                             <div class="modal-body">
-                                <asp:FormView ID="FormView1" runat="server" DataSourceID="SourcePublisherEdit" DataKeyNames="publisherID" DefaultMode="Edit">
+                                <asp:FormView ID="FormView1" runat="server" DataSourceID="SourcePublisherEdit" DataKeyNames="publisherID" 
+                                    DefaultMode="Edit" CssClass="w-100">
                                     <EditItemTemplate>
                                         <div class="form-row">
                                             <div class="form-group col-sm-6 mb-1">
@@ -707,13 +692,12 @@
                 <asp:ControlParameter Name="bookCount" Type="Int16" ControlID="TbxQuantity" PropertyName="Text" />
             </InsertParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @middle, @last" DeleteCommand="EXEC DeleteAuthor @id">
+        <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @last" DeleteCommand="EXEC DeleteAuthor @id">
             <DeleteParameters>
                 <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
             </DeleteParameters>
             <InsertParameters>
                 <asp:ControlParameter ControlID="TbxFirstname" Name="first" PropertyName="Text" Type="String" />
-                <asp:ControlParameter ControlID="TbxMiddleName" Name="middle" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="TbxLastName" Name="last" PropertyName="Text" Type="String" />
             </InsertParameters>
         </asp:SqlDataSource>
@@ -739,7 +723,7 @@
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceAuthorEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors] WHERE authorID = @id" UpdateCommand="EXEC UpdateAuthor @firstName, @middleName, @lastName, @authorID" DeleteCommand="EXEC DeleteAuthor @id">
+        <asp:SqlDataSource ID="SourceAuthorEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors] WHERE authorID = @id" UpdateCommand="EXEC UpdateAuthor @firstName, @lastName, @authorID" DeleteCommand="EXEC DeleteAuthor @id">
             <DeleteParameters>
                 <asp:SessionParameter Name="id" SessionField="keys" />
             </DeleteParameters>

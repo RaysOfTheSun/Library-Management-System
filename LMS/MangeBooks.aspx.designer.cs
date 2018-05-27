@@ -292,24 +292,6 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValFirstName;
         
         /// <summary>
-        /// TbxMiddleName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TbxMiddleName;
-        
-        /// <summary>
-        /// ReqValMiddleName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValMiddleName;
-        
-        /// <summary>
         /// TbxLastName control.
         /// </summary>
         /// <remarks>

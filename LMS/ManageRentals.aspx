@@ -133,12 +133,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnDeleteRequest" runat="server"
-                            onserverclick="BtnDeleteRequest_ServerClick">
-                            Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="BtnDeleteRequest" runat="server"
+                                    onserverclick="BtnDeleteRequest_ServerClick">
+                                    Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>
@@ -166,12 +171,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnConfirmAcceptRequest_" runat="server"
-                            onserverclick="BtnConfirmAcceptRequest__ServerClick">
-                            Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="BtnConfirmAcceptRequest_" runat="server"
+                                    onserverclick="BtnConfirmAcceptRequest__ServerClick">
+                                    Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>
@@ -199,12 +209,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnReturnRental" runat="server"
-                            onserverclick="BtnReturnRental_ServerClick">
-                            Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="BtnReturnRental" runat="server"
+                                    onserverclick="BtnReturnRental_ServerClick">
+                                    Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>
@@ -230,7 +245,9 @@
                                         <asp:RequiredFieldValidator ID="ReqValDate" runat="server"
                                             ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                             ControlToValidate="TbxExtensionDate" ValidationGroup="extend"></asp:RequiredFieldValidator>
-                                    </div>
+                                        <asp:CustomValidator ID="ReqNotPastValDate" runat="server" ForeColor="Red" ValidationGroup="extend"
+                                            ErrorMessage="This value cannot be set to a date in the past"
+                                            ControlToValidate="TbxExtensionDate" OnServerValidate="ReqNotPastValDate_ServerValidate"></asp:CustomValidator></div>
                                 </div>
                             </div>
                             <div class="modal-footer">
