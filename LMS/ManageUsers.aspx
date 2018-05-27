@@ -8,7 +8,7 @@
                     <a class="nav-item nav-link active" id="nav-accounts-tab" data-toggle="tab" href="#nav-accounts" role="tab" aria-controls="nav-accounts" aria-selected="true">
                         <i class="fas fa-user"></i>&nbsp;Accounts<asp:HiddenField ID="hideenID" runat="server" />
                     </a>
-                    &nbsp;<a class="nav-item nav-link" id="nav-users-tab" data-toggle="tab" href="#nav-users" role="tab" aria-controls="nav-users" aria-selected="false"><i class="fa fa-address-card"></i>&nbsp;User Details</a>
+                    &nbsp;<a class="nav-item nav-link" id="nav-users-tab" data-toggle="tab" href="#nav-users" role="tab" aria-controls="nav-users" aria-selected="false"><i class="fa fa-address-card"></i>&nbsp;Borrowers</a>
                 </div>
             </nav>
         </div>
@@ -48,7 +48,7 @@
                                                 <div class="col-sm-6">
                                                     <asp:Button ID="GrdBtnDeleteaccountDet" runat="server" Text="Delete" CssClass="btn btn-danger btn-block" CommandName="deleteItem"
                                                         CommandArgument='<%# Eval("borrowerID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#DeleteAccountModal" />
+                                                        data-target="#DeleteAccountModal" Enabled='<%# IsRenting(Eval("borrowerID")) %>' />
                                                 </div>
                                             </div>
                                         </ItemTemplate>
@@ -90,7 +90,7 @@
                                                 data-target="#editUserModal" />
                                             <asp:Button ID="GrdBtnDeleteUserDet" runat="server" Text="Delete" CssClass="btn btn-danger" CommandName="deleteItem"
                                                 CommandArgument='<%# Eval("borrowerID") %>' CausesValidation="false" data-toggle="modal"
-                                                data-target="#DeleteUserDetModal" />
+                                                data-target="#DeleteUserDetModal" Enabled='<%# IsRenting(Eval("borrowerID")) %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

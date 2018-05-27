@@ -20,14 +20,23 @@
                                 <div class="form-group col-sm-4 mb-1">
                                     <asp:TextBox ID="TbxFirstname" runat="server" CssClass="form-control"
                                         placeholder="first name"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="ReqValFName" runat="server"
+                                        ErrorMessage="This field is required" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxFirstname"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="form-group col-sm-4 mb-1">
                                     <asp:TextBox ID="TbxMiddleName" runat="server" CssClass="form-control"
                                         placeholder="middle name"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="ReqValMName" runat="server"
+                                        ErrorMessage="This field is required" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxMiddleName"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="form-group col-sm-4 mb-1">
-                                    <asp:TextBox ID="TbxLastName" runat="server" CssClass="form-control "
+                                    <asp:TextBox ID="TbxLastName" runat="server" CssClass="form-control"
                                         placeholder="last name"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="ReqValLName" runat="server"
+                                        ErrorMessage="This field is required" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxLastName"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -44,28 +53,48 @@
                                 <div class="form-group col-sm-4 mb-1">
                                     <asp:TextBox ID="TbxZipCode" runat="server" CssClass="form-control"
                                         placeholder="zip code"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="ReqValZip" runat="server"
+                                        ErrorMessage="This field is required" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxZipCode"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="mb-2">
                                 <asp:TextBox ID="TbxStreet" runat="server" CssClass="form-control" TextMode="MultiLine"
                                     placeholder="street"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="ReqValStreet" runat="server"
+                                    ErrorMessage="This field is required" ForeColor="Red" Display="Dynamic"
+                                    ControlToValidate="TbxStreet"></asp:RequiredFieldValidator>
                             </div>
                             <p class="h6"><strong>Account Information</strong></p>
                             <div>
                                 <asp:TextBox ID="TbxEmail" runat="server" CssClass="form-control mb-1"
                                     placeholder="E-mail" TextMode="Email"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="ReqValMail" runat="server"
+                                    ErrorMessage="This field is required" ForeColor="Red" Display="Dynamic"
+                                    ControlToValidate="TbxEmail"></asp:RequiredFieldValidator>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
                                     <asp:TextBox ID="TbxPassword" runat="server" CssClass="form-control mb-1"
                                         placeholder="password" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="ReqValPass" runat="server"
+                                        ErrorMessage="This field is required" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxPassword"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <asp:TextBox ID="TbxConfirmPassword" runat="server" CssClass="form-control"
                                         placeholder="confirm password" TextMode="Password"></asp:TextBox>
+                                    <asp:CompareValidator ID="CompValPass" runat="server"
+                                        ErrorMessage="Your passwords do not match" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxConfirmPassword"
+                                        ControlToCompare="TbxPassword"></asp:CompareValidator>
+                                    <asp:RequiredFieldValidator ID="ReqPassCon" runat="server"
+                                        ErrorMessage="This field is required" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxConfirmPassword"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
-                            <asp:Button ID="BtnCreate" runat="server" Text="Create My Account" CssClass="btn btn-library-10 form-control form-control-lg" OnClick="BtnCreate_Click" />
+                            <asp:Button ID="BtnCreate" runat="server" Text="Create My Account" 
+                                CssClass="btn btn-library-10 form-control form-control-lg" OnClick="BtnCreate_Click" />
                             <div class="divider">
                                 <hr class="left">
                                 <small>Need to start again?</small>
@@ -104,7 +133,7 @@
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="BtnConfirmReset" runat="server" Text="Yes"
-                          OnClientClick="this.form.reset(); return false;" CssClass="btn btn-danger" data-dismiss="modal" />
+                        OnClientClick="this.form.reset(); return false;" CssClass="btn btn-danger" data-dismiss="modal" />
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 </div>
             </div>
@@ -113,7 +142,7 @@
 
     <asp:SqlDataSource ID="Countries" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Countries]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="Cities" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM Cities"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="LibraryDB" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" InsertCommand="EXEC CreateUser @first,@middle,@last,@mail,@pass,@countryID, @cityID,@street,@zip">
+    <asp:SqlDataSource ID="LibraryDB" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" InsertCommand="EXEC CreateUser @first,@middle,@last,@mail,@pass,@countryID, @cityID,@street,@zip" OnInserted="LibraryDB_Inserted">
         <InsertParameters>
             <asp:ControlParameter ControlID="TbxFirstname" Name="first" PropertyName="Text" Type="String" />
             <asp:ControlParameter ControlID="TbxMiddleName" Name="middle" PropertyName="Text" Type="String" />

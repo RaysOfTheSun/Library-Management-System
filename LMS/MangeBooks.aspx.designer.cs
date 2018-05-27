@@ -121,6 +121,15 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxTitle;
         
         /// <summary>
+        /// ReqValTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValTitle;
+        
+        /// <summary>
         /// DrpAuthors control.
         /// </summary>
         /// <remarks>
@@ -148,13 +157,22 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.DropDownList DrpGenres;
         
         /// <summary>
-        /// DrpPubYear control.
+        /// TbxPubYearA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DrpPubYear;
+        protected global::System.Web.UI.WebControls.TextBox TbxPubYearA;
+        
+        /// <summary>
+        /// ReqValPubYearA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValPubYearA;
         
         /// <summary>
         /// TbxISBN control.
@@ -166,6 +184,15 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxISBN;
         
         /// <summary>
+        /// ReqValISBN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValISBN;
+        
+        /// <summary>
         /// TbxEdition control.
         /// </summary>
         /// <remarks>
@@ -173,6 +200,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TbxEdition;
+        
+        /// <summary>
+        /// ReqValEdition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValEdition;
         
         /// <summary>
         /// TbxQuantity control.
@@ -184,6 +220,15 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxQuantity;
         
         /// <summary>
+        /// ReqValQuant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValQuant;
+        
+        /// <summary>
         /// BtnAddBook control.
         /// </summary>
         /// <remarks>
@@ -191,6 +236,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnAddBook;
+        
+        /// <summary>
+        /// BtnResetBookFields control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnResetBookFields;
         
         /// <summary>
         /// UpdatePanel1 control.

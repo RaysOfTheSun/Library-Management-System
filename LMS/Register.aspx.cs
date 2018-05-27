@@ -41,5 +41,10 @@ namespace LMS
                 }
             }
         }
+
+        protected void LibraryDB_Inserted(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            Response.Redirect(@"~/Login.aspx");
+        }
     }
 }
