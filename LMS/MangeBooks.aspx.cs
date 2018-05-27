@@ -15,7 +15,6 @@ namespace LMS
             if (IsValid)
             {
                 SourceAuthors.Insert();
-                BtnAddAuthorB.Attributes.Add("data-dismiss", "modal");
                 TbxFirstname.Text = "";
                 TbxLastName.Text = "";
                 TbxMiddleName.Text = "";
@@ -28,12 +27,15 @@ namespace LMS
 
         protected void BtnAddPublisher_ServerClick(object sender, EventArgs e)
         {
-            SourcePublishers.Insert();
-            TbxPublisherName.Text = "";
+            if (IsValid)
+            {
+                SourcePublishers.Insert();
+                TbxPublisherName.Text = "";
 
-            DrpPublishers.Items.Clear();
-            DrpPublishers.DataBind();
-            ScriptManager.RegisterStartupScript(BtnAddPublisher, GetType(), "AddPublisherModal", @"$('#AddPublisherModal').modal('hide');", true);
+                DrpPublishers.Items.Clear();
+                DrpPublishers.DataBind();
+                ScriptManager.RegisterStartupScript(BtnAddPublisher, GetType(), "AddPublisherModal", @"$('#AddPublisherModal').modal('hide');", true);
+            }
         }
 
         protected void BtnAddBook_ServerClick(object sender, EventArgs e)
@@ -41,7 +43,13 @@ namespace LMS
             if (IsValid)
             {
                 SourceBooks.Insert();
-                ScriptManager.RegisterStartupScript(BtnAddBook, GetType(), "AddBookModal", @"$('#AddBookModal').modal('hide');", true);
+                TbxTitle.Text = "";
+                TbxISBN.Text = "";
+                TbxEdition.Text = "";
+                TbxPubYearA.Text = "";
+                TbxQuantity.Text = "";
+                ScriptManager.RegisterStartupScript(BtnAddBook, GetType(), "AddBookModal",
+                    @"$('#AddBookModal').modal('hide');", true);
             }
         }
 
@@ -73,8 +81,13 @@ namespace LMS
 
         protected void BtnEditBook_ServerClick(object sender, EventArgs e)
         {
-            Books.UpdateItem(true);
-            GrdBooks.DataBind();
+            if (IsValid)
+            {
+                Books.UpdateItem(true);
+                GrdBooks.DataBind();
+                ScriptManager.RegisterStartupScript(BtnEditBook, GetType(), "EditBookModal",
+                         @"$('#EditBookModal').modal('hide');", true);
+            }
         }
 
         protected void GrdBooks_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -91,17 +104,6 @@ namespace LMS
 
             DrpPublishers.Items.Clear();
             DrpPublishers.DataBind();
-        }
-
-        private void UpdateLists()
-        {
-            DrpCountry.Items.Clear();
-            DrpPublishers.Items.Clear();
-            DrpAuthors.Items.Clear();
-
-            DrpAuthors.DataBind();
-            DrpPublishers.DataBind();
-            DrpCountry.DataBind();
         }
 
         protected void BtnDeleteAuthor_ServerClick(object sender, EventArgs e)
@@ -122,11 +124,22 @@ namespace LMS
 
         protected void BtnResetBookFields_ServerClick(object sender, EventArgs e)
         {
-            //ReqValTitle.IsValid = true;
-            ClientScript.RegisterStartupScript(GetType(), "disableTitle", @"$(#ReqValTitle).hide();", true);
-            ClientScript.RegisterStartupScript(GetType(), "disableISBN", @"$(#ReqVaISBN).hide();", true);
-            ClientScript.RegisterStartupScript(GetType(), "disableQuant", @"$(#ReqValQuant).hide();", true);
-            ClientScript.RegisterStartupScript(GetType(), "disableEdition", @"$(#ReqValEdition).hide();", true);
+            ClientScript.RegisterStartupScript(GetType(), "disableTitleErr", @"$(#ReqValTitle).hide();", true);
+            ClientScript.RegisterStartupScript(GetType(), "disableISBNErr", @"$(#ReqVaISBN).hide();", true);
+            ClientScript.RegisterStartupScript(GetType(), "disableQuantErr", @"$(#ReqValQuant).hide();", true);
+            ClientScript.RegisterStartupScript(GetType(), "disableEditionErr", @"$(#ReqValEdition).hide();", true);
+        }
+
+        protected void BtnResetAuthorFields_ServerClick(object sender, EventArgs e)
+        {
+            ClientScript.RegisterStartupScript(GetType(), "disableFirstNameErr", @"$(#ReqValFirstName).hide();", true);
+            ClientScript.RegisterStartupScript(GetType(), "disableMiddleNameErr", @"$(#ReqValMiddleName).hide();", true);
+            ClientScript.RegisterStartupScript(GetType(), "disableLastNameErr", @"$(#ReqValLastName).hide();", true);
+        }
+
+        protected void BtnResetPublisherFields_ServerClick(object sender, EventArgs e)
+        {
+            ClientScript.RegisterStartupScript(GetType(), "disableLastNameTbx", @"$(#ReqValPub).hide();", true);
         }
     }
 }

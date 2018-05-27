@@ -287,21 +287,21 @@
                                         <p class="h6">First Name</p>
                                         <asp:TextBox ID="TbxFirstname" runat="server" CssClass="form-control"
                                             placeholder="e.g. John"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ForeColor="Red"
+                                        <asp:RequiredFieldValidator ID="ReqValFirstName" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxFirstname" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-4 mb-1">
                                         <p class="h6">Middle Name</p>
                                         <asp:TextBox ID="TbxMiddleName" runat="server" CssClass="form-control"
                                             placeholder="e.g. Russell" ValidationGroup="author"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ForeColor="Red"
+                                        <asp:RequiredFieldValidator ID="ReqValMiddleName" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxMiddleName" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-4 mb-1">
                                         <p class="h6">Last Name</p>
                                         <asp:TextBox ID="TbxLastName" runat="server" CssClass="form-control "
                                             placeholder="e.g. Smith" ValidationGroup="author"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ForeColor="Red"
+                                        <asp:RequiredFieldValidator ID="ReqValLastName" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxLastName" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
@@ -310,7 +310,10 @@
                                 <button id="BtnAddAuthorB" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="BtnAddAuthor_Click" validationgroup="author">
                                     Add Author</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button id="BtnResetAuthorFields" type="button" runat="server"
+                                    class="btn btn-secondary" data-dismiss="modal"
+                                    onserverclick="BtnResetAuthorFields_ServerClick">
+                                    Cancel</button>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -336,8 +339,8 @@
                                         <p class="h6">Publisher Name</p>
                                         <asp:TextBox ID="TbxPublisherName" runat="server" CssClass="form-control"
                                             placeholder="Publisher Name" ValidationGroup="publisher"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ForeColor="Red"
-                                            ErrorMessage="This field is required" ControlToValidate="TbxPublisherName" 
+                                        <asp:RequiredFieldValidator ID="ReqValPub" runat="server" ForeColor="Red"
+                                            ErrorMessage="This field is required" ControlToValidate="TbxPublisherName"
                                             Display="Dynamic" ValidationGroup="publisher"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-6 mb-1">
@@ -351,7 +354,9 @@
                                 <button id="BtnAddPublisher" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="BtnAddPublisher_ServerClick" validationgroup="publisher">
                                     Add Publisher</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button id="BtnResetPublisherFields" type="button" class="btn btn-secondary" runat="server"
+                                    data-dismiss="modal" onserverclick="BtnResetPublisherFields_ServerClick">
+                                    Cancel</button>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -362,7 +367,7 @@
         </div>
 
         <%-- Edit Book modal --%>
-        <div class="modal" id="EditBookModal" tabindex="-1" role="dialog" aria-labelledby="EditBookModalLabel" aria-hidden="true">
+        <div class="modal fade" id="EditBookModal" tabindex="-1" role="dialog" aria-labelledby="EditBookModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -379,7 +384,11 @@
                                         <div class="justify-content-center align-items-center">
                                             <div class="form-group mb-1">
                                                 <p class="h6">Title</p>
-                                                <asp:TextBox ID="titleTextBox" runat="server" Text='<%# Bind("title") %>' CssClass="form-control" />
+                                                <asp:TextBox ID="titleTextBox" runat="server" Text='<%# Bind("title") %>'
+                                                    CssClass="form-control" ValidationGroup="editBook" />
+                                                <asp:RequiredFieldValidator ID="ReqValTitleU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="titleTextBox" ValidationGroup="editBook"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Author</p>
@@ -423,33 +432,40 @@
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">ISBN</p>
-                                                <asp:TextBox ID="ISBNTextBox" runat="server" Text='<%# Bind("ISBN") %>' CssClass="form-control"></asp:TextBox>
+                                                <asp:TextBox ID="ISBNTextBox" runat="server" Text='<%# Bind("ISBN") %>'
+                                                    CssClass="form-control" ValidationGroup="editBook"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="ReqValISBNU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="ISBNTextBo" ValidationGroup="editBook"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Edition</p>
                                                 <asp:TextBox ID="editionTextBox" runat="server" Text='<%# Bind("edition") %>' CssClass="form-control"
-                                                    TextMode="Number"
-                                                    min="1"></asp:TextBox>
+                                                    TextMode="Number" ValidationGroup="editBook" min="1"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="ReqValEditionU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="ISBNTextBox" ValidationGroup="editBook"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Quantity</p>
                                                 <asp:TextBox ID="TbxQuantity" runat="server" Text='<%# Bind("bookCount") %>' CssClass="form-control"
-                                                    TextMode="Number"
-                                                    min="1"></asp:TextBox>
+                                                    TextMode="Number" min="1" ValidationGroup="editBook"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="TbxQuantity" ValidationGroup="editBook"></asp:RequiredFieldValidator>
                                             </div>
                                         </div>
                                     </EditItemTemplate>
                                 </asp:FormView>
                             </div>
+                            <div class="modal-footer">
+                                <button id="BtnEditBook" type="button" class="btn btn-library-10"
+                                    runat="server" onserverclick="BtnEditBook_ServerClick" validationgroup="editBook">
+                                    Update</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
-                    <div class="modal-footer">
-                        <button id="BtnEditBook" type="button" class="btn btn-library-10"
-                            runat="server" onserverclick="BtnEditBook_ServerClick" validationgroup="editBook">
-                            Update</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
                 </div>
             </div>
         </div>

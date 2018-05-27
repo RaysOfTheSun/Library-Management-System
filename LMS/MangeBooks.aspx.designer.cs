@@ -265,13 +265,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxFirstname;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// ReqValFirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValFirstName;
         
         /// <summary>
         /// TbxMiddleName control.
@@ -283,13 +283,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxMiddleName;
         
         /// <summary>
-        /// RequiredFieldValidator2 control.
+        /// ReqValMiddleName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValMiddleName;
         
         /// <summary>
         /// TbxLastName control.
@@ -301,13 +301,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxLastName;
         
         /// <summary>
-        /// RequiredFieldValidator3 control.
+        /// ReqValLastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValLastName;
         
         /// <summary>
         /// BtnAddAuthorB control.
@@ -317,6 +317,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnAddAuthorB;
+        
+        /// <summary>
+        /// BtnResetAuthorFields control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnResetAuthorFields;
         
         /// <summary>
         /// UpdatePanel4 control.
@@ -337,13 +346,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxPublisherName;
         
         /// <summary>
-        /// RequiredFieldValidator4 control.
+        /// ReqValPub control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValPub;
         
         /// <summary>
         /// DrpCountry control.
@@ -362,6 +371,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnAddPublisher;
+        
+        /// <summary>
+        /// BtnResetPublisherFields control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnResetPublisherFields;
         
         /// <summary>
         /// UpdatePanel2 control.
