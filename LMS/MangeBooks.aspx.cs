@@ -61,12 +61,17 @@ namespace LMS
 
         protected void FvBtnUpdatePub_ServerClick(object sender, EventArgs e)
         {
-            FormView1.UpdateItem(true);
-            GrdPublishers.DataBind();
-            GrdBooks.DataBind();
+            if (IsValid)
+            {
+                FormView1.UpdateItem(true);
+                GrdPublishers.DataBind();
+                GrdBooks.DataBind();
 
-            DrpPublishers.Items.Clear();
-            DrpPublishers.DataBind();
+                DrpPublishers.Items.Clear();
+                DrpPublishers.DataBind();
+                ScriptManager.RegisterStartupScript(FvBtnUpdatePub, GetType(), "EditAuthorModal",
+                    @"$('#EditPublisherModal').modal('hide');", true); 
+            }
         }
 
         protected void FvBtnUpdateAuth_ServerClick(object sender, EventArgs e)

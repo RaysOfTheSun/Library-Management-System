@@ -473,7 +473,7 @@
             </div>
         </div>
 
-        <%--Edit Author modal--%>
+        <!-- Edit Author modal-->
         <div class="modal fade" id="EditAuthorModal" tabindex="-1" role="dialog" aria-labelledby="EditAuthorModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -530,8 +530,8 @@
             </div>
         </div>
 
-        <%-- Edit Publisher modal --%>
-        <div class="modal" id="EditPublisherModal" tabindex="-1" role="dialog" aria-labelledby="EditPublisherModalLabel" aria-hidden="true">
+        <!-- Edit Publisher modal -->
+        <div class="modal fade" id="EditPublisherModal" tabindex="-1" role="dialog" aria-labelledby="EditPublisherModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -548,27 +548,31 @@
                                         <div class="form-row">
                                             <div class="form-group col-sm-6 mb-1">
                                                 <p class="h6">Publisher Name</p>
-                                                <asp:TextBox ID="publisherNameTextBox" runat="server" Text='<%# Bind("publisherName") %>' CssClass="form-control" />
+                                                <asp:TextBox ID="publisherNameTextBox" runat="server" Text='<%# Bind("publisherName") %>'
+                                                    CssClass="form-control" ValidationGroup="editPub" />
+                                                <asp:RequiredFieldValidator ID="ReqValPubU" runat="server" ForeColor="Red"
+                                                    ErrorMessage="This field is required" ControlToValidate="publisherNameTextBox"
+                                                    Display="Dynamic" ValidationGroup="editPub"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group col-sm-6 mb-1">
                                                 <p class="h6">Location of Headquarters</p>
                                                 <asp:DropDownList ID="DrpCountryB" runat="server" DataSourceID="SourceCountries" DataTextField="countryName" DataValueField="countryID"
                                                     CssClass="custom-select" AppendDataBoundItems="true" ValidationGroup="publisher" SelectedValue='<%# Bind("countryID") %>'>
-                                                    <asp:ListItem Selected="True" Value="-99">Select the country of origin...</asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
                                         </div>
                                     </EditItemTemplate>
                                 </asp:FormView>
                             </div>
+                            <div class="modal-footer">
+                                <button id="FvBtnUpdatePub" type="button" class="btn btn-library-10"
+                                    runat="server" onserverclick="FvBtnUpdatePub_ServerClick" validationgroup="editPub">
+                                    Update</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    <div class="modal-footer">
-                        <button id="FvBtnUpdatePub" type="button" class="btn btn-library-10"
-                            runat="server" onserverclick="FvBtnUpdatePub_ServerClick" validationgroup="editPub">
-                            Update</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
+
                 </div>
             </div>
         </div>
