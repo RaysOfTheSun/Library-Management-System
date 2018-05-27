@@ -90,7 +90,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-2 align-self-center">
-                                                            <asp:Button ID="BtnRequestRent" runat="server" Text="Request" CssClass="btn btn-library btn-block"
+                                                            <asp:Button ID="BtnRequestRent" runat="server" Text="Request to Rent" CssClass="btn btn-library btn-block"
                                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
                                                                 data-target="#rentalNotifModal" Enabled='<%# IsLoggedIn() %>' />
                                                         </div>

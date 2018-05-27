@@ -160,7 +160,7 @@
         </div>
 
         <%--Add Book modal--%>
-        <div class="modal" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
+        <div class="modal fade" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -170,14 +170,21 @@
                         </button>
                     </div>
 
-                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                    <asp:UpdatePanel ID="UpdatePanel3" runat="server" ChildrenAsTriggers="true">
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="BtnAddBook" />
+                        </Triggers>
                         <ContentTemplate>
                             <div class="modal-body">
                                 <div class="justify-content-center align-items-center">
                                     <div class="form-group mb-1">
                                         <p class="h6">Title</p>
                                         <asp:TextBox ID="TbxTitle" runat="server" CssClass="form-control"
-                                            placeholder="e.g. The Sea of Monsters"></asp:TextBox>
+                                            placeholder="e.g. The Sea of Monsters"
+                                            ValidationGroup="book"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="ReqValTitle" runat="server"
+                                            ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                            ControlToValidate="TbxTitle" ValidationGroup="book"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Author</p>
@@ -189,13 +196,11 @@
                                         <p class="h6">Publisher</p>
                                         <asp:DropDownList ID="DrpPublishers" runat="server" CssClass="custom-select" DataSourceID="SourcePublishers"
                                             DataTextField="publisherName" DataValueField="publisherID" AppendDataBoundItems="True">
-                                            <asp:ListItem Value="-99">Select a publisher...</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Genre</p>
                                         <asp:DropDownList ID="DrpGenres" runat="server" CssClass="custom-select">
-                                            <asp:ListItem>Select a genre...</asp:ListItem>
                                             <asp:ListItem>Science fiction</asp:ListItem>
                                             <asp:ListItem>Drama</asp:ListItem>
                                             <asp:ListItem>Action and Adventure</asp:ListItem>
@@ -216,39 +221,56 @@
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Year of Publication</p>
-                                        <asp:DropDownList ID="DrpPubYear" runat="server" CssClass="custom-select"></asp:DropDownList>
+                                        <asp:TextBox ID="TbxPubYearA" runat="server" Text='<%# DateTime.Now.Year %>' CssClass="form-control"
+                                            TextMode="Number" max='<%# DateTime.Now.Year %>' ValidationGroup="book" placeholder="e.g. 2018"
+                                            min="1970"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="ReqValPubYearA" runat="server"
+                                            ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                            ControlToValidate="TbxPubYearA" ValidationGroup="book"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">ISBN</p>
                                         <asp:TextBox ID="TbxISBN" runat="server" CssClass="form-control"
-                                            placeholder="e.g. 0-7868-5686-6" MaxLength="20"></asp:TextBox>
+                                            placeholder="e.g. 0-7868-5686-6" MaxLength="20" ValidationGroup="book"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="ReqValISBN" runat="server"
+                                            ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                            ControlToValidate="TbxISBN" ValidationGroup="book"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Edition</p>
                                         <asp:TextBox ID="TbxEdition" runat="server" CssClass="form-control" TextMode="Number"
-                                            placeholder="e.g. 1" min="1"></asp:TextBox>
+                                            placeholder="e.g. 1" min="1" ValidationGroup="book"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="ReqValEdition" runat="server"
+                                            ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                            ControlToValidate="TbxEdition" ValidationGroup="book"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Quantity</p>
                                         <asp:TextBox ID="TbxQuantity" runat="server" CssClass="form-control" TextMode="Number"
-                                            placeholder="e.g. 1" min="1"></asp:TextBox>
+                                            placeholder="e.g. 1" min="1" ValidationGroup="book"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="ReqValQuant" runat="server"
+                                            ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                            ControlToValidate="TbxQuantity" ValidationGroup="book"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button id="BtnAddBook" type="button" class="btn btn-library-10"
+                                    runat="server" onserverclick="BtnAddBook_ServerClick" validationgroup="book">
+                                    Add Book</button>
+                                <button id="BtnResetBookFields" runat="server" type="button" class="btn btn-secondary" data-dismiss="modal"
+                                    onserverclick="BtnResetBookFields_ServerClick">
+                                    Cancel</button>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    <div class="modal-footer">
-                        <button id="BtnAddBook" type="button" class="btn btn-library-10"
-                            runat="server" onserverclick="BtnAddBook_ServerClick" validationgroup="book">
-                            Add Book</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
+
                 </div>
             </div>
         </div>
 
         <%-- Add Author modal --%>
-        <div class="modal" id="AddAuthorModal" tabindex="-1" role="dialog" aria-labelledby="AddAuthorModalLabel" aria-hidden="true">
+        <div class="modal fade" id="AddAuthorModal" tabindex="-1" role="dialog" aria-labelledby="AddAuthorModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -283,23 +305,21 @@
                                             ErrorMessage="This field is required" ControlToValidate="TbxLastName" Display="Dynamic" ValidationGroup="author"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="modal-footer">
+                                <button id="BtnAddAuthorB" type="button" class="btn btn-library-10"
+                                    runat="server" onserverclick="BtnAddAuthor_Click" validationgroup="author">
+                                    Add Author</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
-                    <div class="modal-footer">
-                        <button id="BtnAddAuthorB" type="button" class="btn btn-library-10"
-                            runat="server" onserverclick="BtnAddAuthor_Click" validationgroup="author">
-                            Add Author</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
                 </div>
             </div>
         </div>
 
         <%-- Add publisher modal --%>
-        <div class="modal" id="AddPublisherModal" tabindex="-1" role="dialog" aria-labelledby="AddPublisherModalLabel" aria-hidden="true">
+        <div class="modal fade" id="AddPublisherModal" tabindex="-1" role="dialog" aria-labelledby="AddPublisherModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -317,7 +337,8 @@
                                         <asp:TextBox ID="TbxPublisherName" runat="server" CssClass="form-control"
                                             placeholder="Publisher Name" ValidationGroup="publisher"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ForeColor="Red"
-                                            ErrorMessage="This field is required" ControlToValidate="TbxPublisherName" Display="Dynamic" ValidationGroup="publisher"></asp:RequiredFieldValidator>
+                                            ErrorMessage="This field is required" ControlToValidate="TbxPublisherName" 
+                                            Display="Dynamic" ValidationGroup="publisher"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-6 mb-1">
                                         <p class="h6">Location of Headquarters</p>
@@ -326,15 +347,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button id="BtnAddPublisher" type="button" class="btn btn-library-10"
+                                    runat="server" onserverclick="BtnAddPublisher_ServerClick" validationgroup="publisher">
+                                    Add Publisher</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
 
-                    <div class="modal-footer">
-                        <button id="BtnAddPublisher" type="button" class="btn btn-library-10"
-                            runat="server" onserverclick="BtnAddPublisher_ServerClick" validationgroup="publisher">
-                            Add Publisher</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -370,13 +392,11 @@
                                                 <p class="h6">Publisher</p>
                                                 <asp:DropDownList ID="DrpPublishersB" runat="server" CssClass="custom-select" DataSourceID="SourcePublishers"
                                                     DataTextField="publisherName" DataValueField="publisherID" AppendDataBoundItems="True" SelectedValue='<%# Bind("publisherID") %>'>
-                                                    <asp:ListItem Value="-99">Select a publisher...</asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Genre</p>
                                                 <asp:DropDownList ID="DrpGenresB" runat="server" CssClass="custom-select" SelectedValue='<%# Bind("genre") %>'>
-                                                    <asp:ListItem>Select a genre...</asp:ListItem>
                                                     <asp:ListItem>Science fiction</asp:ListItem>
                                                     <asp:ListItem>Drama</asp:ListItem>
                                                     <asp:ListItem>Action and Adventure</asp:ListItem>
@@ -397,8 +417,8 @@
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Year of Publication</p>
-                                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("publishYear") %>' CssClass="form-control"
-                                                    TextMode="Number"
+                                                <asp:TextBox ID="TbxPubYear" runat="server" Text='<%# Bind("publishYear") %>' CssClass="form-control"
+                                                    TextMode="Number" max='<%# DateTime.Now.Year %>'
                                                     min="1970"></asp:TextBox>
                                             </div>
                                             <div class="form-group mb-1">
@@ -622,7 +642,7 @@
                 <asp:ControlParameter ControlID="TbxISBN" Name="ISBN" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="TbxEdition" Name="edition" PropertyName="Text" Type="Int16" />
                 <asp:ControlParameter ControlID="DrpGenres" Name="genre" PropertyName="SelectedValue" Type="String" />
-                <asp:ControlParameter ControlID="DrpPubYear" Name="publishYr" PropertyName="SelectedValue" Type="Int16" />
+                <asp:ControlParameter ControlID="TbxPubYearA" Name="publishYr" PropertyName="Text" Type="Int16" />
                 <asp:ControlParameter Name="bookCount" Type="Int16" ControlID="TbxQuantity" PropertyName="Text" />
             </InsertParameters>
         </asp:SqlDataSource>

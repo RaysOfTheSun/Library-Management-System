@@ -31,7 +31,7 @@
                                     </div>
                                 </EmptyDataTemplate>
                                 <Columns>
-                                    <asp:BoundField DataField="rentalID" HeaderText="rentalID" ReadOnly="True" SortExpression="rentalID" />
+                                    <asp:BoundField DataField="rentalID" HeaderText="Rental ID" ReadOnly="True" SortExpression="rentalID" />
                                     <asp:BoundField DataField="accountOwner" HeaderText="Requestor" SortExpression="accountOwner" ReadOnly="True" />
                                     <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
                                     <asp:BoundField DataField="fullName" HeaderText="Author" ReadOnly="True" SortExpression="fullName" />
@@ -77,10 +77,10 @@
                                     </div>
                                 </EmptyDataTemplate>
                                 <Columns>
-                                    <asp:BoundField DataField="rentalID" HeaderText="rentalID" ReadOnly="True" SortExpression="rentalID" />
+                                    <asp:BoundField DataField="rentalID" HeaderText="Rental ID" ReadOnly="True" SortExpression="rentalID" />
                                     <asp:BoundField DataField="accountOwner" HeaderText="Renter" ReadOnly="True" SortExpression="accountOwner" />
                                     <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
-                                    <asp:BoundField DataField="fullName" HeaderText="FullName" ReadOnly="True" SortExpression="fullName" />
+                                    <asp:BoundField DataField="fullName" HeaderText="Author" ReadOnly="True" SortExpression="fullName" />
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
                                     <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" DataFormatString="{0:d}" />

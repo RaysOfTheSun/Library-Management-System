@@ -4,11 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace LMS
 {
     public partial class ManageUsers : System.Web.UI.Page
     {
+        string connString = ConfigurationManager.ConnectionStrings["LibraryDBConnectionString"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -49,6 +54,31 @@ namespace LMS
             SourceUsersEdit.Delete();
             GvwDetails.DataBind();
             GvwAccounts.DataBind();
+        }
+
+        protected bool IsRenting(object borrowerID)
+        {
+            bool result = false;
+            int bID = Convert.ToInt32(borrowerID);
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand comm = new SqlCommand("SELECT COUNT(borrowerID) from " +
+                    "BookRentals WHERE borrowerID = @id", conn))
+                {
+                    comm.Parameters.Add("@id", SqlDbType.Int).Value = bID;
+                    conn.Open();
+                    int rowCount = Convert.ToInt32(comm.ExecuteScalar());
+
+                    if (rowCount <= 0)
+                    {
+                        result = true;
+                    }
+
+                }
+            }
+
+            return result;
         }
     }
 }
