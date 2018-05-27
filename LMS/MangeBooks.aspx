@@ -61,7 +61,7 @@
                                                 data-target="#EditBookModal" />
                                             <asp:Button ID="GrdBtnDeleteBook" runat="server" Text="Delete" CssClass="btn btn-danger" CommandName="deleteItem"
                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
-                                                data-target="#DeleteBookModal" />
+                                                data-target="#DeleteBookModal" Enabled='<%# IsRented(Eval("bookID")) %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -100,7 +100,7 @@
                                                 <div class="col-sm-6">
                                                     <asp:Button ID="GrdBtnDeleteAuth" runat="server" Text="Delete" CssClass="btn btn-danger btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("authorID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#DeleteAuthorModal" />
+                                                        data-target="#DeleteAuthorModal" Enabled='<%# IsOwnerOfRentedBook(Eval("authorID")) %>' />
                                                 </div>
                                             </div>
                                         </ItemTemplate>
@@ -144,7 +144,7 @@
                                                 <div class="col-sm-6">
                                                     <asp:Button ID="GrdBtnDeletePub" runat="server" Text="Delete" CssClass="btn btn-danger btn-block"
                                                         CommandArgument='<%# Eval("publisherID") %>' CausesValidation="false" data-toggle="modal"
-                                                        data-target="#DeletePublisher" />
+                                                        data-target="#DeletePublisher" Enabled='<%# IsPublisherOfRentedBook(Eval("publisherID")) %>' />
                                                 </div>
                                             </div>
                                         </ItemTemplate>
@@ -191,12 +191,22 @@
                                         <asp:DropDownList ID="DrpAuthors" runat="server" CssClass="custom-select" DataSourceID="SourceAuthorNames"
                                             DataTextField="fullName" DataValueField="authorID" AppendDataBoundItems="true">
                                         </asp:DropDownList>
+                                        <small>
+                                            <asp:LinkButton ID="LBtnAddMissingAuthor" runat="server"
+                                                data-toggle="modal" data-target="#AddAuthorModal" CausesValidation="false">
+                                            Add a missing author</asp:LinkButton>
+                                        </small>
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Publisher</p>
                                         <asp:DropDownList ID="DrpPublishers" runat="server" CssClass="custom-select" DataSourceID="SourcePublishers"
                                             DataTextField="publisherName" DataValueField="publisherID" AppendDataBoundItems="True">
                                         </asp:DropDownList>
+                                        <small>
+                                            <asp:LinkButton ID="LBtnAddMissingPub" runat="server"
+                                                data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false">
+                                            Add a missing publisher</asp:LinkButton>
+                                        </small>
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Genre</p>
@@ -578,7 +588,7 @@
         </div>
 
         <!-- Delete Publisher modal -->
-        <div class="modal" id="DeletePublisher" tabindex="-1" role="dialog" aria-labelledby="DeletePublisherLabel" aria-hidden="true">
+        <div class="modal fade" id="DeletePublisher" tabindex="-1" role="dialog" aria-labelledby="DeletePublisherLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -600,16 +610,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnDeletePub" runat="server" onserverclick="BtnDeletePub_ServerClick">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="BtnDeletePub" runat="server" onserverclick="BtnDeletePub_ServerClick">Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>
 
         <!-- Delete Author modal -->
-        <div class="modal" id="DeleteAuthorModal" tabindex="-1" role="dialog" aria-labelledby="DeleteAuthorLabel" aria-hidden="true">
+        <div class="modal fade" id="DeleteAuthorModal" tabindex="-1" role="dialog" aria-labelledby="DeleteAuthorLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -631,16 +646,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnDeleteAuthor" runat="server" onserverclick="BtnDeleteAuthor_ServerClick">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="BtnDeleteAuthor" runat="server" onserverclick="BtnDeleteAuthor_ServerClick">Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>
 
         <!-- Delete Book modal -->
-        <div class="modal" id="DeleteBookModal" tabindex="-1" role="dialog" aria-labelledby="DeleteBookLabel" aria-hidden="true">
+        <div class="modal fade" id="DeleteBookModal" tabindex="-1" role="dialog" aria-labelledby="DeleteBookLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -662,10 +682,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnDeleteBook" runat="server" onserverclick="BtnDeleteBook_ServerClick">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="BtnDeleteBook" runat="server" onserverclick="BtnDeleteBook_ServerClick">Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>

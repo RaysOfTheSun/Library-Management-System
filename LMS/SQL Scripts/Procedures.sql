@@ -56,11 +56,15 @@ CREATE OR ALTER PROCEDURE UpdateAuthor(@first NVARCHAR(50), @middle NVARCHAR(50)
 GO
 
 CREATE OR ALTER PROCEDURE DeleteAuthor(@id INT) AS 
+	DELETE FROM BookStatuses WHERE bookID IN 
+		(SELECT bookID FROM Books WHERE authorID = @id)
 	DELETE FROM Books WHERE authorID = @id
 	DELETE FROM BookAuthors WHERE authorID = @id
 GO
 
 CREATE OR ALTER PROCEDURE DeletePublisher(@id INT) AS
+	DELETE FROM BookStatuses WHERE bookID IN 
+		(SELECT bookID FROM Books WHERE publisherID = @id)
 	DELETE Books WHERE publisherID = @id
 	DELETE FROM BookPublishers WHERE publisherID = @id
 GO
@@ -126,5 +130,3 @@ GO
 
 CREATE OR ALTER PROCEDURE ExtendRetal(@rentalID INT, @date DATE) AS
 	UPDATE BookRentals SET returnDate = @date WHERE rentalID = @rentalID
-
-select * from BookRentals

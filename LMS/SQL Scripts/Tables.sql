@@ -220,8 +220,14 @@ CREATE OR ALTER VIEW EditBookView AS
 		Books.edition, Books.genre, BookStatuses.bookCount FROM Books
 		INNER JOIN BookStatuses ON Books.bookID = BookStatuses.bookID
 GO
-select * from BookDisplay
-select * from RentalDetails
+
+CREATE OR ALTER VIEW RentedBooksWithAuthorID AS 
+	SELECT BookRentals.bookID, BookAuthors.authorID, BookPublishers.publisherID FROM BookRentals
+	INNER JOIN Books ON BookRentals.bookID = Books.bookID
+	INNER JOIN BookAuthors ON Books.authorID = BookAuthors.authorID
+	INNER JOIN BookPublishers ON Books.publisherID = BookPublishers.publisherID
+GO
+
 ----DROPS
 --DROP TABLE BookImages
 --DROP TABLE RentalRequests
@@ -233,3 +239,4 @@ select * from RentalDetails
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries
 --DROP VIEW PublisherWithCityName
+GO

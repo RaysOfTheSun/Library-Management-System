@@ -139,6 +139,15 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.DropDownList DrpAuthors;
         
         /// <summary>
+        /// LBtnAddMissingAuthor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LBtnAddMissingAuthor;
+        
+        /// <summary>
         /// DrpPublishers control.
         /// </summary>
         /// <remarks>
@@ -146,6 +155,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DrpPublishers;
+        
+        /// <summary>
+        /// LBtnAddMissingPub control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LBtnAddMissingPub;
         
         /// <summary>
         /// DrpGenres control.
@@ -463,6 +481,15 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlButton FvBtnUpdatePub;
         
         /// <summary>
+        /// UpdatePanel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        
+        /// <summary>
         /// BtnDeletePub control.
         /// </summary>
         /// <remarks>
@@ -472,6 +499,15 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeletePub;
         
         /// <summary>
+        /// UpdatePanel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
+        
+        /// <summary>
         /// BtnDeleteAuthor control.
         /// </summary>
         /// <remarks>
@@ -479,6 +515,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeleteAuthor;
+        
+        /// <summary>
+        /// UpdatePanel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel8;
         
         /// <summary>
         /// BtnDeleteBook control.
