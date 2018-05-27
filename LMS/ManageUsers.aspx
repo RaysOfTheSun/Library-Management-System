@@ -105,7 +105,7 @@
 
 
         <!-- Edit User Details modal -->
-        <div class="modal" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalTitle" aria-hidden="true">
+        <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -122,19 +122,36 @@
                                         <div class="justify-content-center align-items-center">
                                             <div class="form-group mb-1">
                                                 <p class="h6">First Name</p>
-                                                <asp:TextBox ID="firstNameTextBox" runat="server" Text='<%# Bind("firstName") %>' CssClass="form-control" />
+                                                <asp:TextBox ID="firstNameTextBox" runat="server" Text='<%# Bind("firstName") %>'
+                                                    CssClass="form-control" ValidationGroup="updateUser" />
+                                                <asp:RequiredFieldValidator ID="ReqValFirstNameU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="firstNameTextBox" ValidationGroup="updateUser"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Middle Name</p>
-                                                <asp:TextBox ID="middleNameTextBox" runat="server" Text='<%# Bind("middleName") %>' CssClass="form-control" />
+                                                <asp:TextBox ID="middleNameTextBox" runat="server" Text='<%# Bind("middleName") %>'
+                                                    CssClass="form-control" ValidationGroup="updateUser" />
+                                                <asp:RequiredFieldValidator ID="ReqValMiddleNameU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="firstNameTextBox" ValidationGroup="updateUser"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Last Name</p>
-                                                <asp:TextBox ID="lastNameTextBox" runat="server" Text='<%# Bind("lastName") %>' CssClass="form-control" />
+                                                <asp:TextBox ID="lastNameTextBox" runat="server" Text='<%# Bind("lastName") %>'
+                                                    CssClass="form-control" ValidationGroup="updateUser" />
+                                                <asp:RequiredFieldValidator ID="ReqValLastNameU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="firstNameTextBox" ValidationGroup="updateUser"></asp:RequiredFieldValidator>
+
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">E-mail</p>
-                                                <asp:TextBox ID="mailTextBox" runat="server" Text='<%# Bind("mail") %>' CssClass="form-control" />
+                                                <asp:TextBox ID="mailTextBox" runat="server" Text='<%# Bind("mail") %>'
+                                                    CssClass="form-control" ValidationGroup="updateUser" />
+                                                <asp:RequiredFieldValidator ID="ReqValMailU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="firstNameTextBox" ValidationGroup="updateUser"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Home Country</p>
@@ -150,31 +167,40 @@
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Street Address</p>
-                                                <asp:TextBox ID="streetTextBox" runat="server" TextMode="MultiLine" Text='<%# Bind("street") %>' CssClass="form-control" />
+                                                <asp:TextBox ID="streetTextBox" runat="server" TextMode="MultiLine" Text='<%# Bind("street") %>'
+                                                    CssClass="form-control" ValidationGroup="updateUser" />
+                                                <asp:RequiredFieldValidator ID="ReqValStreetU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="streetTextBox" ValidationGroup="updateUser"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Zip Code</p>
-                                                <asp:TextBox ID="zipCodeTextBox" runat="server" Text='<%# Bind("zipCode") %>' CssClass="form-control" />
+                                                <asp:TextBox ID="zipCodeTextBox" runat="server" Text='<%# Bind("zipCode") %>'
+                                                    CssClass="form-control" ValidationGroup="updateUser" />
+                                                <asp:RequiredFieldValidator ID="ReqValZipU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="zipCodeTextBox" ValidationGroup="updateUser"></asp:RequiredFieldValidator>
                                                 <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("addressID") %>' CssClass="form-control" Visible="false" />
                                             </div>
                                         </div>
                                     </EditItemTemplate>
                                 </asp:FormView>
                             </div>
+                            <div class="modal-footer">
+                                <button id="BtnUpdateUserDet" type="button" class="btn btn-library-10"
+                                    runat="server" onserverclick="BtnUpdateUserDet_ServerClick" validationgroup="editDet">
+                                    Update</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    <div class="modal-footer">
-                        <button id="BtnUpdateUserDet" type="button" class="btn btn-library-10"
-                            runat="server" onserverclick="BtnUpdateUserDet_ServerClick" validationgroup="editDet">
-                            Update</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
+
                 </div>
             </div>
         </div>
 
         <!-- Edit User Account modal -->
-        <div class="modal" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="editAccountModalTitle" aria-hidden="true">
+        <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="editAccountModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -197,32 +223,37 @@
                                             <div class="form-group mb-1">
                                                 <p class="h6">Username</p>
                                                 <asp:TextBox ID="userNameTextBox" runat="server" Text='<%# Bind("userName") %>'
-                                                    CssClass="form-control" />
+                                                    CssClass="form-control" ValidationGroup="updateAccount" />
+                                                <asp:RequiredFieldValidator ID="ReqValUsernameU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="userNameTextBox" ValidationGroup="updateAccount"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Password</p>
                                                 <asp:TextBox ID="accountPasswordTextBox" runat="server" Text='<%# Bind("accountPassword") %>'
-                                                    CssClass="form-control" />
+                                                    CssClass="form-control" ValidationGroup="updateAccount" />
+                                                <asp:RequiredFieldValidator ID="ReqValPassU" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="accountPasswordTextBox" ValidationGroup="updateAccount"></asp:RequiredFieldValidator>
                                             </div>
                                         </div>
                                     </EditItemTemplate>
                                 </asp:FormView>
                             </div>
+                            <div class="modal-footer">
+                                <button id="BtnEditAcc" type="button" class="btn btn-library-10"
+                                    runat="server" onserverclick="BtnEditAcc_ServerClick" validationgroup="editAcc">
+                                    Update</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
-                    <div class="modal-footer">
-                        <button id="BtnEditAcc" type="button" class="btn btn-library-10"
-                            runat="server" onserverclick="BtnEditAcc_ServerClick" validationgroup="editAcc">
-                            Update</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Delete User Account modal -->
-        <div class="modal" id="DeleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="DeleteAccountLabel" aria-hidden="true">
+        <div class="modal fade" id="DeleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="DeleteAccountLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -244,16 +275,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnDeleteAccount" runat="server" onserverclick="BtnDeleteAccount_ServerClick">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="BtnDeleteAccount" runat="server"
+                                    onserverclick="BtnDeleteAccount_ServerClick">
+                                    Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>
 
         <!-- Delete User UserDet modal -->
-        <div class="modal" id="DeleteUserDetModal" tabindex="-1" role="dialog" aria-labelledby="DeleteUserDetLabel" aria-hidden="true">
+        <div class="modal fade" id="DeleteUserDetModal" tabindex="-1" role="dialog" aria-labelledby="DeleteUserDetLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -275,12 +313,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="BtnDeleteUser" runat="server"
-                            onserverclick="BtnDeleteUser_ServerClick">
-                            Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="BtnDeleteUser" runat="server"
+                                    onserverclick="BtnDeleteUser_ServerClick">
+                                    Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>

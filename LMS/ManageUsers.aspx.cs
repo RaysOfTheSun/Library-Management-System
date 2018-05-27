@@ -21,8 +21,13 @@ namespace LMS
 
         protected void BtnEditAcc_ServerClick(object sender, EventArgs e)
         {
-            FvwAccounts.UpdateItem(true);
-            GvwAccounts.DataBind();
+            if (IsValid)
+            {
+                FvwAccounts.UpdateItem(true);
+                GvwAccounts.DataBind();
+                ScriptManager.RegisterStartupScript(BtnEditAcc, GetType(), "editAccountModal",
+                         @"$('#editAccountModal').modal('hide');", true);
+            }
         }
 
         protected void GvwDetails_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -35,12 +40,19 @@ namespace LMS
         {
             SourceAccountsEdit.Delete();
             GvwAccounts.DataBind();
+            ScriptManager.RegisterStartupScript(BtnDeleteAccount, GetType(), "DeleteAccountModal",
+                     @"$('#DeleteAccountModal').modal('hide');", true);
         }
 
         protected void BtnUpdateUserDet_ServerClick(object sender, EventArgs e)
         {
-            FvwUserDet.UpdateItem(true);
-            GvwDetails.DataBind();
+            if (IsValid)
+            {
+                FvwUserDet.UpdateItem(true);
+                GvwDetails.DataBind();
+                ScriptManager.RegisterStartupScript(BtnUpdateUserDet, GetType(), "editUserModal",
+                         @"$('#editUserModal').modal('hide');", true);
+            }
         }
 
         protected void GvwDetails_RowCommand1(object sender, GridViewCommandEventArgs e)
@@ -54,6 +66,8 @@ namespace LMS
             SourceUsersEdit.Delete();
             GvwDetails.DataBind();
             GvwAccounts.DataBind();
+            ScriptManager.RegisterStartupScript(BtnDeleteUser, GetType(), "DeleteUserDetModal",
+                     @"$('#DeleteUserDetModal').modal('hide');", true);
         }
 
         protected bool IsRenting(object borrowerID)

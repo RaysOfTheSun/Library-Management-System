@@ -17,8 +17,7 @@ namespace LMS
         {
             Master.HideFooterHeader();
         }
-
-
+        
         protected void BtnCreate_Click(object sender, EventArgs e)
         {
             if (IsValid)
@@ -39,12 +38,14 @@ namespace LMS
                         }
                     }
                 }
+
+                Response.Redirect(@"~/Login.aspx");
+
             }
         }
 
         protected void LibraryDB_Inserted(object sender, SqlDataSourceStatusEventArgs e)
         {
-            Response.Redirect(@"~/Login.aspx");
         }
     }
 }
