@@ -56,6 +56,8 @@ CREATE OR ALTER PROCEDURE UpdateAuthor(@first NVARCHAR(50), @last NVARCHAR(50), 
 GO
 
 CREATE OR ALTER PROCEDURE DeleteAuthor(@id INT) AS 
+	DELETE FROM LibraryIndex WHERE bookID IN 
+		(SELECT bookID FROM Books WHERE authorID = @id)
 	DELETE FROM BookStatuses WHERE bookID IN 
 		(SELECT bookID FROM Books WHERE authorID = @id)
 	DELETE FROM Books WHERE authorID = @id
@@ -63,6 +65,8 @@ CREATE OR ALTER PROCEDURE DeleteAuthor(@id INT) AS
 GO
 
 CREATE OR ALTER PROCEDURE DeletePublisher(@id INT) AS
+	DELETE FROM LibraryIndex WHERE bookID IN 
+		(SELECT bookID FROM Books WHERE publisherID = @id)
 	DELETE FROM BookStatuses WHERE bookID IN 
 		(SELECT bookID FROM Books WHERE publisherID = @id)
 	DELETE Books WHERE publisherID = @id
@@ -89,8 +93,8 @@ CREATE OR ALTER PROCEDURE AddBook(@authorID INT, @publisherID INT, @title NVARCH
 	INSERT INTO LibraryIndex (bookID) VALUES (IDENT_CURRENT('Books'))
 GO
 
-CREATE OR ALTER PROCEDURE UpdateCallNumber (@bookID INT, @callNumber NVARCHAR(20)) AS
-	UPDATE LibraryIndex SET callNumber = @callNumber WHERE bookID = @bookID
+CREATE OR ALTER PROCEDURE UpdateCallNumber (@indexID INT, @callNumber NVARCHAR(20)) AS
+	UPDATE LibraryIndex SET callNumber = @callNumber WHERE indexID = @indexID
 GO
 
 --Location Related Procedures

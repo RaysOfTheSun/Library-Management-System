@@ -227,7 +227,13 @@ CREATE OR ALTER VIEW RentedBooksWithAuthorID AS
 	INNER JOIN BookPublishers ON Books.publisherID = BookPublishers.publisherID
 GO
 
-select * from LibraryIndex
+CREATE OR ALTER VIEW LibraryIndexNamed AS 
+	SELECT LibraryIndex.indexID, Books.title, AuthorNames.fullName, Books.genre, LibraryIndex.callNumber
+		FROM LibraryIndex 
+		INNER JOIN Books ON Books.bookID = LibraryIndex.bookID
+		INNER JOIN AuthorNames ON Books.authorID = AuthorNames.authorID
+GO
+SELECT * FROM LibraryIndexNamed WHERE indexID = 1
 ----DROPS
 --DROP TABLE BookImages
 --DROP TABLE RentalRequests

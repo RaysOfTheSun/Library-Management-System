@@ -4,13 +4,17 @@
     <div class="wrap">
         <div class="container" style="font-size: 1.3vw;">
             <nav>
+
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-library-tab" data-toggle="tab" href="#nav-library" role="tab" aria-controls="nav-library" aria-selected="true">
+                        <i class="fa fa-bookmark"></i>&nbsp;Library</a>
                     <a class="nav-item nav-link" id="nav-titles-tab" data-toggle="tab" href="#nav-titles" role="tab" aria-controls="nav-titles" aria-selected="false">
                         <i class="fas fa-book"></i>&nbsp;Titles</a>
-                    <a class="nav-item nav-link active" id="nav-authors-tab" data-toggle="tab" href="#nav-authors" role="tab" aria-controls="nav-authors" aria-selected="true">
+                    <a class="nav-item nav-link" id="nav-authors-tab" data-toggle="tab" href="#nav-authors" role="tab" aria-controls="nav-authors" aria-selected="false">
                         <i class="fas fa-user"></i>&nbsp;Authors</a>
                     <a class="nav-item nav-link" id="nav-publishers-tab" data-toggle="tab" href="#nav-publishers" role="tab" aria-controls="nav-publishers" aria-selected="false">
                         <i class="fas fa-print"></i>&nbsp;Publishers</a>
+
                     <asp:HiddenField ID="hiddenID" runat="server" />
                 </div>
             </nav>
@@ -29,7 +33,43 @@
                         OnClientClick="return false;" data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false" />
                 </div>
             </div>
-            <%-- Books Tab --%>
+            <%--Libray tab--%>
+            <div class="tab-pane fade" id="nav-library" role="tabpanel" aria-labelledby="nav-library-tab">
+                <div class="container">
+                    <asp:UpdatePanel ID="UpdatePanel9" runat="server" ChildrenAsTriggers="true">
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="GrdLibraryIndex" />
+                        </Triggers>
+                        <ContentTemplate>
+                            <asp:GridView ID="GrdLibraryIndex" runat="server" AutoGenerateColumns="False"
+                                CssClass="table" DataSourceID="SourceLibrary" DataKeyNames="indexID" AllowPaging="True" PageSize="6" OnRowCommand="GrdPublishers_RowCommand" GridLines="Horizontal" BorderStyle="None">
+                                <Columns>
+                                    <asp:BoundField DataField="indexID" HeaderText="Index ID" ReadOnly="True" SortExpression="indexID" />
+                                    <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
+                                    <asp:BoundField DataField="fullName" HeaderText="Author" ReadOnly="True" SortExpression="fullName" />
+                                    <asp:BoundField DataField="genre" HeaderText="Genre" SortExpression="genre" />
+                                    <asp:BoundField DataField="callNumber" HeaderText="Call Number" SortExpression="callNumber" NullDisplayText="None Assigned" />
+                                    <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
+                                        <ItemTemplate>
+                                            <asp:Button ID="GrdBtnDeletePub" runat="server" Text="Edit" CssClass="btn btn-primary btn-block"
+                                                CommandArgument='<%# Eval("indexID") %>' CausesValidation="false" data-toggle="modal"
+                                                data-target="#EditLibIndexModal" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <EmptyDataTemplate>
+                                    <div class="container text-center">
+                                        <p class="lead">There is currently nothing to show.</p>
+                                    </div>
+                                </EmptyDataTemplate>
+                                <HeaderStyle BorderStyle="Solid" VerticalAlign="Middle" Wrap="False" />
+                                <RowStyle VerticalAlign="Middle" />
+                            </asp:GridView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+            <%-- Book tab --%>
             <div class="tab-pane fade" id="nav-titles" role="tabpanel" aria-labelledby="nav-titles-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UPBooks" runat="server" ChildrenAsTriggers="true">
@@ -72,8 +112,9 @@
                     </asp:UpdatePanel>
                 </div>
             </div>
-            <%-- Authors Tab --%>
+            <%-- Authors tab --%>
             <div class="tab-pane fade show active" id="nav-authors" role="tabpanel" aria-labelledby="nav-authors-tab">
+
                 <div class="container">
                     <asp:UpdatePanel ID="UPLAddAuth" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
@@ -110,11 +151,9 @@
                             </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
                 </div>
-
             </div>
-            <%-- Publishers Tab --%>
+            <%-- Publishers tab --%>
             <div class="tab-pane fade" id="nav-publishers" role="tabpanel" aria-labelledby="nav-publishers-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UPPub" runat="server" ChildrenAsTriggers="true">
@@ -156,9 +195,12 @@
                     </asp:UpdatePanel>
                 </div>
             </div>
+
         </div>
 
-        <%--Add Book modal--%>
+
+
+        <%-- Edit Book modal --%>
         <div class="modal fade" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -487,7 +529,7 @@
                     <asp:UpdatePanel ID="UPDLupAuth" runat="server">
                         <ContentTemplate>
                             <div class="modal-body">
-                                <asp:FormView ID="FvwAuthors" runat="server" DataKeyNames="authorID" DataSourceID="SourceAuthorEdit" 
+                                <asp:FormView ID="FvwAuthors" runat="server" DataKeyNames="authorID" DataSourceID="SourceAuthorEdit"
                                     DefaultMode="Edit" CssClass="w-100">
                                     <EditItemTemplate>
                                         <div class="form-row">
@@ -537,7 +579,7 @@
                     <asp:UpdatePanel ID="UpdatePanel7" runat="server">
                         <ContentTemplate>
                             <div class="modal-body">
-                                <asp:FormView ID="FormView1" runat="server" DataSourceID="SourcePublisherEdit" DataKeyNames="publisherID" 
+                                <asp:FormView ID="FormView1" runat="server" DataSourceID="SourcePublisherEdit" DataKeyNames="publisherID"
                                     DefaultMode="Edit" CssClass="w-100">
                                     <EditItemTemplate>
                                         <div class="form-row">
@@ -562,6 +604,61 @@
                             <div class="modal-footer">
                                 <button id="FvBtnUpdatePub" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="FvBtnUpdatePub_ServerClick" validationgroup="editPub">
+                                    Update</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit LibIndex modal -->
+        <div class="modal fade" id="EditLibIndexModal" tabindex="-1" role="dialog" aria-labelledby="EditLibIndexModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="EditLibIndexModalLabel"><strong>Edit Book Call Number</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel10" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <asp:FormView ID="FvwLibIndex" runat="server" DataKeyNames="indexID"
+                                    DataSourceID="SourceLibraryEdit" CssClass="w-100" DefaultMode="Edit">
+                                    <EditItemTemplate>
+                                        <div class="justify-content-center align-items-center">
+                                            <div class="form-group mb-1">
+                                                <p class="h6">Title</p>
+                                                <asp:TextBox ID="titleTextBox" runat="server" Text='<%# Bind("title") %>'
+                                                    CssClass="form-control" Enabled="false" />
+                                            </div>
+                                            <div class="form-group mb-1">
+                                                <p class="h6">Author</p>
+                                                <asp:TextBox ID="fullNameTextBox" runat="server" Text='<%# Bind("fullName") %>'
+                                                    CssClass="form-control" Enabled="false" />
+                                            </div>
+                                            <div class="form-group mb-1">
+                                                <p class="h6">Genre</p>
+                                                <asp:TextBox ID="genreTextBox" runat="server" Text='<%# Bind("genre") %>'
+                                                    CssClass="form-control" Enabled="false" />
+                                            </div>
+                                            <div class="form-group mb-1">
+                                                <p class="h6">Call Number</p>
+                                                <asp:TextBox ID="callNumberTextBox" runat="server" Text='<%# Bind("callNumber") %>'
+                                                    CssClass="form-control" MaxLength="20" />
+                                            </div>
+                                        </div>
+                                    </EditItemTemplate>
+                                </asp:FormView>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="FvBtnUpdateCallNum" type="button" class="btn btn-library-10"
+                                    runat="server" onserverclick="FvBtnUpdateCallNum_ServerClick" validationgroup="editPub">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
@@ -680,7 +777,7 @@
             </div>
         </div>
 
-        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr, @bookCount">
+        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr, @bookCount" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
             <InsertParameters>
                 <asp:ControlParameter ControlID="DrpAuthors" Name="authorID" PropertyName="SelectedValue" Type="Int32" />
                 <asp:ControlParameter ControlID="DrpPublishers" Name="publisherID" PropertyName="SelectedValue" Type="Int32" />
@@ -692,7 +789,7 @@
                 <asp:ControlParameter Name="bookCount" Type="Int16" ControlID="TbxQuantity" PropertyName="Text" />
             </InsertParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @last" DeleteCommand="EXEC DeleteAuthor @id">
+        <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @last" DeleteCommand="EXEC DeleteAuthor @id" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
             <DeleteParameters>
                 <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
             </DeleteParameters>
@@ -701,7 +798,7 @@
                 <asp:ControlParameter ControlID="TbxLastName" Name="last" PropertyName="Text" Type="String" />
             </InsertParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourcePublishers" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [PublisherWithCountryName]" InsertCommand="EXEC AddPublisher @publisherName, @cityID">
+        <asp:SqlDataSource ID="SourcePublishers" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [PublisherWithCountryName]" InsertCommand="EXEC AddPublisher @publisherName, @cityID" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
             <InsertParameters>
                 <asp:ControlParameter Name="publisherName" ControlID="TbxPublisherName" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="DrpCountry" Name="cityID" PropertyName="SelectedValue" Type="Int32" />
@@ -715,7 +812,7 @@
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM EditBookView WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookCount, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteBook @id">
+        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM EditBookView WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookCount, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteBook @id" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
             <DeleteParameters>
                 <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
             </DeleteParameters>
@@ -723,12 +820,18 @@
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceAuthorEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors] WHERE authorID = @id" UpdateCommand="EXEC UpdateAuthor @firstName, @lastName, @authorID" DeleteCommand="EXEC DeleteAuthor @id">
+        <asp:SqlDataSource ID="SourceAuthorEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors] WHERE authorID = @id" UpdateCommand="EXEC UpdateAuthor @firstName, @lastName, @authorID" DeleteCommand="EXEC DeleteAuthor @id" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
             <DeleteParameters>
                 <asp:SessionParameter Name="id" SessionField="keys" />
             </DeleteParameters>
             <SelectParameters>
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="SourceLibrary" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM LibraryIndexNamed"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SourceLibraryEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM LibraryIndexNamed WHERE indexID = @id" UpdateCommand="EXEC UpdateCallNumber @indexID, @callNumber">
+            <SelectParameters>
+                <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
         <asp:SqlDataSource ID="SourceAuthorNames" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [AuthorNames]" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"></asp:SqlDataSource>

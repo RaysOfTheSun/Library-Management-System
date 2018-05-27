@@ -52,6 +52,8 @@ namespace LMS
                 TbxEdition.Text = "";
                 TbxPubYearA.Text = "";
                 TbxQuantity.Text = "";
+                GrdBooks.DataBind();
+                GrdLibraryIndex.DataBind();
                 ScriptManager.RegisterStartupScript(BtnAddBook, GetType(), "AddBookModal",
                     @"$('#AddBookModal').modal('hide');", true);
             }
@@ -85,6 +87,7 @@ namespace LMS
                 FvwAuthors.UpdateItem(true);
                 GrdAuthors.DataBind();
                 GrdBooks.DataBind();
+                GrdLibraryIndex.DataBind();
 
                 DrpAuthors.Items.Clear();
                 DrpAuthors.DataBind();
@@ -100,6 +103,7 @@ namespace LMS
             {
                 Books.UpdateItem(true);
                 GrdBooks.DataBind();
+                GrdLibraryIndex.DataBind();
                 ScriptManager.RegisterStartupScript(BtnEditBook, GetType(), "EditBookModal",
                          @"$('#EditBookModal').modal('hide');", true);
             }
@@ -132,6 +136,7 @@ namespace LMS
             SourceAuthorEdit.Delete();
             GrdAuthors.DataBind();
             GrdBooks.DataBind();
+            GrdLibraryIndex.DataBind();
 
             DrpAuthors.Items.Clear();
             DrpAuthors.DataBind();
@@ -239,6 +244,17 @@ namespace LMS
             }
 
             return result;
+        }
+
+        protected void FvBtnUpdateCallNum_ServerClick(object sender, EventArgs e)
+        {
+            if (IsValid)
+            {
+                FvwLibIndex.UpdateItem(true);
+                GrdLibraryIndex.DataBind();
+                ScriptManager.RegisterStartupScript(BtnDeleteBook, GetType(), "EditLibIndexModal",
+                         @"$('#EditLibIndexModal').modal('hide');", true);
+            }
         }
     }
 }
