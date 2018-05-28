@@ -11,7 +11,15 @@ namespace LMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "ALL")
+            {
+                SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
+                    $"CONTAINS(title,'\"{Request.Params["term"]}*\"') OR " +
+                    $"CONTAINS(author,'\"{Request.Params["term"]}*\"') OR " +
+                    $"CONTAINS(ISBN,'\"{Request.Params["term"]}*\"') OR " +
+                    $"CONTAINS(publisherName,'\"{Request.Params["term"]}*\"') OR " +
+                    $"CONTAINS(genre,'\"{Request.Params["term"]}*\"')";
+            }
         }
 
         protected void ListViewSearchResults_ItemCommand(object sender, ListViewCommandEventArgs e)

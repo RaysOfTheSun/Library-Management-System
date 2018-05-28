@@ -13,5 +13,10 @@ namespace LMS
         {
 
         }
+
+        protected void BtnSearchLib_Click(object sender, EventArgs e)
+        {
+            Response.Redirect($"~/Search.aspx?field={DrpField.SelectedValue}&term={TbxSearchTerms.Text}");
+        }
     }
 }

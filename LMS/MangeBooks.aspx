@@ -4,7 +4,6 @@
     <div class="wrap">
         <div class="container" style="font-size: 1.3vw;">
             <nav>
-
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-library-tab" data-toggle="tab" href="#nav-library" role="tab" aria-controls="nav-library" aria-selected="true">
                         <i class="fa fa-bookmark"></i>&nbsp;Library</a>
@@ -344,7 +343,7 @@
                                     </div>
                                     <div class="form-group col-sm-6 mb-1">
                                         <p class="h6">Last Name</p>
-                                        <asp:TextBox ID="TbxLastName" runat="server" CssClass="form-control "
+                                        <asp:TextBox ID="TbxLastName" runat="server" CssClass="form-control"
                                             placeholder="e.g. Smith" ValidationGroup="author"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="ReqValLastName" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxLastName" Display="Dynamic"

@@ -9,28 +9,28 @@
                     <div class="container">
                         <div class="form-group">
                             <asp:Label ID="lbl_searchbox" runat="server" Text="Search for" CssClass="lead col-form-label text-uppercase"></asp:Label>
-                            <asp:TextBox ID="tbx_searchbox" runat="server" CssClass="form-control form-control-lg"
+                            <asp:TextBox ID="TbxSearchTerms" runat="server" CssClass="form-control form-control-lg"
                                          placeholder="Percy Jackson, Fiction, Biography...">
                             </asp:TextBox>
                         </div>
                         <div class="form-inline">
                             <asp:Label ID="Label3" runat="server" Text="Limit search to:" CssClass="mr-1 text-uppercase lead"></asp:Label>
-                            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="custom-select mr-1">
+                            <asp:DropDownList ID="DrpItem" runat="server" CssClass="custom-select mr-1">
                                 <asp:ListItem>Books</asp:ListItem>
                             </asp:DropDownList>
-                            <asp:DropDownList ID="DropDownList2" runat="server" CssClass="custom-select mr-1">
+                            <asp:DropDownList ID="DrpWords" runat="server" CssClass="custom-select mr-1">
                                 <asp:ListItem>that contain exact words from my query</asp:ListItem>
                             </asp:DropDownList>
-                            <asp:DropDownList ID="DropDownList3" runat="server" CssClass="custom-select mr-1">
-                                <asp:ListItem>in all fields</asp:ListItem>
-                                <asp:ListItem>in title</asp:ListItem>
-                                <asp:ListItem>in author</asp:ListItem>
-                                <asp:ListItem>in publisher</asp:ListItem>
-                                <asp:ListItem>in call number</asp:ListItem>
-                                <asp:ListItem>in ISBN</asp:ListItem>
+                            <asp:DropDownList ID="DrpField" runat="server" CssClass="custom-select mr-1">
+                                <asp:ListItem Value="all">in all fields</asp:ListItem>
+                                <asp:ListItem Value="title">in title</asp:ListItem>
+                                <asp:ListItem Value="auth">in author</asp:ListItem>
+                                <asp:ListItem Value="pub">in publisher</asp:ListItem>
+                                <asp:ListItem Value="isbn">in ISBN</asp:ListItem>
                             </asp:DropDownList>
                             <div class="text-right ml-auto">
-                                <asp:Button ID="Button1" runat="server" Text="SEARCH" CssClass="btn btn-library-10" Font-Size="18px"/>
+                                <asp:Button ID="BtnSearchLib" runat="server" Text="SEARCH" CssClass="btn btn-library-10" Font-Size="18px"
+                                    OnClick="BtnSearchLib_Click"/>
                             </div>
                         </div>
                     </div>

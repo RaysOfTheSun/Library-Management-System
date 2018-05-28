@@ -22,13 +22,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.Label lbl_searchbox;
         
         /// <summary>
-        /// tbx_searchbox control.
+        /// TbxSearchTerms control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbx_searchbox;
+        protected global::System.Web.UI.WebControls.TextBox TbxSearchTerms;
         
         /// <summary>
         /// Label3 control.
@@ -40,39 +40,39 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// DrpItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList DrpItem;
         
         /// <summary>
-        /// DropDownList2 control.
+        /// DrpWords control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        protected global::System.Web.UI.WebControls.DropDownList DrpWords;
         
         /// <summary>
-        /// DropDownList3 control.
+        /// DrpField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
+        protected global::System.Web.UI.WebControls.DropDownList DrpField;
         
         /// <summary>
-        /// Button1 control.
+        /// BtnSearchLib control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button BtnSearchLib;
     }
 }
