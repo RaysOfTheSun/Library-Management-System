@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -22,10 +23,10 @@ namespace LMS
                     "bookID IN (SELECT bookID FROM LibraryIndexNamed WHERE " +
                     $"CONTAINS(callNumber, '\"{Request.Params["term"]}*\"'))";
             }
-            else if(Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "TITLE")
+            else if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "TITLE")
             {
                 SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
-                    $"CONTAINS(title,'\"{Request.Params["term"]}*\"'";
+                    $"CONTAINS(title,'\"{Request.Params["term"]}*\"')";
             }
             else if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "GENRE")
             {
@@ -53,6 +54,13 @@ namespace LMS
                     "(SELECT bookID FROM LibraryIndexNamed WHERE CONTAINS(callNumber, " +
                     $"'\"{Request.Params["term"]}*\"'))";
             }
+
+
+        }
+
+        protected string SetText()
+        {
+            return $"{ListViewSearchResults.Items.Count} titles found based on {Request.Params["field"]}";
         }
 
         protected void ListViewSearchResults_ItemCommand(object sender, ListViewCommandEventArgs e)
@@ -69,7 +77,7 @@ namespace LMS
 
         public bool IsLoggedIn()
         {
-            if(Session["bID"] == null)
+            if (Session["bID"] == null)
             {
                 return false;
             }
@@ -77,6 +85,11 @@ namespace LMS
             {
                 return true;
             }
+        }
+
+        protected void BtnSearchLib_Click(object sender, EventArgs e)
+        {
+            Response.Redirect($"~/Search.aspx?field={DrpField.SelectedValue}&term={TbxSearchTerms.Text}");
         }
     }
 }
