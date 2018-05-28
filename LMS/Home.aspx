@@ -27,6 +27,7 @@
                                 <asp:ListItem Value="auth">in author</asp:ListItem>
                                 <asp:ListItem Value="pub">in publisher</asp:ListItem>
                                 <asp:ListItem Value="isbn">in ISBN</asp:ListItem>
+                                <asp:ListItem Value="callnum">in call number</asp:ListItem>
                             </asp:DropDownList>
                             <div class="text-right ml-auto">
                                 <asp:Button ID="BtnSearchLib" runat="server" Text="SEARCH" CssClass="btn btn-library-10" Font-Size="18px"

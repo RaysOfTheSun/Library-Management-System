@@ -160,9 +160,9 @@ CREATE OR ALTER VIEW BorrowerAccounts AS
 		FROM BookBorrowers	INNER JOIN UserAccounts ON UserAccounts.owner = BookBorrowers.borrowerID
 GO
 
-CREATE OR ALTER VIEW AuthorNames WITH SCHEMABINDING AS
+CREATE OR ALTER VIEW AuthorNames AS
 	SELECT (authors.firstName + ' ' + authors.lastName) AS fullName, 
-		authorID from dbo.BookAuthors authors
+		authorID from BookAuthors authors
 GO
 
 CREATE OR ALTER VIEW PublisherWithCountryName AS
@@ -230,14 +230,20 @@ CREATE OR ALTER VIEW RentedBooksWithAuthorID AS
 	INNER JOIN BookPublishers ON Books.publisherID = BookPublishers.publisherID
 GO
 
-CREATE OR ALTER VIEW LibraryIndexNamed AS 
-	SELECT LibraryIndex.indexID, Books.title, AuthorNames.fullName, Books.genre, LibraryIndex.callNumber
-		FROM LibraryIndex 
-		INNER JOIN Books ON Books.bookID = LibraryIndex.bookID
-		INNER JOIN AuthorNames ON Books.authorID = AuthorNames.authorID
+CREATE OR ALTER VIEW LibraryIndexNamed WITH SCHEMABINDING AS 
+	SELECT libIndex.indexID, book.bookID, book.title, (authors.firstName + ' ' + authors.lastName) AS fullName, 
+		book.genre, libIndex.callNumber
+		FROM dbo.LibraryIndex libIndex
+		INNER JOIN dbo.Books book ON book.bookID = libIndex.bookID
+		INNER JOIN dbo.BookAuthors authors ON book.authorID = authors.authorID
+	GO
+	CREATE UNIQUE CLUSTERED INDEX IDX_indexID ON LibraryIndexNamed(indexID)
+	CREATE NONCLUSTERED INDEX IDX_displayIndex ON LibraryIndexNamed(indexID)
 GO
 
 --SEARCHING
+
+-- BOOKS
 IF NOT OBJECTPROPERTY ( object_id('BookDisplay'), 'TableHasActiveFulltextIndex') = 1 
 BEGIN
 	CREATE FULLTEXT CATALOG BookCatalog
@@ -253,8 +259,17 @@ BEGIN
 		STOPLIST = OFF
 END
 
-SELECT * FROM BookDisplay
-SELECT * FROM BookDisplay WHERE CONTAINS (title,'"THE SEA*"') OR CONTAINS(author,'"rick*"')
+-- CALL NUMBERS
+IF NOT OBJECTPROPERTY ( object_id('LibraryIndexNamed'), 'TableHasActiveFulltextIndex') = 1 
+BEGIN
+	CREATE FULLTEXT CATALOG CallNumberCatalog
+	CREATE FULLTEXT INDEX ON LibraryIndexNamed (
+		callNumber LANGUAGE 1033
+	)
+	KEY INDEX IDX_indexID ON CallNumberCatalog
+		WITH CHANGE_TRACKING AUTO,
+		STOPLIST = OFF
+END
 
 --DROPS
 --DROP TABLE BookImages
@@ -263,6 +278,7 @@ SELECT * FROM BookDisplay WHERE CONTAINS (title,'"THE SEA*"') OR CONTAINS(author
 --DROP TABLE UserAccounts
 --DROP TABLE BookBorrowers
 --DROP TABLE BorrowerAddresses
+--DROP VIEW LibraryIndexNamed, BookDisplay, AuthorNames
 --DROP TABLE LibraryIndex, BookStatuses
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries

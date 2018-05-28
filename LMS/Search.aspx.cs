@@ -18,7 +18,40 @@ namespace LMS
                     $"CONTAINS(author,'\"{Request.Params["term"]}*\"') OR " +
                     $"CONTAINS(ISBN,'\"{Request.Params["term"]}*\"') OR " +
                     $"CONTAINS(publisherName,'\"{Request.Params["term"]}*\"') OR " +
+                    $"CONTAINS(genre,'\"{Request.Params["term"]}*\"') OR " +
+                    "bookID IN (SELECT bookID FROM LibraryIndexNamed WHERE " +
+                    $"CONTAINS(callNumber, '\"{Request.Params["term"]}*\"'))";
+            }
+            else if(Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "TITLE")
+            {
+                SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
+                    $"CONTAINS(title,'\"{Request.Params["term"]}*\"'";
+            }
+            else if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "GENRE")
+            {
+                SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
                     $"CONTAINS(genre,'\"{Request.Params["term"]}*\"')";
+            }
+            else if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "AUTH")
+            {
+                SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
+                    $"CONTAINS(author,'\"{Request.Params["term"]}*\"')";
+            }
+            else if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "ISBN")
+            {
+                SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
+                    $"CONTAINS(ISBN,'\"{Request.Params["term"]}*\"')";
+            }
+            else if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "PUB")
+            {
+                SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
+                    $"CONTAINS(publisherName,'\"{Request.Params["term"]}*\"')";
+            }
+            else if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "CALLNUM")
+            {
+                SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE bookID IN " +
+                    "(SELECT bookID FROM LibraryIndexNamed WHERE CONTAINS(callNumber, " +
+                    $"'\"{Request.Params["term"]}*\"'))";
             }
         }
 
