@@ -1,12 +1,13 @@
 # Library-Management-System
 * A simple libary management system built using `ASP.NET` and `C#.` 
 # Features
-* An  __administration panel__ that would allow a "librarian" to manage a database containing information about the following:
+* An  __administration pages__ that would allow a "librarian" to manage a database containing information about the following:
     * Books present in the library
     * Books that are borrowed from the library
     * Accounts associated with registered users of the site
 * Pages that allow regular users to simply browse the site and __search__ for books to borrow from the library.
-* A page that allows users to __manage__ borrowed materials from the library
+* Pages that allow regular users to __borrow__ books fro the library.
+* A page that allows users to __view__ borrowed materials from the library
 
 # Notes
 * This project uses several files from [`Bootstrap 4`](https://getbootstrap.com/) and [`Font Awesome`](https://fontawesome.com/).
