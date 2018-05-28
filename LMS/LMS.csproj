@@ -152,7 +152,7 @@
     <Content Include="Login.aspx" />
     <Content Include="ManageRentals.aspx" />
     <Content Include="ManageUsers.aspx" />
-    <Content Include="MangeBooks.aspx" />
+    <Content Include="ManageBooks.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Scripts\OnHoverWatch.js" />
     <Content Include="Content\Site.css" />
@@ -334,12 +334,12 @@
     <Compile Include="ManageUsers.aspx.designer.cs">
       <DependentUpon>ManageUsers.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MangeBooks.aspx.cs">
-      <DependentUpon>MangeBooks.aspx</DependentUpon>
+    <Compile Include="ManageBooks.aspx.cs">
+      <DependentUpon>ManageBooks.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MangeBooks.aspx.designer.cs">
-      <DependentUpon>MangeBooks.aspx</DependentUpon>
+    <Compile Include="ManageBooks.aspx.designer.cs">
+      <DependentUpon>ManageBooks.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">
