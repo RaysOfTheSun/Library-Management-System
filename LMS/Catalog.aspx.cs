@@ -34,6 +34,8 @@ namespace LMS
         protected void BtnConfirmRental_ServerClick(object sender, EventArgs e)
         {
             SourceRentals.Insert();
+            ScriptManager.RegisterStartupScript(BtnConfirmRental, GetType(), "rentalNotifModal",
+                @"$('#rentalNotifModal').modal('hide');", true);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Catalog.aspx.cs" Inherits="LMS.Catalog" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container">
-        <div class="wrap">
+    <div class="wrap">
+        <div class="container">
+            <p class="display-4">Books</p>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="true">
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="LvwBooks" />
@@ -27,12 +28,19 @@
                         </GroupTemplate>
                         <ItemTemplate>
                             <td runat="server" style="">
-                                <div class="card mb-3" style="width: 18rem;">
-                                    <div class="card-body text-center">
-                                        <img src="Images/Books/sea_of_monsters/01.jpg" class="card-img-top img-thumbnail" />
+                                <div class="card text-center mb-3" style="width: 18rem;">
+                                    <div class="card-header">
                                         <asp:Label ID="titleLabel" runat="server" Text='<%# Eval("title") %>' CssClass="h5" />
-                                        <br />
-                                        <asp:Label ID="authorLabel" runat="server" Text='<%# Eval("author") %>' CssClass="text-muted" />
+                                    </div>
+                                    <div class="card-body text-center mb-0">
+                                        <img src="Images/Books/sea_of_monsters/01.jpg" class="card-img-top img-thumbnail" />
+                                        <p class="h6 align-middle mt-3 mb-0">
+                                            Written by
+                                            <br />
+                                            <asp:Label ID="authorLabel" runat="server" Text='<%# Eval("author") %>' />
+                                        </p>
+                                    </div>
+                                    <div class="card-footer text-muted">
                                         <div class="my-1">
                                             <asp:Button ID="BtnRequestRent" runat="server" Text="Request to Rent" CssClass="btn btn-library-10 btn-block"
                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
@@ -61,35 +69,41 @@
                     </asp:ListView>
                 </ContentTemplate>
             </asp:UpdatePanel>
-            <!-- Rental Notification modal -->
-            <div class="modal" id="rentalNotifModal" tabindex="-1" role="dialog" aria-labelledby="rentalNotifLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="rentalNotifLabel"><strong>Rental Request</strong></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row align-items-center">
-                                <div class="col-sm-4 text-center">
-                                    <i class="fas fa-info-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
-                                </div>
-                                <div class="col-sm-8">
-                                    <p class="text-justify">
-                                        The librarian has been notified regarding your request. Please head over to
+        </div>
+
+        <!-- Rental Notification modal -->
+        <div class="modal fade" id="rentalNotifModal" tabindex="-1" role="dialog" aria-labelledby="rentalNotifLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rentalNotifLabel"><strong>Rental Request</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fas fa-info-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    The librarian has been notified regarding your request. Please head over to
                                     the counter to complete the rental process.
-                                    </p>
-                                </div>
+                                </p>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="BtnConfirmRental" runat="server"
-                                onserverclick="BtnConfirmRental_ServerClick">
-                                OK</button>
-                        </div>
                     </div>
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="BtnConfirmRental" runat="server"
+                                    onserverclick="BtnConfirmRental_ServerClick">
+                                    OK</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>
