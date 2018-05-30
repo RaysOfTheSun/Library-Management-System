@@ -273,5 +273,17 @@ namespace LMS
                          @"$('#EditLibIndexModal').modal('hide');", true);
             }
         }
+
+        protected void BtnUpdateSuccess_ServerClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(BtnUpdateSuccess, GetType(), "UpdateNotifModal",
+                @"$('#UpdateNotifModal').modal('hide');", true);
+        }
+
+        protected void BtnAdditionSuccess_ServerClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(BtnAdditionSuccess, GetType(), "AdditionNotifModal",
+                @"$('#AdditionNotifModal').modal('hide');", true);
+        }
     }
 }

@@ -303,7 +303,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="BtnAddBook" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="BtnAddBook_ServerClick" validationgroup="book">
+                                    runat="server" onserverclick="BtnAddBook_ServerClick" 
+                                    validationgroup="book" data-toggle="modal" data-target="#AdditionNotifModal">
                                     Add Book</button>
                                 <button id="BtnResetBookFields" runat="server" type="button" class="btn btn-secondary" data-dismiss="modal"
                                     onserverclick="BtnResetBookFields_ServerClick">
@@ -350,7 +351,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="BtnAddAuthorB" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="BtnAddAuthor_Click" validationgroup="author">
+                                    runat="server" onserverclick="BtnAddAuthor_Click" 
+                                    validationgroup="author" data-toggle="modal" data-target="#AdditionNotifModal">
                                     Add Author</button>
                                 <button id="BtnResetAuthorFields" type="button" runat="server"
                                     class="btn btn-secondary" data-dismiss="modal"
@@ -394,7 +396,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="BtnAddPublisher" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="BtnAddPublisher_ServerClick" validationgroup="publisher">
+                                    runat="server" onserverclick="BtnAddPublisher_ServerClick" 
+                                    validationgroup="publisher" data-toggle="modal" data-target="#AdditionNotifModal">
                                     Add Publisher</button>
                                 <button id="BtnResetPublisherFields" type="button" class="btn btn-secondary" runat="server"
                                     data-dismiss="modal" onserverclick="BtnResetPublisherFields_ServerClick">
@@ -501,7 +504,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="BtnEditBook" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="BtnEditBook_ServerClick" validationgroup="editBook">
+                                    runat="server" onserverclick="BtnEditBook_ServerClick"
+                                    validationgroup="editBook" data-toggle="modal" data-target="#UpdateNotifModal">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
@@ -550,7 +554,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="FvBtnUpdateAuth" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="FvBtnUpdateAuth_ServerClick" validationgroup="editAuth">
+                                    runat="server" onserverclick="FvBtnUpdateAuth_ServerClick"
+                                    validationgroup="editAuth" data-toggle="modal" data-target="#UpdateNotifModal">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
@@ -598,7 +603,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="FvBtnUpdatePub" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="FvBtnUpdatePub_ServerClick" validationgroup="editPub">
+                                    runat="server" onserverclick="FvBtnUpdatePub_ServerClick"
+                                    validationgroup="editPub" data-toggle="modal" data-target="#UpdateNotifModal">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
@@ -653,7 +659,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="FvBtnUpdateCallNum" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="FvBtnUpdateCallNum_ServerClick" validationgroup="editPub">
+                                    runat="server" onserverclick="FvBtnUpdateCallNum_ServerClick"
+                                    validationgroup="editPub" data-toggle="modal" data-target="#UpdateNotifModal">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
@@ -690,7 +697,10 @@
                     <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                         <ContentTemplate>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" id="BtnDeletePub" runat="server" onserverclick="BtnDeletePub_ServerClick">Yes</button>
+                                <button type="button" class="btn btn-danger" id="BtnDeletePub" runat="server"
+                                    onserverclick="BtnDeletePub_ServerClick" data-toggle="modal"
+                                    data-target="#UpdateNotifModal">
+                                    Yes</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                             </div>
                         </ContentTemplate>
@@ -726,7 +736,10 @@
                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                         <ContentTemplate>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" id="BtnDeleteAuthor" runat="server" onserverclick="BtnDeleteAuthor_ServerClick">Yes</button>
+                                <button type="button" class="btn btn-danger" id="BtnDeleteAuthor" runat="server"
+                                    onserverclick="BtnDeleteAuthor_ServerClick" data-toggle="modal"
+                                    data-target="#UpdateNotifModal">
+                                    Yes</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                             </div>
                         </ContentTemplate>
@@ -762,8 +775,82 @@
                     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
                         <ContentTemplate>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" id="BtnDeleteBook" runat="server" onserverclick="BtnDeleteBook_ServerClick">Yes</button>
+                                <button type="button" class="btn btn-danger" id="BtnDeleteBook" runat="server"
+                                    onserverclick="BtnDeleteBook_ServerClick" data-toggle="modal"
+                                    data-target="#UpdateNotifModal">
+                                    Yes</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update Notification modal -->
+        <div class="modal fade" id="UpdateNotifModal" tabindex="-1" role="dialog" aria-labelledby="UpdateNotifLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="UpdateNotifLabel"><strong>Update Successfull</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fas fa-info-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Records were updated successfully.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="BtnUpdateSuccess" runat="server"
+                                    onserverclick="BtnUpdateSuccess_ServerClick">
+                                    OK</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Record Addition Notification modal -->
+        <div class="modal fade" id="AdditionNotifModal" tabindex="-1" role="dialog" aria-labelledby="AdditionNotifLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="AdditionNotifLabel"><strong>Addition Successfull</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fas fa-info-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Record added successfully.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel12" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="BtnAdditionSuccess" runat="server"
+                                    onserverclick="BtnAdditionSuccess_ServerClick">
+                                    OK</button>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
