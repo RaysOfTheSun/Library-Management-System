@@ -194,12 +194,9 @@
                     </asp:UpdatePanel>
                 </div>
             </div>
-
         </div>
 
-
-
-        <%-- Edit Book modal --%>
+        <%-- Add Book modal --%>
         <div class="modal fade" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -439,14 +436,23 @@
                                                 <p class="h6">Author</p>
                                                 <asp:DropDownList ID="DrpAuthors" runat="server" CssClass="custom-select" DataSourceID="SourceAuthorNames"
                                                     DataTextField="fullName" DataValueField="authorID" AppendDataBoundItems="true" SelectedValue='<%# Bind("authorID") %>'>
-                                                    <asp:ListItem Text="Select an Author..." Value="-99"></asp:ListItem>
                                                 </asp:DropDownList>
+                                                <small>
+                                                    <asp:LinkButton ID="LBtnAddMissingAuthor" runat="server"
+                                                        data-toggle="modal" data-target="#AddAuthorModal" CausesValidation="false">
+                                                        Add a missing author</asp:LinkButton>
+                                                </small>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Publisher</p>
                                                 <asp:DropDownList ID="DrpPublishersB" runat="server" CssClass="custom-select" DataSourceID="SourcePublishers"
                                                     DataTextField="publisherName" DataValueField="publisherID" AppendDataBoundItems="True" SelectedValue='<%# Bind("publisherID") %>'>
                                                 </asp:DropDownList>
+                                                <small>
+                                                    <asp:LinkButton ID="LBtnAddMissingPub" runat="server"
+                                                        data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false">
+                                                        Add a missing publisher</asp:LinkButton>
+                                                </small>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Genre</p>
