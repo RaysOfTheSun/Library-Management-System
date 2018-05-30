@@ -223,9 +223,16 @@ GO
 CREATE OR ALTER PROCEDURE AddRequest(@bookID INT, @borrowerID INT) AS
 	BEGIN TRAN
 		BEGIN TRY
-			INSERT INTO RentalRequests VALUES (@bookID, @borrowerID, DATEADD(day, 14, GETDATE()))
-			UPDATE BookStatuses SET bookCount = bookCount - 1 WHERE bookID = @bookID
-			COMMIT TRAN
+			DECLARE @count INT
+			SELECT @count = bookCount FROM BookStatuses WHERE bookID = @bookID
+			IF (@count > 0) 
+			BEGIN
+				INSERT INTO RentalRequests VALUES (@bookID, @borrowerID, DATEADD(day, 14, GETDATE()))
+				UPDATE BookStatuses SET bookCount = bookCount - 1 WHERE bookID = @bookID
+				COMMIT TRAN
+			END
+			ELSE
+				ROLLBACK TRAN
 		END TRY
 		BEGIN CATCH
 			ROLLBACK TRAN
