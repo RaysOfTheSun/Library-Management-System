@@ -151,6 +151,7 @@
     <Content Include="ManageRentals.aspx" />
     <Content Include="ManageUsers.aspx" />
     <Content Include="ManageBooks.aspx" />
+    <Content Include="MyRentals.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Scripts\OnHoverWatch.js" />
     <Content Include="Content\Site.css" />
@@ -324,6 +325,13 @@
     </Compile>
     <Compile Include="ManageBooks.aspx.designer.cs">
       <DependentUpon>ManageBooks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyRentals.aspx.cs">
+      <DependentUpon>MyRentals.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyRentals.aspx.designer.cs">
+      <DependentUpon>MyRentals.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">
