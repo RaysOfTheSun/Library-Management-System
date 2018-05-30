@@ -437,22 +437,12 @@
                                                 <asp:DropDownList ID="DrpAuthors" runat="server" CssClass="custom-select" DataSourceID="SourceAuthorNames"
                                                     DataTextField="fullName" DataValueField="authorID" AppendDataBoundItems="true" SelectedValue='<%# Bind("authorID") %>'>
                                                 </asp:DropDownList>
-                                                <small>
-                                                    <asp:LinkButton ID="LBtnAddMissingAuthor" runat="server"
-                                                        data-toggle="modal" data-target="#AddAuthorModal" CausesValidation="false">
-                                                        Add a missing author</asp:LinkButton>
-                                                </small>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Publisher</p>
                                                 <asp:DropDownList ID="DrpPublishersB" runat="server" CssClass="custom-select" DataSourceID="SourcePublishers"
                                                     DataTextField="publisherName" DataValueField="publisherID" AppendDataBoundItems="True" SelectedValue='<%# Bind("publisherID") %>'>
                                                 </asp:DropDownList>
-                                                <small>
-                                                    <asp:LinkButton ID="LBtnAddMissingPub" runat="server"
-                                                        data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false">
-                                                        Add a missing publisher</asp:LinkButton>
-                                                </small>
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Genre</p>
