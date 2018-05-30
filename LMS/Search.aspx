@@ -85,7 +85,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-0 align-self-center">
-                                                            <asp:Button ID="BtnRequestRent" runat="server" Text='<%# SetAction(Eval("bookID")) %>' CssClass="btn btn-library btn-block"
+                                                            <asp:Button ID="BtnRequestRent" runat="server" Text='<%# SetAction(Eval("bookID"), Session["bID"]) %>' CssClass="btn btn-library btn-block"
                                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
                                                                 data-target="#rentalNotifModal" Enabled='<%# IsRentable(Eval("bookID")) %>' />
                                                         </div>

@@ -64,7 +64,7 @@ namespace LMS
         protected void ListViewSearchResults_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
             HfdBookID.Value = e.CommandArgument.ToString();
-                        SourceRentals.Insert();
+            SourceRentals.Insert();
             ListViewSearchResults.DataBind();
         }
 
@@ -96,7 +96,7 @@ namespace LMS
                 using (SqlCommand comm = new SqlCommand("SELECT bookCount AS count FROM BookStatuses " +
                     "WHERE bookID = @id", conn))
                 {
-                    comm.Parameters.Add("@id",SqlDbType.Int).Value = bID;
+                    comm.Parameters.Add("@id", SqlDbType.Int).Value = bID;
                     conn.Open();
 
                     using (SqlDataReader reader = comm.ExecuteReader())
@@ -128,7 +128,7 @@ namespace LMS
                     "WHERE bookID = @id AND borrowerID = @bID", conn))
                 {
                     comm.Parameters.Add("@id", SqlDbType.Int).Value = bID;
-                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID;
+                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID == null ? 0 : borrowerID;
                     conn.Open();
                     count = Convert.ToInt32(comm.ExecuteScalar());
                 }
@@ -154,7 +154,7 @@ namespace LMS
                     "WHERE bookID = @id AND borrowerID = @bID", conn))
                 {
                     comm.Parameters.Add("@id", SqlDbType.Int).Value = bID;
-                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID;
+                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID == null ? 0 : borrowerID;
                     conn.Open();
                     count = Convert.ToInt32(comm.ExecuteScalar());
                 }
@@ -172,15 +172,23 @@ namespace LMS
         protected bool IsRentable(object bookID)
         {
             object borrowerID = Convert.ToInt32(Session["bID"]);
-            return (IsLoggedIn() && IsAvailable(bookID)) && 
+            return (IsLoggedIn() && IsAvailable(bookID)) &&
                 (!IsCurrentlyRented(bookID, borrowerID) && !IsAlreadyRequested(bookID, borrowerID));
         }
 
-        protected string SetAction(object bookID)
+        protected string SetAction(object bookID, object borrowerID)
         {
             if (!IsAvailable(bookID))
             {
                 return "Not Available";
+            }
+            else if (IsAlreadyRequested(bookID, borrowerID))
+            {
+                return "Rental Requested";
+            }
+            else if (IsCurrentlyRented(bookID, borrowerID))
+            {
+                return "Already Rented";
             }
             else
             {

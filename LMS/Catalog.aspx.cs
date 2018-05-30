@@ -73,7 +73,7 @@ namespace LMS
                     "WHERE bookID = @id AND borrowerID = @bID", conn))
                 {
                     comm.Parameters.Add("@id", SqlDbType.Int).Value = bID;
-                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID;
+                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID == null ? 0 : borrowerID;
                     conn.Open();
                     count = Convert.ToInt32(comm.ExecuteScalar());
                 }
@@ -99,7 +99,7 @@ namespace LMS
                     "WHERE bookID = @id AND borrowerID = @bID", conn))
                 {
                     comm.Parameters.Add("@id", SqlDbType.Int).Value = bID;
-                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID;
+                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID == null? 0: borrowerID;
                     conn.Open();
                     count = Convert.ToInt32(comm.ExecuteScalar());
                 }
@@ -121,17 +121,26 @@ namespace LMS
                 (!IsCurrentlyRented(bookID, borrowerID) && !IsAlreadyRequested(bookID, borrowerID));
         }
 
-        protected string SetAction(object bookID)
+        protected string SetAction(object bookID, object borrowerID)
         {
             if (!IsAvailable(bookID))
             {
                 return "Not Available";
+            }
+            else if(IsAlreadyRequested(bookID, borrowerID))
+            {
+                return "Rental Requested";
+            }
+            else if(IsCurrentlyRented(bookID, borrowerID))
+            {
+                return "Already Rented";
             }
             else
             {
                 return "Request to Rent";
             }
         }
+
         protected void LvwBooks_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
             HfdBookID.Value = e.CommandArgument.ToString();
