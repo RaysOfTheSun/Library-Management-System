@@ -37,7 +37,7 @@
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
                             <asp:HiddenField ID="HfdBookID" runat="server" />
-                            <asp:ListView ID="ListViewSearchResults" runat="server" DataKeyNames="bookID" DataSourceID="SourceBooks" OnItemCommand="ListViewSearchResults_ItemCommand">
+                            <asp:ListView ID="ListViewSearchResults" runat="server" DataKeyNames="bookID" DataSourceID="SourceBooks" OnItemCommand="ListViewSearchResults_ItemCommand" OnDataBound="ListViewSearchResults_DataBound">
                                 <EmptyDataTemplate>
                                     <span>No titles were found based on your criteria.</span>
                                 </EmptyDataTemplate>
@@ -84,13 +84,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-0 align-self-center">
-                                                            <asp:Button ID="BtnRequestRent" runat="server" Text="Request to Rent" CssClass="btn btn-library btn-block"
+                                                            <asp:Button ID="BtnRequestRent" runat="server" Text='<%# SetAction(Eval("bookID")) %>' CssClass="btn btn-library btn-block"
                                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
                                                                 data-target="#rentalNotifModal" Enabled='<%# IsRentable(Eval("bookID")) %>' />
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +108,6 @@
                                             </asp:DataPager>
                                         </div>
                                     </div>
-
                                 </LayoutTemplate>
                             </asp:ListView>
                         </ContentTemplate>

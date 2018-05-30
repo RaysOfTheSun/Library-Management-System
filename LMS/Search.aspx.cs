@@ -59,7 +59,6 @@ namespace LMS
                     $"'\"{Request.Params["term"]}*\"'))";
             }
 
-
         }
 
         protected void ListViewSearchResults_ItemCommand(object sender, ListViewCommandEventArgs e)
@@ -122,9 +121,27 @@ namespace LMS
             return IsLoggedIn() && IsAvailable(bookID);
         }
 
+        protected string SetAction(object bookID)
+        {
+            if (!IsAvailable(bookID))
+            {
+                return "Not Available";
+            }
+            else
+            {
+                return "Request to Rent";
+            }
+        }
+
         protected void BtnSearchLib_Click(object sender, EventArgs e)
         {
             Response.Redirect($"~/Search.aspx?field={DrpField.SelectedValue}&term={TbxSearchTerms.Text}");
+        }
+
+        protected void ListViewSearchResults_DataBound(object sender, EventArgs e)
+        {
+            //Label lbl = (Label)ListViewSearchResults.FindControl("Label1");
+            //lbl.DataBind();
         }
     }
 }
