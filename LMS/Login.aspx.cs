@@ -16,6 +16,10 @@ namespace LMS
         protected void Page_Load(object sender, EventArgs e)
         {
             Master.HideFooterHeader();
+            if (Session["bID"] != null)
+            {
+                Response.Redirect(@"~/Home.aspx");
+            }
         }
 
         protected void btn_login_Click(object sender, EventArgs e)
