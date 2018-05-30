@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -10,6 +12,8 @@ namespace LMS
 {
     public partial class Search : System.Web.UI.Page
     {
+        string connString = ConfigurationManager.ConnectionStrings["LibraryDBConnectionString"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "ALL")
@@ -58,11 +62,6 @@ namespace LMS
 
         }
 
-        protected string SetText()
-        {
-            return $"{ListViewSearchResults.Items.Count} titles found based on {Request.Params["field"]}";
-        }
-
         protected void ListViewSearchResults_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
             HfdBookID.Value = e.CommandArgument.ToString();
@@ -85,6 +84,42 @@ namespace LMS
             {
                 return true;
             }
+        }
+
+        protected bool IsAvailable(object bookID)
+        {
+            bool result = false;
+            int bID = Convert.ToInt32(bookID);
+            int count = -1;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand comm = new SqlCommand("SELECT bookCount AS count FROM BookStatuses " +
+                    "WHERE bookID = @id", conn))
+                {
+                    comm.Parameters.Add("@id",SqlDbType.Int).Value = bID;
+                    conn.Open();
+
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            count = Convert.ToInt32(reader["count"]);
+                        }
+                    }
+                }
+            }
+
+            if (count > 0)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        protected bool IsRentable(object bookID)
+        {
+            return IsLoggedIn() && IsAvailable(bookID);
         }
 
         protected void BtnSearchLib_Click(object sender, EventArgs e)
