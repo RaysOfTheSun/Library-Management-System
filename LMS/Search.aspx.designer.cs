@@ -94,6 +94,24 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.ListView ListViewSearchResults;
         
         /// <summary>
+        /// UpdatePanel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        
+        /// <summary>
+        /// BtnConfirmRequest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnConfirmRequest;
+        
+        /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>

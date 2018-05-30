@@ -37,7 +37,7 @@
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
                             <asp:HiddenField ID="HfdBookID" runat="server" />
-                            <asp:ListView ID="ListViewSearchResults" runat="server" DataKeyNames="bookID" DataSourceID="SourceBooks" 
+                            <asp:ListView ID="ListViewSearchResults" runat="server" DataKeyNames="bookID" DataSourceID="SourceBooks"
                                 OnItemCommand="ListViewSearchResults_ItemCommand">
                                 <EmptyDataTemplate>
                                     <span>No titles were found based on your criteria.</span>
@@ -87,7 +87,7 @@
                                                         <div class="col-sm-0 align-self-center">
                                                             <asp:Button ID="BtnRequestRent" runat="server" Text='<%# SetAction(Eval("bookID"), Session["bID"]) %>' CssClass="btn btn-library btn-block"
                                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
-                                                                data-target="#rentalNotifModal" Enabled='<%# IsRentable(Eval("bookID")) %>' />
+                                                                data-target="#ConfirmRequestModal" Enabled='<%# IsRentable(Eval("bookID")) %>' />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -113,6 +113,44 @@
                             </asp:ListView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rental Confirmation modal -->
+        <div class="modal fade" id="ConfirmRequestModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmRequestModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ConfirmRequestModalLabel"><strong>Request Confirmation</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fa fa-question-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Are you sure you sure you wish to have this book rented?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" id="BtnConfirmRequest" runat="server"
+                                    onserverclick="BtnConfirmRequest_ServerClick" data-toggle="modal"
+                                    data-target="#rentalNotifModal">
+                                    Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
                 </div>
             </div>
         </div>

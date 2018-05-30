@@ -64,8 +64,6 @@ namespace LMS
         protected void ListViewSearchResults_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
             HfdBookID.Value = e.CommandArgument.ToString();
-            SourceRentals.Insert();
-            ListViewSearchResults.DataBind();
         }
 
         protected void BtnConfirmRental_ServerClick(object sender, EventArgs e)
@@ -199,6 +197,14 @@ namespace LMS
         protected void BtnSearchLib_Click(object sender, EventArgs e)
         {
             Response.Redirect($"~/Search.aspx?field={DrpField.SelectedValue}&term={TbxSearchTerms.Text}");
+        }
+
+        protected void BtnConfirmRequest_ServerClick(object sender, EventArgs e)
+        {
+            SourceRentals.Insert();
+            ListViewSearchResults.DataBind();
+            ScriptManager.RegisterStartupScript(BtnConfirmRequest, GetType(), "ConfirmRequestModal",
+                @"$('#ConfirmRequestModal').modal('hide');", true);
         }
     }
 }
