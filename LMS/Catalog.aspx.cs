@@ -144,14 +144,21 @@ namespace LMS
         protected void LvwBooks_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
             HfdBookID.Value = e.CommandArgument.ToString();
-            SourceRentals.Insert();
-            LvwBooks.DataBind();
+
         }
 
         protected void BtnConfirmRental_ServerClick(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(BtnConfirmRental, GetType(), "rentalNotifModal",
                 @"$('#rentalNotifModal').modal('hide');", true);
+        }
+
+        protected void BtnConfirmRequest_ServerClick(object sender, EventArgs e)
+        {
+            SourceRentals.Insert();
+            LvwBooks.DataBind();
+            ScriptManager.RegisterStartupScript(BtnConfirmRequest, GetType(), "ConfirmRequestModal",
+                @"$('#ConfirmRequestModal').modal('hide');", true);
         }
     }
 }
