@@ -116,9 +116,63 @@ namespace LMS
             return result;
         }
 
+        protected bool IsCurrentlyRented(object bookID, object borrowerID)
+        {
+            bool result = false;
+            int bID = Convert.ToInt32(bookID);
+            int count = -1;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand comm = new SqlCommand("SELECT COUNT(bookID) FROM BookRentals " +
+                    "WHERE bookID = @id AND borrowerID = @bID", conn))
+                {
+                    comm.Parameters.Add("@id", SqlDbType.Int).Value = bID;
+                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID;
+                    conn.Open();
+                    count = Convert.ToInt32(comm.ExecuteScalar());
+                }
+            }
+
+            // not rented
+            if (count != 0)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        protected bool IsAlreadyRequested(object bookID, object borrowerID)
+        {
+            bool result = false;
+            int bID = Convert.ToInt32(bookID);
+            int count = -1;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand comm = new SqlCommand("SELECT COUNT(bookID) FROM RentalRequests " +
+                    "WHERE bookID = @id AND borrowerID = @bID", conn))
+                {
+                    comm.Parameters.Add("@id", SqlDbType.Int).Value = bID;
+                    comm.Parameters.Add("@bID", SqlDbType.Int).Value = borrowerID;
+                    conn.Open();
+                    count = Convert.ToInt32(comm.ExecuteScalar());
+                }
+            }
+
+            // not requested
+            if (count != 0)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         protected bool IsRentable(object bookID)
         {
-            return IsLoggedIn() && IsAvailable(bookID);
+            object borrowerID = Convert.ToInt32(Session["bID"]);
+            return (IsLoggedIn() && IsAvailable(bookID)) && 
+                (!IsCurrentlyRented(bookID, borrowerID) && !IsAlreadyRequested(bookID, borrowerID));
         }
 
         protected string SetAction(object bookID)
@@ -136,12 +190,6 @@ namespace LMS
         protected void BtnSearchLib_Click(object sender, EventArgs e)
         {
             Response.Redirect($"~/Search.aspx?field={DrpField.SelectedValue}&term={TbxSearchTerms.Text}");
-        }
-
-        protected void ListViewSearchResults_DataBound(object sender, EventArgs e)
-        {
-            //Label lbl = (Label)ListViewSearchResults.FindControl("Label1");
-            //lbl.DataBind();
         }
     }
 }

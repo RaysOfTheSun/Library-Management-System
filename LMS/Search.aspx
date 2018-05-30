@@ -37,7 +37,8 @@
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
                             <asp:HiddenField ID="HfdBookID" runat="server" />
-                            <asp:ListView ID="ListViewSearchResults" runat="server" DataKeyNames="bookID" DataSourceID="SourceBooks" OnItemCommand="ListViewSearchResults_ItemCommand" OnDataBound="ListViewSearchResults_DataBound">
+                            <asp:ListView ID="ListViewSearchResults" runat="server" DataKeyNames="bookID" DataSourceID="SourceBooks" 
+                                OnItemCommand="ListViewSearchResults_ItemCommand">
                                 <EmptyDataTemplate>
                                     <span>No titles were found based on your criteria.</span>
                                 </EmptyDataTemplate>
