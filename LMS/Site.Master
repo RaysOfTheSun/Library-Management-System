@@ -48,7 +48,6 @@
                     <div class="input-group w-75 mx-auto">
                         <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
                         <div class="input-group-append">
-                            <%--<asp:Button ID="Button2" runat="server" Text="GO" CssClass="" />--%>
                             <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-git btn-lg"><i class="fa fa-search"></i></asp:LinkButton>
                         </div>
                     </div>
@@ -61,9 +60,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navigation">
                 <ul class="navbar-nav" style="padding-left: 1.8rem;" id="nav">
-                    <li id="mini-logo"><a href="#">LOGO</a></li>
                     <li class="nav-item active">
-                        <a href="#" class="nav-link">Home</a>
+                        <a href="Home.aspx" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
                         <a href="Catalog.aspx" class="nav-link">Catalog</a>
@@ -74,7 +72,7 @@
                 </ul>
                 <ul class="navbar-nav ml-auto" style="margin-right: 200px !important;">
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="fas fa-search"></i>&nbsp;Search Libary Resources</a>
+                        <a href="Search.aspx" class="nav-link"><i class="fas fa-search"></i>&nbsp;Search Libary Resources</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" 

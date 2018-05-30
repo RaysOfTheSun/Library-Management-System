@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Accounts" Language="C#" MasterPageFile="~/Administrator.Master" AutoEventWireup="true" CodeBehind="ManageUsers.aspx.cs" Inherits="LMS.ManageUsers" %>
+﻿<%@ Page Title="Accounts - Dynamic Link Administration" Language="C#" MasterPageFile="~/Administrator.Master" AutoEventWireup="true" CodeBehind="ManageUsers.aspx.cs" Inherits="LMS.ManageUsers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="wrap">

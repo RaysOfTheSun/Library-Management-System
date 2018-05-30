@@ -171,6 +171,12 @@ namespace LMS
             ClientScript.RegisterStartupScript(GetType(), "disableLastNameTbx", @"$(#ReqValPub).hide();", true);
         }
 
+        /// <summary>
+        /// Checks whether a book associated with a given author is currently being rented
+        /// </summary>
+        /// <param name="authorID">The ID that identifies the author in the database</param>
+        /// <returns>Boolean value of True if any book associated to the given author is currently
+        /// being rented</returns>
         protected bool IsOwnerOfRentedBook(object authorID)
         {
             bool result = false;
@@ -196,6 +202,12 @@ namespace LMS
             return result;
         }
 
+        /// <summary>
+        /// Checks whether any book associated to a publisher is currently being rented
+        /// </summary>
+        /// <param name="publisherID">The ID that identifies the publisher in the database</param>
+        /// <returns>Boolean value of True if any book that was published by the publuisher is 
+        /// currently being rented</returns>
         protected bool IsPublisherOfRentedBook(object publisherID)
         {
             bool result = false;
@@ -221,6 +233,11 @@ namespace LMS
             return result;
         }
 
+        /// <summary>
+        /// Checks whether a given book is currently being rented
+        /// </summary>
+        /// <param name="bookID">The ID that identifies the book in the database</param>
+        /// <returns>Boolean value of True if the book is currently being rented</returns>
         protected bool IsRented(object bookID)
         {
             bool result = false;
