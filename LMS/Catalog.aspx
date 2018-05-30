@@ -42,9 +42,9 @@
                                     </div>
                                     <div class="card-footer text-muted">
                                         <div class="my-1">
-                                            <asp:Button ID="BtnRequestRent" runat="server" Text="Request to Rent" CssClass="btn btn-library-10 btn-block"
+                                            <asp:Button ID="BtnRequestRent" runat="server" Text='<%# SetAction(Eval("bookID")) %>' CssClass="btn btn-library-10 btn-block"
                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
-                                                data-target="#rentalNotifModal" Enabled='<%# IsLoggedIn() %>' />
+                                                data-target="#rentalNotifModal" Enabled='<%# IsRentable(Eval("bookID")) %>' />
                                         </div>
                                     </div>
                                 </div>
