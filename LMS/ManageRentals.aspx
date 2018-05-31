@@ -40,13 +40,13 @@
                                     <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" DataFormatString="{0:d}" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
-                                            <div class="row">
+                                            <div class="row no-gutters">
                                                 <div class="col-sm-6">
                                                     <asp:Button ID="GrdBtnAcceptRequest" runat="server" Text="Accept" CssClass="btn btn-success btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
                                                         data-target="#ConfirmAcceptRequestModal" />
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-6 pl-1">
                                                     <asp:Button ID="GrdBtnRejectRequest" runat="server" Text="Reject" CssClass="btn btn-danger btn-block" CommandName="deleteItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
                                                         data-target="#DeleteRequestModal" />

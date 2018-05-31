@@ -11,7 +11,8 @@ namespace LMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ClientScript.RegisterStartupScript(GetType(), "setActiveHome",
+                "$('#home').addClass('active');", true);
         }
 
         protected void BtnSearchLib_Click(object sender, EventArgs e)

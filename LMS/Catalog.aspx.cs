@@ -16,7 +16,8 @@ namespace LMS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ClientScript.RegisterStartupScript(GetType(), "setActiveHome",
+                "$('#catalog').addClass('active');", true);
         }
 
         public bool IsLoggedIn()

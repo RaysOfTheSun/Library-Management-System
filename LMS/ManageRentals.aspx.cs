@@ -11,7 +11,8 @@ namespace LMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ClientScript.RegisterStartupScript(GetType(), "setActiveHome",
+                "$('#rental').addClass('active');", true);
         }
 
         protected void BtnDeleteRequest_ServerClick(object sender, EventArgs e)

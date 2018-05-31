@@ -3,14 +3,32 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="wrap">
         <div class="container">
-            <div class="form-group jumbotron pt-3 pb-3" style="border-style:dashed;">
-                <asp:Button ID="Button1" runat="server" Text="Add a Book" CssClass="btn btn-library-10 align-middle"
-                    OnClientClick="return false;" data-toggle="modal" data-target="#AddBookModal" CausesValidation="false" />
-                <asp:Button ID="Button2" runat="server" Text="Add an Author" CssClass="btn btn-library-10"
-                    OnClientClick="return false;" data-toggle="modal" data-target="#AddAuthorModal" CausesValidation="false" />
-                <asp:Button ID="Button3" runat="server" Text="Add a Publisher" CssClass="btn btn-library-10"
-                    OnClientClick="return false;" data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false" />
-            </div>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <div class="form-group pt-3">
+                        <asp:LinkButton runat="server" 
+                            CssClass="btn btn-library-10 align-middle text-center pr-3 pl-3"
+                            data-toggle="modal" data-target="#AddBookModal" CausesValidation="false">
+                                <i class="fas fa-book h3"></i>
+                                <br />
+                                Add a Book
+                        </asp:LinkButton>
+                        <asp:LinkButton runat="server" CssClass="btn btn-library-10 text-center pr-3 pl-3"
+                            data-toggle="modal" data-target="#AddAuthorModal" CausesValidation="false">
+                                <i class="fas fa-user h3"></i>
+                                <br />
+                                Add an Author
+                        </asp:LinkButton>
+                        <asp:LinkButton runat="server" CssClass="btn btn-library-10 text-center pr-3 pl-3"
+                            data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false">
+                    <i class="fas fa-print h3"></i>
+                    <br />
+                    Add a Publisher
+                        </asp:LinkButton>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
         </div>
         <div class="container" style="font-size: 1.3vw;">
             <nav>
@@ -18,7 +36,7 @@
                     <a class="nav-item nav-link active" id="nav-library-tab" data-toggle="tab" href="#nav-library" role="tab" aria-controls="nav-library" aria-selected="true">
                         <i class="fa fa-bookmark"></i>&nbsp;Library</a>
                     <a class="nav-item nav-link" id="nav-titles-tab" data-toggle="tab" href="#nav-titles" role="tab" aria-controls="nav-titles" aria-selected="false">
-                        <i class="fas fa-book"></i>&nbsp;Titles</a>
+                        <i class="fas fa-book"></i>&nbsp;Books</a>
                     <a class="nav-item nav-link" id="nav-authors-tab" data-toggle="tab" href="#nav-authors" role="tab" aria-controls="nav-authors" aria-selected="false">
                         <i class="fas fa-user"></i>&nbsp;Authors</a>
                     <a class="nav-item nav-link" id="nav-publishers-tab" data-toggle="tab" href="#nav-publishers" role="tab" aria-controls="nav-publishers" aria-selected="false">

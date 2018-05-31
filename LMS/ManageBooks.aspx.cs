@@ -13,6 +13,8 @@ namespace LMS
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            ClientScript.RegisterStartupScript(GetType(), "setActiveHome",
+                "$('#books').addClass('active');", true);
         }
 
         protected void BtnAddAuthor_Click(object sender, EventArgs e)
@@ -81,6 +83,7 @@ namespace LMS
                 FormView1.UpdateItem(true);
                 GrdPublishers.DataBind();
                 GrdBooks.DataBind();
+                GrdLibraryIndex.DataBind();
 
                 DrpPublishers.Items.Clear();
                 DrpPublishers.DataBind();
@@ -137,6 +140,7 @@ namespace LMS
                 SourcePublisherEdit.Delete();
                 GrdPublishers.DataBind();
                 GrdBooks.DataBind();
+                GrdLibraryIndex.DataBind();
 
                 DrpPublishers.Items.Clear();
                 DrpPublishers.DataBind();
@@ -163,6 +167,7 @@ namespace LMS
         {
             SourceBookEdit.Delete();
             GrdBooks.DataBind();
+            GrdLibraryIndex.DataBind();
             ScriptManager.RegisterStartupScript(BtnDeleteBook, GetType(), "DeleteBookModal",
                      @"$('#DeleteBookModal').modal('hide');", true);
         }
