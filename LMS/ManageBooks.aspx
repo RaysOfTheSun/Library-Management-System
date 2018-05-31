@@ -304,7 +304,7 @@
                             <div class="modal-footer">
                                 <button id="BtnAddBook" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="BtnAddBook_ServerClick" 
-                                    validationgroup="book" data-toggle="modal" data-target="#AdditionNotifModal">
+                                    validationgroup="book">
                                     Add Book</button>
                                 <button id="BtnResetBookFields" runat="server" type="button" class="btn btn-secondary" data-dismiss="modal"
                                     onserverclick="BtnResetBookFields_ServerClick">
@@ -352,7 +352,7 @@
                             <div class="modal-footer">
                                 <button id="BtnAddAuthorB" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="BtnAddAuthor_Click" 
-                                    validationgroup="author" data-toggle="modal" data-target="#AdditionNotifModal">
+                                    validationgroup="author">
                                     Add Author</button>
                                 <button id="BtnResetAuthorFields" type="button" runat="server"
                                     class="btn btn-secondary" data-dismiss="modal"
@@ -397,7 +397,7 @@
                             <div class="modal-footer">
                                 <button id="BtnAddPublisher" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="BtnAddPublisher_ServerClick" 
-                                    validationgroup="publisher" data-toggle="modal" data-target="#AdditionNotifModal">
+                                    validationgroup="publisher">
                                     Add Publisher</button>
                                 <button id="BtnResetPublisherFields" type="button" class="btn btn-secondary" runat="server"
                                     data-dismiss="modal" onserverclick="BtnResetPublisherFields_ServerClick">
@@ -505,7 +505,7 @@
                             <div class="modal-footer">
                                 <button id="BtnEditBook" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="BtnEditBook_ServerClick"
-                                    validationgroup="editBook" data-toggle="modal" data-target="#UpdateNotifModal">
+                                    validationgroup="editBook">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
@@ -555,7 +555,7 @@
                             <div class="modal-footer">
                                 <button id="FvBtnUpdateAuth" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="FvBtnUpdateAuth_ServerClick"
-                                    validationgroup="editAuth" data-toggle="modal" data-target="#UpdateNotifModal">
+                                    validationgroup="editAuth">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
@@ -604,7 +604,7 @@
                             <div class="modal-footer">
                                 <button id="FvBtnUpdatePub" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="FvBtnUpdatePub_ServerClick"
-                                    validationgroup="editPub" data-toggle="modal" data-target="#UpdateNotifModal">
+                                    validationgroup="editPub">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>
@@ -660,7 +660,7 @@
                             <div class="modal-footer">
                                 <button id="FvBtnUpdateCallNum" type="button" class="btn btn-library-10"
                                     runat="server" onserverclick="FvBtnUpdateCallNum_ServerClick"
-                                    validationgroup="editPub" data-toggle="modal" data-target="#UpdateNotifModal">
+                                    validationgroup="editPub">
                                     Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             </div>

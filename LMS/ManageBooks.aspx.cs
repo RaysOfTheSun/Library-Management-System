@@ -25,7 +25,11 @@ namespace LMS
 
                 DrpAuthors.Items.Clear();
                 DrpAuthors.DataBind();
-                ScriptManager.RegisterStartupScript(BtnAddAuthorB, GetType(), "AddAuthorkModal", @"$('#AddAuthorModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(BtnAddAuthorB, GetType(), "AddAuthorkModal", 
+                    @"$('#AddAuthorModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(BtnAddAuthorB, GetType(), "AdditionNotifModal",
+                    @"$('#AdditionNotifModal').modal('toggle');", true);
+
             }
         }
 
@@ -38,7 +42,10 @@ namespace LMS
 
                 DrpPublishers.Items.Clear();
                 DrpPublishers.DataBind();
-                ScriptManager.RegisterStartupScript(BtnAddPublisher, GetType(), "AddPublisherModal", @"$('#AddPublisherModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(BtnAddPublisher, GetType(), "AddPublisherModal",
+                    @"$('#AddPublisherModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(BtnAddPublisher, GetType(), "AdditionNotifModal",
+                    @"$('#AdditionNotifModal').modal('toggle');", true);
             }
         }
 
@@ -56,6 +63,8 @@ namespace LMS
                 GrdLibraryIndex.DataBind();
                 ScriptManager.RegisterStartupScript(BtnAddBook, GetType(), "AddBookModal",
                     @"$('#AddBookModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(BtnAddBook, GetType(), "AdditionNotifModal",
+                    @"$('#AdditionNotifModal').modal('toggle');", true);
             }
         }
 
@@ -76,7 +85,9 @@ namespace LMS
                 DrpPublishers.Items.Clear();
                 DrpPublishers.DataBind();
                 ScriptManager.RegisterStartupScript(FvBtnUpdatePub, GetType(), "EditAuthorModal",
-                    @"$('#EditPublisherModal').modal('hide');", true); 
+                    @"$('#EditPublisherModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(FvBtnUpdatePub, GetType(), "UpdateNotifModal",
+                    @"$('#UpdateNotifModal').modal('toggle');", true);
             }
         }
 
@@ -94,6 +105,8 @@ namespace LMS
 
                 ScriptManager.RegisterStartupScript(FvBtnUpdateAuth, GetType(), "EditAuthorModal",
                     @"$('#EditAuthorModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(FvBtnUpdateAuth, GetType(), "UpdateNotifModal",
+                    @"$('#UpdateNotifModal').modal('toggle');", true);
             }
         }
 
@@ -106,6 +119,8 @@ namespace LMS
                 GrdLibraryIndex.DataBind();
                 ScriptManager.RegisterStartupScript(BtnEditBook, GetType(), "EditBookModal",
                          @"$('#EditBookModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(BtnEditBook, GetType(), "UpdateNotifModal",
+                    @"$('#UpdateNotifModal').modal('toggle');", true);
             }
         }
 
@@ -126,7 +141,7 @@ namespace LMS
                 DrpPublishers.Items.Clear();
                 DrpPublishers.DataBind();
                 ScriptManager.RegisterStartupScript(BtnDeletePub, GetType(), "DeletePublisher",
-                         @"$('#DeletePublisher').modal('hide');", true); 
+                         @"$('#DeletePublisher').modal('hide');", true);
             }
 
         }
