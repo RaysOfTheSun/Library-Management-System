@@ -50,7 +50,6 @@
                         <div class="input-group w-75" style="border: 0;">
                             <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
                             <div class="input-group-append">
-                                <%--<asp:Button ID="Button2" runat="server" Text="GO" CssClass="" />--%>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-git btn-lg"><i class="fa fa-search"></i></asp:LinkButton>
                             </div>
                         </div>
@@ -63,8 +62,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navigation">
-                <ul class="navbar-nav" style="padding-left: 1.8rem;" id="nav">
-                    <li id="mini-logo"><a href="#">LOGO</a></li>
+                <ul class="navbar-nav" style="margin-left:100px;" id="nav">
                     <li class="nav-item active">
                         <a href="ManageBooks.aspx" class="nav-link">Books</a>
                     </li>
@@ -75,7 +73,7 @@
                         <a href="ManageUsers.aspx" class="nav-link">Library Users</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto" style="margin-right: 200px !important;">
+                <ul class="navbar-nav ml-auto" style="margin-right: 170px !important;">
                     <li class="nav-item">
                         <a href="Search.aspx" class="nav-link"><i class="fas fa-search"></i>&nbsp;Search Libary Resources</a>
                     </li>

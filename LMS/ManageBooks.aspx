@@ -2,6 +2,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="wrap">
+        <div class="container">
+            <div class="form-group jumbotron pt-3 pb-3" style="border-style:dashed;">
+                <asp:Button ID="Button1" runat="server" Text="Add a Book" CssClass="btn btn-library-10 align-middle"
+                    OnClientClick="return false;" data-toggle="modal" data-target="#AddBookModal" CausesValidation="false" />
+                <asp:Button ID="Button2" runat="server" Text="Add an Author" CssClass="btn btn-library-10"
+                    OnClientClick="return false;" data-toggle="modal" data-target="#AddAuthorModal" CausesValidation="false" />
+                <asp:Button ID="Button3" runat="server" Text="Add a Publisher" CssClass="btn btn-library-10"
+                    OnClientClick="return false;" data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false" />
+            </div>
+        </div>
         <div class="container" style="font-size: 1.3vw;">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -18,17 +28,8 @@
                 </div>
             </nav>
         </div>
+
         <div class="tab-content" id="nav-tabContent">
-            <div class="container pt-2">
-                <div class="form-group">
-                    <asp:Button ID="Button1" runat="server" Text="Add a Book" CssClass="btn btn-library-10 align-middle"
-                        OnClientClick="return false;" data-toggle="modal" data-target="#AddBookModal" CausesValidation="false" />
-                    <asp:Button ID="Button2" runat="server" Text="Add an Author" CssClass="btn btn-library-10"
-                        OnClientClick="return false;" data-toggle="modal" data-target="#AddAuthorModal" CausesValidation="false" />
-                    <asp:Button ID="Button3" runat="server" Text="Add a Publisher" CssClass="btn btn-library-10"
-                        OnClientClick="return false;" data-toggle="modal" data-target="#AddPublisherModal" CausesValidation="false" />
-                </div>
-            </div>
             <%--Libray tab--%>
             <div class="tab-pane fade show active" id="nav-library" role="tabpanel" aria-labelledby="nav-library-tab">
                 <div class="container">
@@ -38,8 +39,8 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GrdLibraryIndex" runat="server" AutoGenerateColumns="False"
-                                CssClass="table" DataSourceID="SourceLibrary" DataKeyNames="indexID" 
-                                AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand" 
+                                CssClass="table" DataSourceID="SourceLibrary" DataKeyNames="indexID"
+                                AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand"
                                 GridLines="Horizontal" BorderStyle="None">
                                 <Columns>
                                     <asp:BoundField DataField="indexID" HeaderText="Index ID" ReadOnly="True" SortExpression="indexID" />
@@ -76,7 +77,7 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False"
-                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" OnRowCommand="GrdBooks_RowCommand" 
+                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" OnRowCommand="GrdBooks_RowCommand"
                                 BorderStyle="None" GridLines="Horizontal" PageSize="5" AllowPaging="true">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
@@ -117,8 +118,8 @@
                     <asp:UpdatePanel ID="UPLAddAuth" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
                             <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False"
-                                CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" 
-                                AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand" 
+                                CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID"
+                                AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand"
                                 GridLines="Horizontal" BorderStyle="None">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
@@ -161,8 +162,8 @@
                             <asp:AsyncPostBackTrigger ControlID="GrdPublishers" />
                         </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers" 
-                                AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table" 
+                            <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers"
+                                AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table"
                                 OnRowCommand="GrdPublishers_RowCommand" BorderStyle="None" GridLines="Horizontal"
                                 PageSize="5" AllowPaging="true">
                                 <EmptyDataTemplate>
@@ -307,7 +308,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="BtnAddBook" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="BtnAddBook_ServerClick" 
+                                    runat="server" onserverclick="BtnAddBook_ServerClick"
                                     validationgroup="book">
                                     Add Book</button>
                                 <button id="BtnResetBookFields" runat="server" type="button" class="btn btn-secondary" data-dismiss="modal"
@@ -355,7 +356,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="BtnAddAuthorB" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="BtnAddAuthor_Click" 
+                                    runat="server" onserverclick="BtnAddAuthor_Click"
                                     validationgroup="author">
                                     Add Author</button>
                                 <button id="BtnResetAuthorFields" type="button" runat="server"
@@ -400,7 +401,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="BtnAddPublisher" type="button" class="btn btn-library-10"
-                                    runat="server" onserverclick="BtnAddPublisher_ServerClick" 
+                                    runat="server" onserverclick="BtnAddPublisher_ServerClick"
                                     validationgroup="publisher">
                                     Add Publisher</button>
                                 <button id="BtnResetPublisherFields" type="button" class="btn btn-secondary" runat="server"
