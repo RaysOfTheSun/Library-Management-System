@@ -26,7 +26,9 @@ namespace LMS
                 FvwAccounts.UpdateItem(true);
                 GvwAccounts.DataBind();
                 ScriptManager.RegisterStartupScript(BtnEditAcc, GetType(), "editAccountModal",
-                         @"$('#editAccountModal').modal('hide');", true);
+                    @"$('#editAccountModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(BtnEditAcc, GetType(), "UpdateNotifModal",
+                    @"$('#UpdateNotifModal').modal('toggle');", true);
             }
         }
 
@@ -51,7 +53,9 @@ namespace LMS
                 FvwUserDet.UpdateItem(true);
                 GvwDetails.DataBind();
                 ScriptManager.RegisterStartupScript(BtnUpdateUserDet, GetType(), "editUserModal",
-                         @"$('#editUserModal').modal('hide');", true);
+                    @"$('#editUserModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(BtnUpdateUserDet, GetType(), "UpdateNotifModal",
+                    @"$('#UpdateNotifModal').modal('toggle');", true);
             }
         }
 
@@ -93,6 +97,12 @@ namespace LMS
             }
 
             return result;
+        }
+
+        protected void BtnUpdateSuccess_ServerClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(BtnUpdateUserDet, GetType(), "UpdateNotifModal",
+                @"$('#UpdateNotifModal').modal('toggle');", true);
         }
     }
 }

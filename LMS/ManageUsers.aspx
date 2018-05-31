@@ -13,11 +13,6 @@
             </nav>
         </div>
         <div class="tab-content" id="myTabContent">
-            <div class="container">
-                <div class="jumbotron">
-                    <p class="display-4">Stats</p>
-                </div>
-            </div>
             <div class="tab-pane fade show active" id="nav-accounts" role="tabpanel" aria-labelledby="nav-accounts-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="true">
@@ -279,7 +274,8 @@
                         <ContentTemplate>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" id="BtnDeleteAccount" runat="server"
-                                    onserverclick="BtnDeleteAccount_ServerClick">
+                                    onserverclick="BtnDeleteAccount_ServerClick" data-toggle="modal"
+                                    data-target="#UpdateNotifModal">
                                     Yes</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                             </div>
@@ -317,9 +313,46 @@
                         <ContentTemplate>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" id="BtnDeleteUser" runat="server"
-                                    onserverclick="BtnDeleteUser_ServerClick">
+                                    onserverclick="BtnDeleteUser_ServerClick" data-toggle="modal"
+                                    data-target="#UpdateNotifModal">
                                     Yes</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Update Notification modal -->
+        <div class="modal fade" id="UpdateNotifModal" tabindex="-1" role="dialog" aria-labelledby="UpdateNotifLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="UpdateNotifLabel"><strong>Update Successfull</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fas fa-info-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Records were updated successfully.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="BtnUpdateSuccess" runat="server"
+                                    onserverclick="BtnUpdateSuccess_ServerClick">
+                                    OK</button>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>

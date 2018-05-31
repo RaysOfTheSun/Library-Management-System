@@ -19,12 +19,9 @@
             </nav>
         </div>
         <div class="tab-content" id="nav-tabContent">
-            <div class="container">
-                <div class="jumbotron">
-                    <p class="display-4">Stats</p>
-                </div>
+            <div class="container pt-2">
                 <div class="form-group">
-                    <asp:Button ID="Button1" runat="server" Text="Add a Book" CssClass="btn btn-library-10"
+                    <asp:Button ID="Button1" runat="server" Text="Add a Book" CssClass="btn btn-library-10 align-middle"
                         OnClientClick="return false;" data-toggle="modal" data-target="#AddBookModal" CausesValidation="false" />
                     <asp:Button ID="Button2" runat="server" Text="Add an Author" CssClass="btn btn-library-10"
                         OnClientClick="return false;" data-toggle="modal" data-target="#AddAuthorModal" CausesValidation="false" />
@@ -41,7 +38,9 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GrdLibraryIndex" runat="server" AutoGenerateColumns="False"
-                                CssClass="table" DataSourceID="SourceLibrary" DataKeyNames="indexID" AllowPaging="True" PageSize="6" OnRowCommand="GrdPublishers_RowCommand" GridLines="Horizontal" BorderStyle="None">
+                                CssClass="table" DataSourceID="SourceLibrary" DataKeyNames="indexID" 
+                                AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand" 
+                                GridLines="Horizontal" BorderStyle="None">
                                 <Columns>
                                     <asp:BoundField DataField="indexID" HeaderText="Index ID" ReadOnly="True" SortExpression="indexID" />
                                     <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
@@ -77,7 +76,8 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False"
-                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" OnRowCommand="GrdBooks_RowCommand" BorderStyle="None" GridLines="Horizontal">
+                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" OnRowCommand="GrdBooks_RowCommand" 
+                                BorderStyle="None" GridLines="Horizontal" PageSize="5" AllowPaging="true">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
                                         <p class="lead">There is currently nothing to show.</p>
@@ -113,12 +113,13 @@
             </div>
             <%-- Authors tab --%>
             <div class="tab-pane fade" id="nav-authors" role="tabpanel" aria-labelledby="nav-authors-tab">
-
                 <div class="container">
                     <asp:UpdatePanel ID="UPLAddAuth" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
                             <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False"
-                                CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" AllowPaging="True" PageSize="6" OnRowCommand="GrdPublishers_RowCommand" GridLines="Horizontal" BorderStyle="None">
+                                CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID" 
+                                AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand" 
+                                GridLines="Horizontal" BorderStyle="None">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
                                         <p class="lead">There is currently nothing to show.</p>
@@ -160,7 +161,10 @@
                             <asp:AsyncPostBackTrigger ControlID="GrdPublishers" />
                         </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers" AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table" OnRowCommand="GrdPublishers_RowCommand" BorderStyle="None" GridLines="Horizontal">
+                            <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers" 
+                                AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table" 
+                                OnRowCommand="GrdPublishers_RowCommand" BorderStyle="None" GridLines="Horizontal"
+                                PageSize="5" AllowPaging="true">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
                                         <p class="lead">There is currently nothing to show.</p>

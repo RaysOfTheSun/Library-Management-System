@@ -286,6 +286,8 @@ namespace LMS
                 GrdLibraryIndex.DataBind();
                 ScriptManager.RegisterStartupScript(BtnDeleteBook, GetType(), "EditLibIndexModal",
                          @"$('#EditLibIndexModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(FvBtnUpdateCallNum, GetType(), "UpdateNotifModal",
+                    @"$('#UpdateNotifModal').modal('toggle');", true);
             }
         }
 

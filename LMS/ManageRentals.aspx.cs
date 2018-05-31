@@ -33,6 +33,8 @@ namespace LMS
             GvwRentals.DataBind();
             ScriptManager.RegisterStartupScript(BtnConfirmAcceptRequest_, GetType(), "ConfirmAcceptRequestModal",
                      @"$('#ConfirmAcceptRequestModal').modal('hide');", true);
+            ScriptManager.RegisterStartupScript(BtnConfirmAcceptRequest_, GetType(), "UpdateNotifModal",
+                @"$('#UpdateNotifModal').modal('toggle');", true);
         }
 
         protected void GvwRentals_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -56,7 +58,9 @@ namespace LMS
                 SourceRentals.Update();
                 GvwRentals.DataBind();
                 ScriptManager.RegisterStartupScript(BtnExtendRental, GetType(), "ExtendRentalModal",
-                         @"$('#ExtendRentalModal').modal('hide');", true); 
+                    @"$('#ExtendRentalModal').modal('hide');", true);
+                ScriptManager.RegisterStartupScript(BtnExtendRental, GetType(), "UpdateNotifModal",
+                    @"$('#UpdateNotifModal').modal('toggle');", true);
             }
         }
 
@@ -67,6 +71,12 @@ namespace LMS
 
             args.IsValid = (DateTime.TryParse(args.Value, out dt)
                 && dt >= minDate);
+        }
+
+        protected void BtnUpdateSuccess_ServerClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(BtnUpdateSuccess, GetType(), "UpdateNotifModal",
+                @"$('#UpdateNotifModal').modal('toggle');", true);
         }
     }
 }

@@ -148,6 +148,24 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnDeleteUser;
         
         /// <summary>
+        /// UpdatePanel11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel11;
+        
+        /// <summary>
+        /// BtnUpdateSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnUpdateSuccess;
+        
+        /// <summary>
         /// SourceAccounts control.
         /// </summary>
         /// <remarks>

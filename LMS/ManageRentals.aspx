@@ -213,7 +213,8 @@
                         <ContentTemplate>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" id="BtnReturnRental" runat="server"
-                                    onserverclick="BtnReturnRental_ServerClick">
+                                    onserverclick="BtnReturnRental_ServerClick" data-toggle="modal"
+                                    data-target="#UpdateNotifModal">
                                     Yes</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                             </div>
@@ -247,7 +248,8 @@
                                             ControlToValidate="TbxExtensionDate" ValidationGroup="extend"></asp:RequiredFieldValidator>
                                         <asp:CustomValidator ID="ReqNotPastValDate" runat="server" ForeColor="Red" ValidationGroup="extend"
                                             ErrorMessage="This value cannot be set to a date in the past"
-                                            ControlToValidate="TbxExtensionDate" OnServerValidate="ReqNotPastValDate_ServerValidate"></asp:CustomValidator></div>
+                                            ControlToValidate="TbxExtensionDate" OnServerValidate="ReqNotPastValDate_ServerValidate"></asp:CustomValidator>
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -258,13 +260,45 @@
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
-
                 </div>
             </div>
         </div>
 
+        <!-- Update Notification modal -->
+        <div class="modal fade" id="UpdateNotifModal" tabindex="-1" role="dialog" aria-labelledby="UpdateNotifLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="UpdateNotifLabel"><strong>Update Successfull</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 text-center">
+                                <i class="fas fa-info-circle display-1" style="color: rgb(0, 172, 237) !important;"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-justify">
+                                    Records were updated successfully.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="BtnUpdateSuccess" runat="server"
+                                    onserverclick="BtnUpdateSuccess_ServerClick">
+                                    OK</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
 
+                </div>
+            </div>
+        </div>
     </div>
     <asp:SqlDataSource ID="SourceRequests" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"
         SelectCommand="SELECT * FROM RentalRequestDetails" DeleteCommand="DeleteRequest @rentalID" InsertCommand="EXEC AddRental @id">
