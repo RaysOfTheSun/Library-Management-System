@@ -36,7 +36,6 @@ namespace LMS
         protected void GvwDetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             Session["borrowerID"] = e.CommandArgument.ToString();
-            //hiddenID.Value = e.CommandArgument.ToString();
         }
 
         protected void BtnDeleteAccount_ServerClick(object sender, EventArgs e)

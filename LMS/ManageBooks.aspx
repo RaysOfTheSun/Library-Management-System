@@ -6,7 +6,7 @@
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
                     <div class="form-group pt-3">
-                        <asp:LinkButton runat="server" 
+                        <asp:LinkButton runat="server"
                             CssClass="btn btn-library-10 align-middle text-center pr-3 pl-3"
                             data-toggle="modal" data-target="#AddBookModal" CausesValidation="false">
                                 <i class="fas fa-book h3"></i>
@@ -94,6 +94,15 @@
                             <asp:AsyncPostBackTrigger ControlID="GrdBooks" />
                         </Triggers>
                         <ContentTemplate>
+                            <asp:Panel ID="Panel1" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchBookGrid">
+                                <div class="input-group mx-auto mb-1 mt-1">
+                                    <asp:TextBox ID="TbxSearchBookGrid" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search books"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:LinkButton ID="BtnSearchBookGrid" runat="server" CssClass="btn btn-git btn-lg"
+                                            OnClick="BtnSearchBookGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
                             <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False"
                                 DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" OnRowCommand="GrdBooks_RowCommand"
                                 BorderStyle="None" GridLines="Horizontal" PageSize="5" AllowPaging="true">

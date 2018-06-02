@@ -27,7 +27,7 @@ namespace LMS
 
                 DrpAuthors.Items.Clear();
                 DrpAuthors.DataBind();
-                ScriptManager.RegisterStartupScript(BtnAddAuthorB, GetType(), "AddAuthorkModal", 
+                ScriptManager.RegisterStartupScript(BtnAddAuthorB, GetType(), "AddAuthorkModal",
                     @"$('#AddAuthorModal').modal('hide');", true);
                 ScriptManager.RegisterStartupScript(BtnAddAuthorB, GetType(), "AdditionNotifModal",
                     @"$('#AdditionNotifModal').modal('toggle');", true);
@@ -306,6 +306,26 @@ namespace LMS
         {
             ScriptManager.RegisterStartupScript(BtnAdditionSuccess, GetType(), "AdditionNotifModal",
                 @"$('#AdditionNotifModal').modal('hide');", true);
+        }
+
+        protected void BtnSearchBookGrid_Click(object sender, EventArgs e)
+        {
+            if (TbxSearchBookGrid.Text != string.Empty)
+            {
+                SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
+                    $"CONTAINS(title,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(author,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(ISBN,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(publisherName,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(genre,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    "bookID IN (SELECT bookID FROM LibraryIndexNamed WHERE " +
+                    $"CONTAINS(callNumber, '\"{TbxSearchBookGrid.Text}*\"'))";
+                GrdBooks.DataBind();
+            }
+            else
+            {
+                GrdBooks.DataBind();
+            }
         }
     }
 }
