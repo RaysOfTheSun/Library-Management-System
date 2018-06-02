@@ -58,13 +58,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.GridView GvwDetails;
         
         /// <summary>
-        /// UpdatePanel3 control.
+        /// UpdatePanel6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
         
         /// <summary>
         /// FvwUserDet control.

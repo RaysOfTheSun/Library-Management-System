@@ -109,7 +109,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+
+                    <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                         <ContentTemplate>
                             <div class="modal-body">
                                 <asp:FormView ID="FvwUserDet" runat="server" DataKeyNames="borrowerID" DataSourceID="SourceUsersEdit" DefaultMode="Edit" CssClass="w-100">
@@ -167,6 +168,12 @@
                                                 <asp:RequiredFieldValidator ID="ReqValStreetU" runat="server"
                                                     ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                                     ControlToValidate="streetTextBox" ValidationGroup="updateUser"></asp:RequiredFieldValidator>
+                                            </div>
+                                            <div class="form-group mb-1">
+                                                <p class="h6">Phone Number</p>
+                                                <asp:TextBox ID="phoneNumberTextbox" runat="server" TextMode="Number" Text='<%# Bind("phoneNumber") %>'
+                                                    CssClass="form-control" ValidationGroup="updateUser" />
+                                                <asp:Label ID="numberIDLabel" runat="server" Text='<%# Bind("numberID") %>' Visible="false" />
                                             </div>
                                             <div class="form-group mb-1">
                                                 <p class="h6">Zip Code</p>
@@ -372,7 +379,7 @@
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SourceUsers" runat="server" SelectCommand="SELECT borrowerID, firstName, middleName, lastName, countryName, cityName, street, zipCode FROM completeBorrowerData" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SourceUsersEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM completeBorrowerDataB WHERE borrowerID = @id" UpdateCommand="EXEC UpdateUserDetails @firstName, @middleName, @lastName, @mail, @countryID, @cityID, @street, @zipCode, @addressID, @borrowerID" DeleteCommand="DeleteUserDetails @bID
+    <asp:SqlDataSource ID="SourceUsersEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM completeBorrowerDataB WHERE borrowerID = @id" UpdateCommand="EXEC UpdateUserDetails @firstName, @middleName, @lastName, @phoneNumber, @mail, @countryID, @cityID, @street, @zipCode, @addressID, @borrowerID, @numberID" DeleteCommand="DeleteUserDetails @bID
 ">
         <DeleteParameters>
             <asp:SessionParameter Name="bID" SessionField="borrowerID" Type="Int32" />

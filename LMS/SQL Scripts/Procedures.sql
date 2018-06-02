@@ -17,13 +17,15 @@ CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), 
 GO
 
 CREATE OR ALTER PROCEDURE UpdateUserDetails (@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50),
-	@mail NVARCHAR(255), @countryID INT, @cityID INT, @street NVARCHAR(100), @zip SMALLINT, @addressID INT, @bID INT) AS
+	@mail NVARCHAR(255), @number NVARCHAR(255), @countryID INT, @cityID INT, @street NVARCHAR(100), 
+	@zip SMALLINT, @addressID INT, @bID INT, @nID INT) AS
 	BEGIN TRAN
 		BEGIN TRY
 			UPDATE BookBorrowers SET firstName = @first, middleName = @middle, lastName = @last,
 			mail = @mail WHERE borrowerID = @bID
 			UPDATE BorrowerAddresses SET countryID = @countryID, cityID = @cityID, zipCode = @zip, street = @street
 				WHERE addressID = @addressID
+			UPDATE BorrowerNumbers SET phoneNumber = @number WHERE numberID = @nID
 			COMMIT TRAN
 		END TRY
 		BEGIN CATCH

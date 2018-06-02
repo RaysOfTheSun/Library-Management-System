@@ -196,20 +196,22 @@ GO
 
 CREATE OR ALTER VIEW completeBorrowerData AS
 	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
-		BookBorrowers.mail, Countries.countryName, Cities.cityName, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
-		BookBorrowers.addressID
+		BookBorrowers.mail, BorrowerNumbers.phoneNumber, Countries.countryName, Cities.cityName, 
+		BorrowerAddresses.street, BorrowerAddresses.zipCode, BookBorrowers.addressID
 		FROM BookBorrowers
 			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
+			INNER JOIN BorrowerNumbers ON BorrowerNumbers.numberID = BookBorrowers.numberID
 			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
 			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
 GO
 
 CREATE OR ALTER VIEW completeBorrowerDataB AS
 	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
-		BookBorrowers.mail, Countries.countryID, Cities.cityID, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
+		BookBorrowers.mail, BorrowerNumbers.phoneNumber, BorrowerNumbers.numberID, Countries.countryID, Cities.cityID, BorrowerAddresses.street, BorrowerAddresses.zipCode, 
 		BookBorrowers.addressID
 		FROM BookBorrowers
 			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
+			INNER JOIN BorrowerNumbers ON BorrowerNumbers.numberID = BookBorrowers.numberID
 			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
 			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
 GO
