@@ -1,10 +1,13 @@
 --Library User Related Procedures
 CREATE OR ALTER PROCEDURE CreateUser(@first NVARCHAR(50), @middle NVARCHAR(50), @last NVARCHAR(50), 
-	@mail NVARCHAR(255), @pass NVARCHAR(128), @countryID INT, @cityID INT, @street NVARCHAR(100), @zip SMALLINT) AS
+	@mail NVARCHAR(255), @pass NVARCHAR(128), @countryID INT, @cityID INT, @street NVARCHAR(100), @zip SMALLINT,
+	@number NVARCHAR(255)) AS
 	BEGIN TRAN 
 		BEGIN TRY
 			INSERT INTO BorrowerAddresses VALUES (@countryID, @cityID, @street, @zip)
-			INSERT INTO BookBorrowers(firstName,middleName,lastName,mail,addressID) VALUES (@first, @middle, @last, @mail, IDENT_CURRENT('BorrowerAddresses'))
+			INSERT INTO BorrowerNumbers VALUES (@number)
+			INSERT INTO BookBorrowers(firstName,middleName,lastName,mail,addressID, numberID) VALUES (@first, @middle, @last, 
+				@mail, IDENT_CURRENT('BorrowerAddresses'), IDENT_CURRENT('BorrowerNumbers'))
 			INSERT INTO UserAccounts VALUES (IDENT_CURRENT('BookBorrowers'), @mail, @pass)
 			COMMIT TRAN
 		END TRY
@@ -227,7 +230,7 @@ CREATE OR ALTER PROCEDURE AddRequest(@bookID INT, @borrowerID INT) AS
 			SELECT @count = bookCount FROM BookStatuses WHERE bookID = @bookID
 			IF (@count > 0) 
 			BEGIN
-				INSERT INTO RentalRequests VALUES (@bookID, @borrowerID, DATEADD(day, 14, GETDATE()))
+				INSERT INTO RentalRequests VALUES (@bookID, @borrowerID,GETDATE(),  DATEADD(day, 14, GETDATE()))
 				UPDATE BookStatuses SET bookCount = bookCount - 1 WHERE bookID = @bookID
 				COMMIT TRAN
 			END
@@ -258,11 +261,13 @@ CREATE OR ALTER PROCEDURE AddRental(@requestID INT) AS
 		BEGIN TRY
 			DECLARE @borrowerID INT
 			DECLARE @bookID INT
+			DECLARE @rentalDate DATE
 			DECLARE @returnDate DATE
 			SELECT @borrowerID = borrowerID FROM RentalRequests WHERE rentalID = @requestID
 			SELECT @bookID = bookID FROM RentalRequests WHERE rentalID = @requestID
 			SELECT @returnDate = returnDate FROM RentalRequests WHERE rentalID = @requestID
-			INSERT INTO BookRentals VALUES ( @bookID, @borrowerID, @returnDate)
+			SELECT @rentalDate = rentalDate FROM RentalRequests WHERE rentalID = @requestID
+			INSERT INTO BookRentals VALUES ( @bookID, @borrowerID, @rentalDate, @returnDate)
 			DELETE FROM RentalRequests WHERE rentalID = @requestID
 			COMMIT TRAN
 		END TRY

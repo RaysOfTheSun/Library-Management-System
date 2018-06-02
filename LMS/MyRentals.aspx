@@ -22,18 +22,16 @@
                                 DataKeyNames="rentalID" DataSourceID="SourceRentals" GridLines="Horizontal" AllowPaging="True" PageSize="4">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
-                                        <p class="lead">There are currently no rental details to show.</p>
+                                        <p class="lead">You have not rentaed any books as of this time.</p>
                                     </div>
                                 </EmptyDataTemplate>
                                 <Columns>
-                                    <%--<asp:BoundField DataField="rentalID" HeaderText="Rental ID" ReadOnly="True" SortExpression="rentalID" />--%>
-                                    <%--<asp:BoundField DataField="borrowerID" HeaderText="borrowerID" SortExpression="borrowerID" />--%>
-                                    <%--<asp:BoundField DataField="accountOwner" HeaderText="accountOwner" SortExpression="accountOwner" ReadOnly="True" />--%>
                                     <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
                                     <asp:BoundField DataField="fullName" HeaderText="Author" SortExpression="fullName" ReadOnly="True" />
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
-                                    <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" DataFormatString="{0:d}" />
+                                    <asp:BoundField DataField="rentalDate" HeaderText="Rental Date" SortExpression="rentalDate" />
+                                    <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" />
                                 </Columns>
                                 <HeaderStyle BorderStyle="Solid" VerticalAlign="Middle" />
                             </asp:GridView>

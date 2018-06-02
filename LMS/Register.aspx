@@ -8,7 +8,7 @@
             <div class="container">
                 <div class="row justify-content-center align-items-center">
                     <div class="lib-box" style="width: 600px !important;">
-                        <h4 style="font-size: 32px;"><i class="fa fa-cogs"></i>Dynamic Link | LIBRARIES</h4>
+                        <h4 style="font-size: 32px;"><i class="fa fa-cogs"></i>&nbsp;Dynamic Link | LIBRARIES</h4>
                     </div>
                 </div>
                 <div class="row justify-content-center align-items-center">
@@ -59,6 +59,11 @@
                                 </div>
                             </div>
                             <div class="mb-2">
+                                <asp:TextBox ID="TbxNumber" runat="server" CssClass="form-control mb-1"
+                                    placeholder="phone number (optional)"></asp:TextBox>
+                                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                        ErrorMessage="This field is required" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxLastName"></asp:RequiredFieldValidator>--%>
                                 <asp:TextBox ID="TbxStreet" runat="server" CssClass="form-control" TextMode="MultiLine"
                                     placeholder="street"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="ReqValStreet" runat="server"
@@ -93,7 +98,7 @@
                                         ControlToValidate="TbxConfirmPassword"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
-                            <asp:Button ID="BtnCreate" runat="server" Text="Create My Account" 
+                            <asp:Button ID="BtnCreate" runat="server" Text="Create My Account"
                                 CssClass="btn btn-library-10 form-control form-control-lg" OnClick="BtnCreate_Click" />
                             <div class="divider">
                                 <hr class="left">
@@ -142,7 +147,9 @@
 
     <asp:SqlDataSource ID="Countries" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [Countries]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="Cities" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM Cities"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="LibraryDB" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" InsertCommand="EXEC CreateUser @first,@middle,@last,@mail,@pass,@countryID, @cityID,@street,@zip" OnInserted="LibraryDB_Inserted" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
+    <asp:SqlDataSource ID="LibraryDB" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" InsertCommand="EXEC CreateUser @first,@middle,@last,@mail,@pass,@countryID,@cityID,@street,@zip,@number
+"
+        ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
         <InsertParameters>
             <asp:ControlParameter ControlID="TbxFirstname" Name="first" PropertyName="Text" Type="String" />
             <asp:ControlParameter ControlID="TbxMiddleName" Name="middle" PropertyName="Text" Type="String" />
@@ -153,6 +160,7 @@
             <asp:ControlParameter ControlID="DrpCity" Name="cityID" PropertyName="SelectedValue" Type="Int32" />
             <asp:ControlParameter ControlID="TbxStreet" Name="street" PropertyName="Text" Type="String" />
             <asp:ControlParameter ControlID="TbxZipCode" Name="zip" PropertyName="Text" Type="Int16" />
+            <asp:ControlParameter ControlID="TbxNumber" Name="number" PropertyName="Text" Type="Int32" />
         </InsertParameters>
     </asp:SqlDataSource>
 </asp:Content>

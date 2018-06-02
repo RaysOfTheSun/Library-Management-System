@@ -37,6 +37,7 @@
                                     <asp:BoundField DataField="fullName" HeaderText="Author" ReadOnly="True" SortExpression="fullName" />
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
+                                    <asp:BoundField DataField="rentalDate" HeaderText="Rental Date" SortExpression="rentalDate" DataFormatString="{0:d}" />
                                     <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" DataFormatString="{0:d}" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
@@ -78,11 +79,13 @@
                                 </EmptyDataTemplate>
                                 <Columns>
                                     <asp:BoundField DataField="rentalID" HeaderText="Rental ID" ReadOnly="True" SortExpression="rentalID" />
-                                    <asp:BoundField DataField="accountOwner" HeaderText="Renter" ReadOnly="True" SortExpression="accountOwner" />
+                                    <%--<asp:BoundField DataField="borrowerID" HeaderText="Borrower ID" SortExpression="borrowerID" />--%>
+                                    <asp:BoundField DataField="accountOwner" HeaderText="Renter" SortExpression="accountOwner" ReadOnly="True" />
                                     <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
-                                    <asp:BoundField DataField="fullName" HeaderText="Author" ReadOnly="True" SortExpression="fullName" />
+                                    <asp:BoundField DataField="fullName" HeaderText="Author" SortExpression="fullName" ReadOnly="True" />
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
+                                    <asp:BoundField DataField="rentalDate" HeaderText="Rental Date" SortExpression="rentalDate" DataFormatString="{0:d}" />
                                     <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" DataFormatString="{0:d}" />
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>

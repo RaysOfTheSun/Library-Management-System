@@ -56,6 +56,16 @@ IF NOT EXISTS (
 IF NOT EXISTS ( 
 		SELECT * FROM INFORMATION_SCHEMA.TABLES
 		WHERE TABLE_SCHEMA = 'dbo'
+		AND TABLE_NAME = 'BorrowerNumbers')
+	BEGIN
+		CREATE TABLE BorrowerNumbers (
+			numberID INT IDENTITY(1, 1) CONSTRAINT PK_NUMBERID PRIMARY KEY NOT NULL,
+			phoneNumber NVARCHAR(255) NULL)
+	END
+
+IF NOT EXISTS ( 
+		SELECT * FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_SCHEMA = 'dbo'
 		AND TABLE_NAME = 'Books')
 	BEGIN
 		CREATE TABLE Books (
@@ -91,7 +101,8 @@ IF NOT EXISTS (
 		middleName NVARCHAR(50) NOT NULL,
 		lastName NVARCHAR(50) NOT NULL,
 		mail NVARCHAR(255) NOT NULL,
-		addressID INT FOREIGN KEY REFERENCES BorrowerAddresses(addressID) NOT NULL)
+		addressID INT FOREIGN KEY REFERENCES BorrowerAddresses(addressID) NOT NULL,
+		numberID INT FOREIGN KEY REFERENCES BorrowerNumbers(numberID) NOT NULL)
 	END
 
 IF NOT EXISTS ( 
@@ -115,6 +126,7 @@ IF NOT EXISTS (
 		rentalID INT IDENTITY(1, 1) CONSTRAINT PK_RENALID PRIMARY KEY NOT NULL,
 		bookID INT FOREIGN KEY REFERENCES Books(bookID) NOT NULL,
 		borrowerID INT FOREIGN KEY REFERENCES BookBorrowers(borrowerID) NOT NULL,
+		rentalDate DATE NOT NULL,
 		returnDate DATE NOT NULL)
 	END
 
@@ -127,6 +139,7 @@ IF NOT EXISTS (
 		rentalID INT IDENTITY(1, 1) CONSTRAINT PK_REQUESTID PRIMARY KEY NOT NULL,
 		bookID INT FOREIGN KEY REFERENCES Books(bookID) NOT NULL,
 		borrowerID INT FOREIGN KEY REFERENCES BookBorrowers(borrowerID) NOT NULL,
+		rentalDate DATE NOT NULL,
 		returnDate DATE NOT NULL)
 	END
 
@@ -203,7 +216,7 @@ GO
 
 CREATE OR ALTER VIEW RentalRequestDetails AS
 	SELECT RentalRequests.rentalID, BorrowerAccounts.accountOwner, Books.title, AuthorNames.fullName, 
-		Books.edition, Books.ISBN, returnDate FROM RentalRequests
+		Books.edition, Books.ISBN, rentalDate, returnDate FROM RentalRequests
 		INNER JOIN Books ON RentalRequests.bookID = Books.bookID
 		INNER JOIN AuthorNames ON AuthorNames.authorID = Books.authorID
 		INNER JOIN BorrowerAccounts ON BorrowerAccounts.borrowerID = RentalRequests.borrowerID
@@ -211,7 +224,7 @@ GO
 
 CREATE OR ALTER VIEW RentalDetails AS
 	SELECT BookRentals.rentalID, BookRentals.borrowerID, BorrowerAccounts.accountOwner, 
-		Books.title, AuthorNames.fullName, Books.edition, Books.ISBN, returnDate FROM BookRentals
+		Books.title, AuthorNames.fullName, Books.edition, Books.ISBN, rentalDate, returnDate FROM BookRentals
 		INNER JOIN Books ON BookRentals.bookID = Books.bookID
 		INNER JOIN AuthorNames ON AuthorNames.authorID = Books.authorID
 		INNER JOIN BorrowerAccounts ON BorrowerAccounts.borrowerID = BookRentals.borrowerID
