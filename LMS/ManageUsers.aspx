@@ -8,7 +8,9 @@
                     <a class="nav-item nav-link active" id="nav-accounts-tab" data-toggle="tab" href="#nav-accounts" role="tab" aria-controls="nav-accounts" aria-selected="true">
                         <i class="fas fa-user"></i>&nbsp;Accounts<asp:HiddenField ID="hideenID" runat="server" />
                     </a>
-                    &nbsp;<a class="nav-item nav-link" id="nav-users-tab" data-toggle="tab" href="#nav-users" role="tab" aria-controls="nav-users" aria-selected="false"><i class="fa fa-address-card"></i>&nbsp;Borrowers</a>
+                    <a class="nav-item nav-link" id="nav-users-tab" data-toggle="tab" href="#nav-users" role="tab" aria-controls="nav-users" aria-selected="false">
+                        <i class="fa fa-address-card"></i>&nbsp;Borrowers
+                    </a>
                 </div>
             </nav>
         </div>
@@ -63,7 +65,9 @@
                             <asp:AsyncPostBackTrigger ControlID="GvwDetails" />
                         </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="GvwDetails" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" DataKeyNames="borrowerID" DataSourceID="SourceUsers" GridLines="Horizontal" OnRowCommand="GvwDetails_RowCommand1">
+                            <asp:GridView ID="GvwDetails" runat="server" AutoGenerateColumns="False" BorderStyle="None"
+                                CssClass="table" DataKeyNames="borrowerID" DataSourceID="SourceUsers" GridLines="Horizontal"
+                                OnRowCommand="GvwDetails_RowCommand1" HeaderStyle-Wrap="false">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
                                         <p class="lead">There is currently nothing to show.</p>
@@ -74,10 +78,19 @@
                                     <asp:BoundField DataField="firstName" HeaderText="First Name" SortExpression="firstName" />
                                     <asp:BoundField DataField="middleName" HeaderText="Middle Name" SortExpression="middleName" />
                                     <asp:BoundField DataField="lastName" HeaderText="Last Name" SortExpression="lastName" />
+                                    <%--<asp:BoundField DataField="mail" HeaderText="E-mail Address" SortExpression="mail" />--%>
+                                    <%--<asp:BoundField DataField="phoneNumber" HeaderText="Contact Number" SortExpression="phoneNumber" />--%>
+                                    <asp:TemplateField HeaderText="Contact Details">
+                                        <ItemTemplate>
+                                            <asp:Button ID="GrdBtnShowUserContactDet" runat="server" Text="View" CssClass="btn btn-info btn-block" CommandName="editItem"
+                                                CommandArgument='<%# Eval("borrowerID") %>' CausesValidation="false" data-toggle="modal"
+                                                data-target="#viewContactDetModal" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="countryName" HeaderText="Home Country" SortExpression="countryName" />
                                     <asp:BoundField DataField="cityName" HeaderText="Home City" SortExpression="cityName" />
-                                    <asp:BoundField DataField="street" HeaderText="Street Address" SortExpression="street" />
-                                    <asp:BoundField DataField="zipCode" HeaderText="Zip" SortExpression="zipCode" />
+                                    <%--<asp:BoundField DataField="street" HeaderText="Street Address" SortExpression="street" />--%>
+                                    <%--<asp:BoundField DataField="zipCode" HeaderText="Zip Code" SortExpression="zipCode" />--%>
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
                                             <asp:Button ID="GrdBtnEditUserDet" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
@@ -197,6 +210,51 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
 
+                </div>
+            </div>
+        </div>
+
+        <!-- View Contact Details modal -->
+        <div class="modal fade" id="viewContactDetModal" tabindex="-1" role="dialog" aria-labelledby="viewContactDetModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewContactDetModalLongTitle"><strong>Contact Information</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <asp:FormView ID="FvwUserContactDet" runat="server" DataSourceID="SourceContactDet" CssClass="w-100">
+                                    <ItemTemplate>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Name</p>
+                                            <asp:Label ID="NameLabel" runat="server" Text='<%# Bind("Name") %>' CssClass="form-control" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">E-mail Address</p>
+                                            <asp:Label ID="mailLabel" runat="server" Text='<%# Bind("mail") %>' CssClass="form-control" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Contact Number</p>
+                                            <asp:Label ID="phoneNumberLabel" runat="server" Text='<%# Bind("phoneNumber") %>' CssClass="form-control" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Address</p>
+                                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("Address") %>' CssClass="form-control" Enabled="false"
+                                                />
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:FormView>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
         </div>
@@ -378,8 +436,13 @@
             <asp:SessionParameter Name="id" SessionField="borrowerID" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
-    <asp:SqlDataSource ID="SourceUsers" runat="server" SelectCommand="SELECT borrowerID, firstName, middleName, lastName, countryName, cityName, street, zipCode FROM completeBorrowerData" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SourceUsersEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM completeBorrowerDataB WHERE borrowerID = @id" UpdateCommand="EXEC UpdateUserDetails @firstName, @middleName, @lastName, @phoneNumber, @mail, @countryID, @cityID, @street, @zipCode, @addressID, @borrowerID, @numberID" DeleteCommand="DeleteUserDetails @bID
+    <asp:SqlDataSource ID="SourceUsers" runat="server" SelectCommand="SELECT borrowerID, firstName, middleName, lastName, mail, phoneNumber, countryName, cityName, street, zipCode FROM completeBorrowerData" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SourceContactDet" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT (firstName + ' ' + middleName + ' ' + lastName) AS [Name], mail, phoneNumber, (street + ', ' + cityName + ', ' + countryName +' ' + CONVERT(NVARCHAR,zipCode)) AS [Address] FROM completeBorrowerData WHERE borrowerID = @id">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="hideenID" Name="id" PropertyName="Value" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    <asp:SqlDataSource ID="SourceUsersEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM completeBorrowerDataB WHERE borrowerID = @id" UpdateCommand="EXEC UpdateUserDetails @firstName, @middleName, @lastName, @mail, @phoneNumber, @countryID, @cityID, @street, @zipCode, @addressID, @borrowerID, @numberID" DeleteCommand="DeleteUserDetails @bID
 ">
         <DeleteParameters>
             <asp:SessionParameter Name="bID" SessionField="borrowerID" Type="Int32" />
