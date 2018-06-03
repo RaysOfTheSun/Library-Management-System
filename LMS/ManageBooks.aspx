@@ -57,9 +57,9 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GrdLibraryIndex" runat="server" AutoGenerateColumns="False"
-                                CssClass="table" DataSourceID="SourceLibrary" DataKeyNames="indexID"
+                                CssClass="table table-hover" DataSourceID="SourceLibrary" DataKeyNames="indexID"
                                 AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand"
-                                GridLines="Horizontal" BorderStyle="None">
+                                GridLines="Horizontal" BorderStyle="None" UseAccessibleHeader="true" OnPreRender="Grd_PreRender">
                                 <Columns>
                                     <asp:BoundField DataField="indexID" HeaderText="Index ID" ReadOnly="True" SortExpression="indexID" />
                                     <asp:BoundField DataField="title" HeaderText="Title" SortExpression="title" />
@@ -92,11 +92,13 @@
                     <asp:UpdatePanel ID="UPBooks" runat="server" ChildrenAsTriggers="true">
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="GrdBooks" />
+                            <asp:AsyncPostBackTrigger ControlID="TbxSearchBookGrid" />
                         </Triggers>
                         <ContentTemplate>
                             <asp:Panel ID="Panel1" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchBookGrid">
                                 <div class="input-group mx-auto mb-1 mt-1">
-                                    <asp:TextBox ID="TbxSearchBookGrid" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search books"></asp:TextBox>
+                                    <asp:TextBox ID="TbxSearchBookGrid" runat="server" CssClass="form-control form-control-lg" 
+                                        Font-Size="14px" placeholder="search books" OnTextChanged="TbxSearchBookGrid_TextChanged"></asp:TextBox>
                                     <div class="input-group-append">
                                         <asp:LinkButton ID="BtnSearchBookGrid" runat="server" CssClass="btn btn-git btn-lg"
                                             OnClick="BtnSearchBookGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
@@ -104,8 +106,9 @@
                                 </div>
                             </asp:Panel>
                             <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False"
-                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table" OnRowCommand="GrdBooks_RowCommand"
-                                BorderStyle="None" GridLines="Horizontal" PageSize="5" AllowPaging="true">
+                                DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table table-hover"
+                                OnRowCommand="GrdBooks_RowCommand" BorderStyle="None" GridLines="Horizontal" 
+                                PageSize="5" AllowPaging="true" OnPreRender="Grd_PreRender">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
                                         <p class="lead">There is currently nothing to show.</p>
@@ -145,9 +148,9 @@
                     <asp:UpdatePanel ID="UPLAddAuth" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
                             <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False"
-                                CssClass="table" DataSourceID="SourceAuthors" DataKeyNames="authorID"
+                                CssClass="table table-hover" DataSourceID="SourceAuthors" DataKeyNames="authorID"
                                 AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand"
-                                GridLines="Horizontal" BorderStyle="None">
+                                GridLines="Horizontal" BorderStyle="None" OnPreRender="Grd_PreRender">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
                                         <p class="lead">There is currently nothing to show.</p>
@@ -190,9 +193,9 @@
                         </Triggers>
                         <ContentTemplate>
                             <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers"
-                                AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table"
+                                AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table table-hover"
                                 OnRowCommand="GrdPublishers_RowCommand" BorderStyle="None" GridLines="Horizontal"
-                                PageSize="5" AllowPaging="true">
+                                PageSize="5" AllowPaging="true" OnPreRender="Grd_PreRender">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
                                         <p class="lead">There is currently nothing to show.</p>

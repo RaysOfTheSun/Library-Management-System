@@ -327,5 +327,43 @@ namespace LMS
                 GrdBooks.DataBind();
             }
         }
+
+        protected void GrdLibraryIndex_DataBound(object sender, EventArgs e)
+        {
+        }
+
+        protected void Grd_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridView grd = sender as GridView;
+                grd.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception)
+            {
+                // Hide that bug ;)
+            }
+
+        }
+
+        protected void TbxSearchBookGrid_TextChanged(object sender, EventArgs e)
+        {
+            if (TbxSearchBookGrid.Text != string.Empty)
+            {
+                SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
+                    $"CONTAINS(title,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(author,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(ISBN,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(publisherName,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(genre,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    "bookID IN (SELECT bookID FROM LibraryIndexNamed WHERE " +
+                    $"CONTAINS(callNumber, '\"{TbxSearchBookGrid.Text}*\"'))";
+                GrdBooks.DataBind();
+            }
+            else
+            {
+                GrdBooks.DataBind();
+            }
+        }
     }
 }
