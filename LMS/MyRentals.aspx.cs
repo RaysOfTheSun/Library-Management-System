@@ -13,6 +13,7 @@ namespace LMS
         {
             if (Session["bID"] == null)
             {
+                Session["curPage"] = "MyRentals.aspx";
                 Response.Redirect(@"~/Home.aspx");
             }
         }

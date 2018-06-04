@@ -16,6 +16,7 @@ namespace LMS
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["curPage"] = "Catalog.aspx";
             ClientScript.RegisterStartupScript(GetType(), "setActiveHome",
                 "$('#catalog').addClass('active');", true);
         }

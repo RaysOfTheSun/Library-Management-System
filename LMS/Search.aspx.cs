@@ -16,6 +16,7 @@ namespace LMS
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["curPage"] = "Search.aspx";
             if (Request.Params["term"] != null && Request.Params["field"].Trim().ToUpper() == "ALL")
             {
                 SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +

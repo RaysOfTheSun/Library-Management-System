@@ -34,7 +34,14 @@ namespace LMS
             else if (IsValidAccount(tbx_username.Text, tbx_password.Text))
             {
                 Session["bID"] = GetID(tbx_username.Text, tbx_password.Text);
-                Response.Redirect(@"~/Home.aspx");
+                if(Session["curPage"] != null)
+                {
+                    Response.Redirect($"~/{(string)Session["curPage"]}");
+                }
+                else
+                {
+                    Response.Redirect(@"~/Home.aspx");
+                }
             }
             else
             {

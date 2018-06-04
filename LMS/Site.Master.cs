@@ -48,7 +48,7 @@ namespace LMS
 
         protected void BtnLogout_Click(object sender, EventArgs e)
         {
-            Session.Remove("bID");
+            Session.Abandon();
             Response.Redirect("~/Home.aspx");
         }
     }
