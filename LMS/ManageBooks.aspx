@@ -97,7 +97,7 @@
                         <ContentTemplate>
                             <asp:Panel ID="Panel1" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchBookGrid">
                                 <div class="input-group mx-auto mb-1 mt-1">
-                                    <asp:TextBox ID="TbxSearchBookGrid" runat="server" CssClass="form-control form-control-lg" 
+                                    <asp:TextBox ID="TbxSearchBookGrid" runat="server" CssClass="form-control form-control-lg"
                                         Font-Size="14px" placeholder="search books" OnTextChanged="TbxSearchBookGrid_TextChanged"></asp:TextBox>
                                     <div class="input-group-append">
                                         <asp:LinkButton ID="BtnSearchBookGrid" runat="server" CssClass="btn btn-git btn-lg"
@@ -107,7 +107,7 @@
                             </asp:Panel>
                             <asp:GridView ID="GrdBooks" runat="server" AutoGenerateColumns="False"
                                 DataKeyNames="bookID" DataSourceID="SourceBooks" CssClass="table table-hover"
-                                OnRowCommand="GrdBooks_RowCommand" BorderStyle="None" GridLines="Horizontal" 
+                                OnRowCommand="GrdBooks_RowCommand" BorderStyle="None" GridLines="Horizontal"
                                 PageSize="5" AllowPaging="true" OnPreRender="Grd_PreRender">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
@@ -320,20 +320,54 @@
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Edition</p>
-                                        <asp:TextBox ID="TbxEdition" runat="server" CssClass="form-control" TextMode="Number"
-                                            placeholder="e.g. 1" min="1" ValidationGroup="book"></asp:TextBox>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <asp:LinkButton ID="BtnAddEd" runat="server" CssClass="btn btn-success kill-spin"
+                                                    OnClick="BtnAddEd_Click">
+                                                    <i class="fas fa-plus"></i>
+                                                </asp:LinkButton>
+                                            </div>
+                                            <asp:TextBox ID="TbxEdition" runat="server" CssClass="form-control" TextMode="Number"
+                                                placeholder="e.g. 1" min="1" ValidationGroup="book" Text="1"></asp:TextBox>
+                                            <div class="input-group-append">
+                                                <asp:LinkButton ID="BtnSubEd" runat="server" CssClass="btn btn-danger"
+                                                    OnClick="BtnSubEd_Click">
+                                                    <i class="fas fa-minus"></i>
+                                                </asp:LinkButton>
+                                            </div>
+                                        </div>
                                         <asp:RequiredFieldValidator ID="ReqValEdition" runat="server"
                                             ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                             ControlToValidate="TbxEdition" ValidationGroup="book"></asp:RequiredFieldValidator>
+                                        <asp:CustomValidator ID="ReqValPositive" runat="server" ValidationGroup="book"
+                                            ErrorMessage="This field cannot have a value that is less than 1" ControlToValidate="TbxEdition"
+                                            OnServerValidate="ReqValPositive_ServerValidate" Display="Dynamic" ForeColor="Red"></asp:CustomValidator>
                                     </div>
-                                    <div class="form-group mb-1">
-                                        <p class="h6">Quantity</p>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <p class="h6">Quantity</p>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <asp:LinkButton ID="BtnAddQuant" runat="server" CssClass="btn btn-success kill-spin"
+                                                OnClick="BtnAddQuant_Click">
+                                                    <i class="fas fa-plus"></i>
+                                            </asp:LinkButton>
+                                        </div>
                                         <asp:TextBox ID="TbxQuantity" runat="server" CssClass="form-control" TextMode="Number"
-                                            placeholder="e.g. 1" min="1" ValidationGroup="book"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="ReqValQuant" runat="server"
-                                            ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
-                                            ControlToValidate="TbxQuantity" ValidationGroup="book"></asp:RequiredFieldValidator>
+                                            placeholder="e.g. 1" min="1" ValidationGroup="book" Text="1"></asp:TextBox>
+                                        <div class="input-group-append">
+                                            <asp:LinkButton ID="BtnSubtractQuant" runat="server" CssClass="btn btn-danger"
+                                                OnClick="BtnSubtractQuant_Click">
+                                                    <i class="fas fa-minus"></i>
+                                            </asp:LinkButton>
+                                        </div>
                                     </div>
+                                        <asp:CustomValidator ID="ReqValPositiveQuant" runat="server" ValidationGroup="book"
+                                            ErrorMessage="This field cannot have a value that is less than 1" ControlToValidate="TbxQuantity"
+                                            OnServerValidate="ReqValPositive_ServerValidate" Display="Dynamic" ForeColor="Red"></asp:CustomValidator>
+                                    <asp:RequiredFieldValidator ID="ReqValQuant" runat="server"
+                                        ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxQuantity" ValidationGroup="book"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -457,6 +491,9 @@
                         </button>
                     </div>
                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="Books" />
+                        </Triggers>
                         <ContentTemplate>
                             <div class="modal-body">
                                 <asp:FormView ID="Books" runat="server" DataKeyNames="bookID" DataSourceID="SourceBookEdit" DefaultMode="Edit" CssClass="w-100">

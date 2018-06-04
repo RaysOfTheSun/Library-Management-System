@@ -53,6 +53,7 @@ namespace LMS
 
         protected void BtnAddBook_ServerClick(object sender, EventArgs e)
         {
+            ReqValPositive.Validate();
             if (IsValid)
             {
                 SourceBooks.Insert();
@@ -363,6 +364,83 @@ namespace LMS
             else
             {
                 GrdBooks.DataBind();
+            }
+        }
+
+        protected void BtnSubtractQuant_Click(object sender, EventArgs e)
+        {
+            if (TbxQuantity.Text == string.Empty)
+            {
+                TbxQuantity.Text = "1";
+            }
+            else
+            {
+                int quantity = -1;
+                if (int.TryParse(TbxQuantity.Text, out quantity))
+                {
+                    TbxQuantity.Text = quantity <= 1 ? "1" : (quantity - 1).ToString();
+                }
+            }
+        }
+
+        protected void BtnAddQuant_Click(object sender, EventArgs e)
+        {
+            int quantity = -1;
+            if (TbxQuantity.Text == string.Empty)
+            {
+                TbxQuantity.Text = "1";
+            }
+            else
+            {
+                if (int.TryParse(TbxQuantity.Text, out quantity))
+                {
+                    TbxQuantity.Text = quantity <= 1 ? "1" : (quantity += 1).ToString();
+                }
+            }
+        }
+
+        protected void BtnAddEd_Click(object sender, EventArgs e)
+        {
+            int quantity = -1;
+            if (TbxEdition.Text == string.Empty)
+            {
+                TbxEdition.Text = "1";
+            }
+            else
+            {
+                if (int.TryParse(TbxEdition.Text, out quantity))
+                {
+                    TbxEdition.Text = quantity <= 1 ? "1" : (quantity += 1).ToString();
+                }
+            }
+        }
+
+        protected void BtnSubEd_Click(object sender, EventArgs e)
+        {
+            if (TbxEdition.Text == string.Empty)
+            {
+                TbxEdition.Text = "1";
+            }
+            else
+            {
+                int quantity = -1;
+                if (int.TryParse(TbxEdition.Text, out quantity))
+                {
+                    TbxEdition.Text = quantity <= 1 ? "1" : (quantity - 1).ToString();
+                }
+            }
+        }
+
+        protected void ReqValPositive_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int value = Convert.ToInt32(args.Value);
+            if(value < 1)
+            {
+                args.IsValid = false;
+            }
+            else
+            {
+                args.IsValid = true;
             }
         }
     }
