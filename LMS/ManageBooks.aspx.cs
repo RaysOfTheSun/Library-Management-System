@@ -13,8 +13,13 @@ namespace LMS
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["IsAdmin"] == null)
+            {
+                Response.Redirect("~/Home.aspx");
+            }
+
             ClientScript.RegisterStartupScript(GetType(), "setActiveHome",
-                "$('#books').addClass('active');", true);
+                 "$('#books').addClass('active');", true);
         }
 
         protected void BtnAddAuthor_Click(object sender, EventArgs e)
@@ -434,7 +439,7 @@ namespace LMS
         protected void ReqValPositive_ServerValidate(object source, ServerValidateEventArgs args)
         {
             int value = Convert.ToInt32(args.Value);
-            if(value < 1)
+            if (value < 1)
             {
                 args.IsValid = false;
             }

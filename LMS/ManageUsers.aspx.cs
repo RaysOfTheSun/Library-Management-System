@@ -16,6 +16,10 @@ namespace LMS
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["IsAdmin"] == null)
+            {
+                Response.Redirect("~/Home.aspx");
+            }
             ClientScript.RegisterStartupScript(GetType(), "setActiveHome",
                 "$('#users').addClass('active');", true);
         }
@@ -42,6 +46,7 @@ namespace LMS
         {
             SourceAccountsEdit.Delete();
             GvwAccounts.DataBind();
+            GvwDetails.DataBind();
             ScriptManager.RegisterStartupScript(BtnDeleteAccount, GetType(), "DeleteAccountModal",
                      @"$('#DeleteAccountModal').modal('hide');", true);
         }

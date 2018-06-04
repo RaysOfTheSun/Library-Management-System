@@ -11,7 +11,8 @@ namespace LMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            BtnLogout.DataBind();
+            BtnMyRentals.DataBind();
         }
 
         public void HideFooterHeader()
@@ -19,6 +20,36 @@ namespace LMS
             header.Visible = false;
             navbar.Visible = false;
             footer_primary.Visible = false;
+        }
+
+        protected bool IsLoggedIn()
+        {
+            if(Session["bID"] == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        protected void BtnMyRentals_Click(object sender, EventArgs e)
+        {
+            if (IsLoggedIn())
+            {
+                Response.Redirect("~/MyRentals.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/Home.aspx");
+            }
+        }
+
+        protected void BtnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Remove("bID");
+            Response.Redirect("~/Home.aspx");
         }
     }
 }

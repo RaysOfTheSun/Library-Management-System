@@ -22,7 +22,7 @@
                                 DataKeyNames="rentalID" DataSourceID="SourceRentals" GridLines="Horizontal" AllowPaging="True" PageSize="4">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
-                                        <p class="lead">You have not rentaed any books as of this time.</p>
+                                        <p class="lead">You have not rented any books as of this time.</p>
                                     </div>
                                 </EmptyDataTemplate>
                                 <Columns>

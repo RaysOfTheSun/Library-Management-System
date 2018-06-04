@@ -11,6 +11,10 @@ namespace LMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["IsAdmin"] == null)
+            {
+                Response.Redirect("~/Home.aspx");
+            }
             ClientScript.RegisterStartupScript(GetType(), "setActiveHome",
                 "$('#rental').addClass('active');", true);
         }

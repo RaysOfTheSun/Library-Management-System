@@ -62,7 +62,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navigation">
-                <ul class="navbar-nav" style="margin-left:100px;" id="nav">
+                <ul class="navbar-nav" style="margin-left: 100px;" id="nav">
                     <li class="nav-item">
                         <a href="ManageBooks.aspx" class="nav-link" id="books">Books</a>
                     </li>
@@ -76,6 +76,11 @@
                 <ul class="navbar-nav ml-auto" style="margin-right: 170px !important;">
                     <li class="nav-item">
                         <a href="Search.aspx" class="nav-link"><i class="fas fa-search"></i>&nbsp;Search Libary Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <asp:LinkButton ID="LinkButton2" runat="server" CssClass="nav-link" OnClick="LinkButton2_Click">
+                            <i class="fa fa-lock"></i>&nbsp;Logout
+                        </asp:LinkButton>
                     </li>
                 </ul>
             </div>

@@ -28,6 +28,7 @@ namespace LMS
             {
                 // This was not a requirement of this project. 
                 // hard coding is the way to go ;)
+                Session["IsAdmin"] = true;
                 Response.Redirect(@"~/ManageBooks.aspx");
             }
             else if (IsValidAccount(tbx_username.Text, tbx_password.Text))

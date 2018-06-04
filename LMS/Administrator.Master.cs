@@ -13,5 +13,11 @@ namespace LMS
         {
 
         }
+
+        protected void LinkButton2_Click(object sender, EventArgs e)
+        {
+            Session.Remove("IsAdmin");
+            Response.Redirect("~/Home.aspx");
+        }
     }
 }

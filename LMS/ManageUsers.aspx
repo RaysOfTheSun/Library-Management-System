@@ -6,7 +6,7 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-accounts-tab" data-toggle="tab" href="#nav-accounts" role="tab" aria-controls="nav-accounts" aria-selected="true">
-                        <i class="fas fa-user"></i>&nbsp;Accounts<asp:HiddenField ID="hideenID" runat="server" />
+                        <i class="fas fa-user"></i>&nbsp;Borrower Accounts<asp:HiddenField ID="hideenID" runat="server" />
                     </a>
                     <a class="nav-item nav-link" id="nav-users-tab" data-toggle="tab" href="#nav-users" role="tab" aria-controls="nav-users" aria-selected="false">
                         <i class="fa fa-address-card"></i>&nbsp;Borrowers
@@ -329,8 +329,8 @@
                             </div>
                             <div class="col-sm-8">
                                 <p class="text-justify">
-                                    Are you sure you want to delete this Account's information from the database? 
-                                    This action cannot be undone.
+                                    Are you sure you want to delete this Account's information from the database? Doing so will
+                                    also delete all associated information. This action cannot be undone.
                                 </p>
                             </div>
                         </div>
@@ -428,7 +428,7 @@
     </div>
 
     <asp:SqlDataSource ID="SourceAccounts" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [BorrowerAccounts]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SourceAccountsEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM BorrowerAccounts WHERE borrowerID = @id" UpdateCommand="EXEC UpdateUserAccount @userName, @accountPassword, @borrowerID" DeleteCommand="EXEC DeleteUserAccount @id">
+    <asp:SqlDataSource ID="SourceAccountsEdit" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM BorrowerAccounts WHERE borrowerID = @id" UpdateCommand="EXEC UpdateUserAccount @userName, @accountPassword, @borrowerID" DeleteCommand="EXEC DeleteUserDetails @id">
         <DeleteParameters>
             <asp:SessionParameter Name="id" SessionField="borrowerID" Type="Int32" />
         </DeleteParameters>
