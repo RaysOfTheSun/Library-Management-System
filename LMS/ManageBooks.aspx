@@ -354,6 +354,9 @@
                                         <asp:RequiredFieldValidator ID="ReqValPubYearA" runat="server"
                                             ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                             ControlToValidate="TbxPubYearA" ValidationGroup="book"></asp:RequiredFieldValidator>
+                                        <asp:CustomValidator ID="ReqValPosYear" runat="server" ValidationGroup="book"
+                                            ErrorMessage="This field cannot have a value that is less than 1" ControlToValidate="TbxPubYearA"
+                                            OnServerValidate="ReqValPositive_ServerValidate" Display="Dynamic" ForeColor="Red"></asp:CustomValidator>
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">ISBN</p>
