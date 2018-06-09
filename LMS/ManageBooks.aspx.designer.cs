@@ -274,6 +274,15 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.DropDownList DrpGenres;
         
         /// <summary>
+        /// BtnSubPubYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton BtnSubPubYear;
+        
+        /// <summary>
         /// TbxPubYearA control.
         /// </summary>
         /// <remarks>
@@ -281,6 +290,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TbxPubYearA;
+        
+        /// <summary>
+        /// BtnAddPubYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton BtnAddPubYear;
         
         /// <summary>
         /// ReqValPubYearA control.
@@ -310,13 +328,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValISBN;
         
         /// <summary>
-        /// BtnAddEd control.
+        /// BtnSubEd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnAddEd;
+        protected global::System.Web.UI.WebControls.LinkButton BtnSubEd;
         
         /// <summary>
         /// TbxEdition control.
@@ -328,13 +346,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxEdition;
         
         /// <summary>
-        /// BtnSubEd control.
+        /// BtnAddEd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnSubEd;
+        protected global::System.Web.UI.WebControls.LinkButton BtnAddEd;
         
         /// <summary>
         /// ReqValEdition control.
@@ -355,13 +373,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.CustomValidator ReqValPositive;
         
         /// <summary>
-        /// BtnAddQuant control.
+        /// BtnSubtractQuant control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnAddQuant;
+        protected global::System.Web.UI.WebControls.LinkButton BtnSubtractQuant;
         
         /// <summary>
         /// TbxQuantity control.
@@ -373,13 +391,13 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.TextBox TbxQuantity;
         
         /// <summary>
-        /// BtnSubtractQuant control.
+        /// BtnAddQuant control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BtnSubtractQuant;
+        protected global::System.Web.UI.WebControls.LinkButton BtnAddQuant;
         
         /// <summary>
         /// ReqValPositiveQuant control.

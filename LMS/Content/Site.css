@@ -10,6 +10,12 @@
     padding-top: 0;
 }
 
+.nospinner::-webkit-outer-spin-button,
+.nospinner[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .dropdown:hover .dropdown-menu {
     display: block;
 }

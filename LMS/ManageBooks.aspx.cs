@@ -482,5 +482,37 @@ namespace LMS
             GrdLibraryIndex.DataBind();
 
         }
+
+        protected void BtnAddPubYear_Click(object sender, EventArgs e)
+        {
+            int quantity = -1;
+            if (TbxPubYearA.Text == string.Empty)
+            {
+                TbxPubYearA.Text = "1";
+            }
+            else
+            {
+                if (int.TryParse(TbxPubYearA.Text, out quantity))
+                {
+                    TbxPubYearA.Text = quantity < 0 ? "1" : (quantity += 1).ToString();
+                }
+            }
+        }
+
+        protected void BtnSubPubYear_Click(object sender, EventArgs e)
+        {
+            if (TbxPubYearA.Text == string.Empty)
+            {
+                TbxPubYearA.Text = "1";
+            }
+            else
+            {
+                int quantity = -1;
+                if (int.TryParse(TbxPubYearA.Text, out quantity))
+                {
+                    TbxPubYearA.Text = quantity <= 1 ? "1" : (quantity - 1).ToString();
+                }
+            }
+        }
     }
 }

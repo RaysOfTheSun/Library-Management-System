@@ -334,9 +334,23 @@
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Year of Publication</p>
-                                        <asp:TextBox ID="TbxPubYearA" runat="server" Text='<%# DateTime.Now.Year %>' CssClass="form-control"
-                                            TextMode="Number" max='<%# DateTime.Now.Year %>' ValidationGroup="book" placeholder="e.g. 2018"
-                                            min="1970"></asp:TextBox>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <asp:LinkButton ID="BtnSubPubYear" runat="server" CssClass="btn btn-danger"
+                                                    OnClick="BtnSubPubYear_Click">
+                                                    <i class="fas fa-minus"></i>
+                                                </asp:LinkButton>
+                                            </div>
+                                            <asp:TextBox ID="TbxPubYearA" runat="server" Text='<%: DateTime.Now.Year %>' CssClass="form-control"
+                                                TextMode="Number" max='<%# DateTime.Now.Year %>' ValidationGroup="book" placeholder="e.g. 2018"
+                                                min="1970"></asp:TextBox>
+                                            <div class="input-group-append">
+                                                <asp:LinkButton ID="BtnAddPubYear" runat="server" CssClass="btn btn-success kill-spin"
+                                                    OnClick="BtnAddPubYear_Click">
+                                                    <i class="fas fa-plus"></i>
+                                                </asp:LinkButton>
+                                            </div>
+                                        </div>
                                         <asp:RequiredFieldValidator ID="ReqValPubYearA" runat="server"
                                             ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                             ControlToValidate="TbxPubYearA" ValidationGroup="book"></asp:RequiredFieldValidator>
@@ -353,17 +367,17 @@
                                         <p class="h6">Edition</p>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <asp:LinkButton ID="BtnAddEd" runat="server" CssClass="btn btn-success kill-spin"
-                                                    OnClick="BtnAddEd_Click">
-                                                    <i class="fas fa-plus"></i>
-                                                </asp:LinkButton>
-                                            </div>
-                                            <asp:TextBox ID="TbxEdition" runat="server" CssClass="form-control" TextMode="Number"
-                                                placeholder="e.g. 1" min="1" ValidationGroup="book" Text="1"></asp:TextBox>
-                                            <div class="input-group-append">
                                                 <asp:LinkButton ID="BtnSubEd" runat="server" CssClass="btn btn-danger"
                                                     OnClick="BtnSubEd_Click">
                                                     <i class="fas fa-minus"></i>
+                                                </asp:LinkButton>
+                                            </div>
+                                            <asp:TextBox ID="TbxEdition" runat="server" CssClass="nospinner form-control" TextMode="Number"
+                                                placeholder="e.g. 1" min="1" ValidationGroup="book" Text="1"></asp:TextBox>
+                                            <div class="input-group-append">
+                                                <asp:LinkButton ID="BtnAddEd" runat="server" CssClass="btn btn-success kill-spin"
+                                                    OnClick="BtnAddEd_Click">
+                                                    <i class="fas fa-plus"></i>
                                                 </asp:LinkButton>
                                             </div>
                                         </div>
@@ -379,17 +393,17 @@
                                     <p class="h6">Quantity</p>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <asp:LinkButton ID="BtnAddQuant" runat="server" CssClass="btn btn-success kill-spin"
-                                                OnClick="BtnAddQuant_Click">
-                                                    <i class="fas fa-plus"></i>
+                                            <asp:LinkButton ID="BtnSubtractQuant" runat="server" CssClass="btn btn-danger"
+                                                OnClick="BtnSubtractQuant_Click">
+                                                    <i class="fas fa-minus"></i>
                                             </asp:LinkButton>
                                         </div>
                                         <asp:TextBox ID="TbxQuantity" runat="server" CssClass="form-control" TextMode="Number"
                                             placeholder="e.g. 1" min="1" ValidationGroup="book" Text="1"></asp:TextBox>
                                         <div class="input-group-append">
-                                            <asp:LinkButton ID="BtnSubtractQuant" runat="server" CssClass="btn btn-danger"
-                                                OnClick="BtnSubtractQuant_Click">
-                                                    <i class="fas fa-minus"></i>
+                                            <asp:LinkButton ID="BtnAddQuant" runat="server" CssClass="btn btn-success kill-spin"
+                                                OnClick="BtnAddQuant_Click">
+                                                    <i class="fas fa-plus"></i>
                                             </asp:LinkButton>
                                         </div>
                                     </div>
