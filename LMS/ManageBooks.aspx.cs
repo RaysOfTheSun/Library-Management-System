@@ -326,12 +326,10 @@ namespace LMS
                     $"CONTAINS(genre,'\"{TbxSearchBookGrid.Text}*\"') OR " +
                     "bookID IN (SELECT bookID FROM LibraryIndexNamed WHERE " +
                     $"CONTAINS(callNumber, '\"{TbxSearchBookGrid.Text}*\"'))";
-                GrdBooks.DataBind();
             }
-            else
-            {
-                GrdBooks.DataBind();
-            }
+
+            GrdBooks.DataBind();
+
         }
 
         protected void GrdLibraryIndex_DataBound(object sender, EventArgs e)
@@ -364,12 +362,9 @@ namespace LMS
                     $"CONTAINS(genre,'\"{TbxSearchBookGrid.Text}*\"') OR " +
                     "bookID IN (SELECT bookID FROM LibraryIndexNamed WHERE " +
                     $"CONTAINS(callNumber, '\"{TbxSearchBookGrid.Text}*\"'))";
-                GrdBooks.DataBind();
             }
-            else
-            {
-                GrdBooks.DataBind();
-            }
+
+            GrdBooks.DataBind();
         }
 
         protected void BtnSubtractQuant_Click(object sender, EventArgs e)
@@ -399,7 +394,7 @@ namespace LMS
             {
                 if (int.TryParse(TbxQuantity.Text, out quantity))
                 {
-                    TbxQuantity.Text = quantity <= 1 ? "1" : (quantity += 1).ToString();
+                    TbxQuantity.Text = quantity < 0 ? "1" : (quantity += 1).ToString();
                 }
             }
         }
@@ -415,7 +410,7 @@ namespace LMS
             {
                 if (int.TryParse(TbxEdition.Text, out quantity))
                 {
-                    TbxEdition.Text = quantity <= 1 ? "1" : (quantity += 1).ToString();
+                    TbxEdition.Text = quantity < 0 ? "1" : (quantity += 1).ToString();
                 }
             }
         }
@@ -447,6 +442,45 @@ namespace LMS
             {
                 args.IsValid = true;
             }
+        }
+
+        protected void BtnSearchPubGrid_Click(object sender, EventArgs e)
+        {
+            if (TbxSearchPub.Text != string.Empty)
+            {
+                SourcePublishers.SelectCommand = "SELECT * FROM PublisherWithCountryName WHERE " +
+                    $"CONTAINS(publisherName,'\"{TbxSearchPub.Text}*\"') OR CONTAINS(countryName,'\"{TbxSearchAuthor.Text}*\"')";
+            }
+
+            GrdPublishers.DataBind();
+
+        }
+
+        protected void BtnSearchAuthor_Click(object sender, EventArgs e)
+        {
+            if (TbxSearchAuthor.Text != string.Empty)
+            {
+                SourceAuthors.SelectCommand = $"SELECT * FROM BookAuthors WHERE CONTAINS(firstName,'\"{TbxSearchAuthor.Text}*\"') OR " +
+                    $"CONTAINS(lastName,'\"{TbxSearchAuthor.Text}*\"')";
+            }
+
+            GrdAuthors.DataBind();
+
+        }
+
+        protected void BtnSearchIdxGrid_Click(object sender, EventArgs e)
+        {
+            if (TbxSearchIdx.Text != string.Empty)
+            {
+                SourceLibrary.SelectCommand = "SELECT * FROM LibraryIndexNamed WHERE title IN " +
+                    $"(SELECT title FROM BookDisplay WHERE CONTAINS(title,'\"{TbxSearchIdx.Text}*\"')) OR " +
+                    $"fullName IN (SELECT author FROM BookDisplay WHERE CONTAINS(author,'\"{TbxSearchIdx.Text}*\"')) OR " +
+                    $"genre IN (SELECT genre FROM BookDisplay WHERE CONTAINS(genre, '\"{TbxSearchIdx.Text}*\"'))";
+
+            }
+
+            GrdLibraryIndex.DataBind();
+
         }
     }
 }

@@ -56,6 +56,16 @@
                             <asp:AsyncPostBackTrigger ControlID="GrdLibraryIndex" />
                         </Triggers>
                         <ContentTemplate>
+                            <asp:Panel ID="Panel4" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchIdxGrid">
+                                <div class="input-group mx-auto mb-1 mt-1">
+                                    <asp:TextBox ID="TbxSearchIdx" runat="server" CssClass="form-control form-control-lg"
+                                        Font-Size="14px" placeholder="search books" OnTextChanged="TbxSearchBookGrid_TextChanged"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:LinkButton ID="BtnSearchIdxGrid" runat="server" CssClass="btn btn-git btn-lg"
+                                            OnClick="BtnSearchIdxGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
                             <asp:GridView ID="GrdLibraryIndex" runat="server" AutoGenerateColumns="False"
                                 CssClass="table table-hover" DataSourceID="SourceLibrary" DataKeyNames="indexID"
                                 AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand"
@@ -147,6 +157,16 @@
                 <div class="container">
                     <asp:UpdatePanel ID="UPLAddAuth" runat="server" ChildrenAsTriggers="true">
                         <ContentTemplate>
+                            <asp:Panel ID="Panel3" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchAuthor">
+                                <div class="input-group mx-auto mb-1 mt-1">
+                                    <asp:TextBox ID="TbxSearchAuthor" runat="server" CssClass="form-control form-control-lg"
+                                        Font-Size="14px" placeholder="search authors" OnTextChanged="TbxSearchBookGrid_TextChanged"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:LinkButton ID="BtnSearchAuthor" runat="server" CssClass="btn btn-git btn-lg"
+                                            OnClick="BtnSearchAuthor_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
                             <asp:GridView ID="GrdAuthors" runat="server" AutoGenerateColumns="False"
                                 CssClass="table table-hover" DataSourceID="SourceAuthors" DataKeyNames="authorID"
                                 AllowPaging="True" PageSize="5" OnRowCommand="GrdPublishers_RowCommand"
@@ -192,6 +212,17 @@
                             <asp:AsyncPostBackTrigger ControlID="GrdPublishers" />
                         </Triggers>
                         <ContentTemplate>
+                            <asp:Panel ID="Panel2" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchPubGrid">
+                                <div class="input-group mx-auto mb-1 mt-1">
+                                    <asp:TextBox ID="TbxSearchPub" runat="server" CssClass="form-control form-control-lg"
+                                        Font-Size="14px" placeholder="search publishers"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:LinkButton ID="BtnSearchPubGrid" runat="server" CssClass="btn btn-git btn-lg"
+                                            OnClick="BtnSearchPubGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
+
                             <asp:GridView ID="GrdPublishers" runat="server" DataSourceID="SourcePublishers"
                                 AutoGenerateColumns="False" DataKeyNames="publisherID" CssClass="table table-hover"
                                 OnRowCommand="GrdPublishers_RowCommand" BorderStyle="None" GridLines="Horizontal"
@@ -362,9 +393,9 @@
                                             </asp:LinkButton>
                                         </div>
                                     </div>
-                                        <asp:CustomValidator ID="ReqValPositiveQuant" runat="server" ValidationGroup="book"
-                                            ErrorMessage="This field cannot have a value that is less than 1" ControlToValidate="TbxQuantity"
-                                            OnServerValidate="ReqValPositive_ServerValidate" Display="Dynamic" ForeColor="Red"></asp:CustomValidator>
+                                    <asp:CustomValidator ID="ReqValPositiveQuant" runat="server" ValidationGroup="book"
+                                        ErrorMessage="This field cannot have a value that is less than 1" ControlToValidate="TbxQuantity"
+                                        OnServerValidate="ReqValPositive_ServerValidate" Display="Dynamic" ForeColor="Red"></asp:CustomValidator>
                                     <asp:RequiredFieldValidator ID="ReqValQuant" runat="server"
                                         ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                         ControlToValidate="TbxQuantity" ValidationGroup="book"></asp:RequiredFieldValidator>

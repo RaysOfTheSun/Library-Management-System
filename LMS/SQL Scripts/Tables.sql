@@ -178,9 +178,13 @@ CREATE OR ALTER VIEW AuthorNames AS
 		authorID from BookAuthors authors
 GO
 
-CREATE OR ALTER VIEW PublisherWithCountryName AS
-	SELECT BookPublishers.publisherID, BookPublishers.publisherName, Countries.countryName
-		FROM BookPublishers INNER JOIN Countries ON BookPublishers.countryID = Countries.countryID
+CREATE OR ALTER VIEW PublisherWithCountryName WITH SCHEMABINDING AS
+	SELECT publisher.publisherID, publisher.publisherName, country.countryName
+		FROM dbo.BookPublishers publisher INNER JOIN dbo.Countries country ON publisher.countryID = country.countryID
+	GO
+
+	CREATE UNIQUE CLUSTERED INDEX IDX_pubID ON PublisherWithCountryName(publisherID)
+	CREATE NONCLUSTERED INDEX IDX_displayPubIndex ON PublisherWithCountryName(publisherID)
 GO
 
 CREATE OR ALTER VIEW BookDisplay WITH SCHEMABINDING AS 
@@ -274,6 +278,19 @@ BEGIN
 		STOPLIST = OFF
 END
 
+-- AUTHORS
+IF NOT OBJECTPROPERTY ( object_id('BookAuthors'), 'TableHasActiveFulltextIndex') = 1 
+BEGIN
+	CREATE FULLTEXT CATALOG AuthorCatalog
+	CREATE FULLTEXT INDEX ON BookAuthors (
+		firstName LANGUAGE 1033,
+		lastName LANGUAGE 1033
+	)
+	KEY INDEX PK_AUTHORID ON AuthorCatalog
+		WITH CHANGE_TRACKING AUTO,
+		STOPLIST = OFF
+END
+
 -- CALL NUMBERS
 IF NOT OBJECTPROPERTY ( object_id('LibraryIndexNamed'), 'TableHasActiveFulltextIndex') = 1 
 BEGIN
@@ -282,6 +299,18 @@ BEGIN
 		callNumber LANGUAGE 1033
 	)
 	KEY INDEX IDX_indexID ON CallNumberCatalog
+		WITH CHANGE_TRACKING AUTO,
+		STOPLIST = OFF
+END
+
+IF NOT OBJECTPROPERTY ( object_id('PublisherWithCountryName'), 'TableHasActiveFulltextIndex') = 1 
+BEGIN
+	CREATE FULLTEXT CATALOG PublisherCatalog
+	CREATE FULLTEXT INDEX ON PublisherWithCountryName (
+		publisherName LANGUAGE 1033,
+		countryName LANGUAGE 1033
+	)
+	KEY INDEX IDX_pubID ON CallNumberCatalog
 		WITH CHANGE_TRACKING AUTO,
 		STOPLIST = OFF
 END
