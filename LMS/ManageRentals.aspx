@@ -292,7 +292,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="UpdateNotifLabel"><strong>Update Successfull</strong></h5>
+                        <h5 class="modal-title" id="UpdateNotifLabel"><strong>Update Successful</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
