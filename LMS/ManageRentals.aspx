@@ -22,6 +22,16 @@
                             <asp:AsyncPostBackTrigger ControlID="GvwRequests" />
                         </Triggers>
                         <ContentTemplate>
+                            <asp:Panel ID="Panel1" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchRequestGrid">
+                                <div class="input-group mx-auto mb-1 mt-1">
+                                    <asp:TextBox ID="TbxSearchBookGrid" runat="server" CssClass="form-control form-control-lg"
+                                        Font-Size="14px" placeholder="search requestors"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:LinkButton ID="BtnSearchRequestGrid" runat="server" CssClass="btn btn-git btn-lg"
+                                            OnClick="BtnSearchBookGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
                             <asp:HiddenField ID="HfdRentalID" runat="server" />
                             <asp:GridView ID="GvwRequests" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" DataKeyNames="rentalID"
                                 DataSourceID="SourceRequests" GridLines="Horizontal" OnRowCommand="GvwRequests_RowCommand">
@@ -70,6 +80,16 @@
                             <asp:AsyncPostBackTrigger ControlID="GvwRentals" />
                         </Triggers>
                         <ContentTemplate>
+                            <asp:Panel ID="Panel2" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchRequestGrid">
+                                <div class="input-group mx-auto mb-1 mt-1">
+                                    <asp:TextBox ID="TbxSearchRenters" runat="server" CssClass="form-control form-control-lg"
+                                        Font-Size="14px" placeholder="search renters"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:LinkButton ID="BtnSearchRentalGrid" runat="server" CssClass="btn btn-git btn-lg"
+                                            OnClick="BtnSearchRentalGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
                             <asp:GridView ID="GvwRentals" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table"
                                 DataKeyNames="rentalID" DataSourceID="SourceRentals" GridLines="Horizontal" OnRowCommand="GvwRentals_RowCommand">
                                 <EmptyDataTemplate>
@@ -156,7 +176,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ConfirmAcceptRequestLabel"><strong>Delete Request Information</strong></h5>
+                        <h5 class="modal-title" id="ConfirmAcceptRequestLabel"><strong>Accept Rental Request</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

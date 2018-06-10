@@ -18,6 +18,16 @@
                             <asp:AsyncPostBackTrigger ControlID="GvwRentals" />
                         </Triggers>
                         <ContentTemplate>
+                            <asp:Panel ID="Panel1" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchRentalGrid">
+                                <div class="input-group mx-auto mb-1 mt-1">
+                                    <asp:TextBox ID="TbxSearchRentalGrid" runat="server" CssClass="form-control form-control-lg"
+                                        Font-Size="14px" placeholder="search rented books"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:LinkButton ID="BtnSearchRentalGrid" runat="server" CssClass="btn btn-git btn-lg"
+                                            OnClick="BtnSearchRentalGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
                             <asp:GridView ID="GvwRentals" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table"
                                 DataKeyNames="rentalID" DataSourceID="SourceRentals" GridLines="Horizontal" AllowPaging="True" PageSize="4">
                                 <EmptyDataTemplate>
@@ -30,8 +40,8 @@
                                     <asp:BoundField DataField="fullName" HeaderText="Author" SortExpression="fullName" ReadOnly="True" />
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
-                                    <asp:BoundField DataField="rentalDate" HeaderText="Rental Date" SortExpression="rentalDate" />
-                                    <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" />
+                                    <asp:BoundField DataField="rentalDate" HeaderText="Rental Date" SortExpression="rentalDate" DataFormatString="{0:d}" />
+                                    <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" DataFormatString="{0:d}" />
                                 </Columns>
                                 <HeaderStyle BorderStyle="Solid" VerticalAlign="Middle" />
                             </asp:GridView>

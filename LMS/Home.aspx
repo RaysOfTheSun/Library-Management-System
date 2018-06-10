@@ -10,7 +10,7 @@
                         <div class="form-group">
                             <asp:Label ID="lbl_searchbox" runat="server" Text="Search for" CssClass="lead col-form-label text-uppercase"></asp:Label>
                             <asp:TextBox ID="TbxSearchTerms" runat="server" CssClass="form-control form-control-lg"
-                                         placeholder="Percy Jackson, Fiction, Biography...">
+                                         placeholder="Alaska, Fiction...">
                             </asp:TextBox>
                         </div>
                         <div class="form-inline">

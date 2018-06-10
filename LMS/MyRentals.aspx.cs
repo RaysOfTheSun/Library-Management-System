@@ -17,5 +17,10 @@ namespace LMS
                 Response.Redirect(@"~/Home.aspx");
             }
         }
+
+        protected void BtnSearchRentalGrid_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

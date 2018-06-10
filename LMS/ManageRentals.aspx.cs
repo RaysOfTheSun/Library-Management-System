@@ -83,5 +83,15 @@ namespace LMS
             ScriptManager.RegisterStartupScript(BtnUpdateSuccess, GetType(), "UpdateNotifModal",
                 @"$('#UpdateNotifModal').modal('toggle');", true);
         }
+
+        protected void BtnSearchBookGrid_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void BtnSearchRentalGrid_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
