@@ -86,7 +86,16 @@ namespace LMS
 
         protected void BtnSearchRentalGrid_Click(object sender, EventArgs e)
         {
+            if (TbxSearchRenters.Text != string.Empty)
+            {
+                SourceRentals.SelectCommand = "SELECT * FROM RentalDetails WHERE " +
+                    $"CONTAINS(accountOwner,'\"{TbxSearchRenters.Text}*\"') " +
+                    $"OR CONTAINS(title,'\"{TbxSearchRenters.Text}*\"') " +
+                    $"OR CONTAINS(fullName,'\"{TbxSearchRenters.Text}*\"') " +
+                    $"OR CONTAINS(ISBN,'\"{TbxSearchRenters.Text}*\"')";
+            }
 
+            GvwRentals.DataBind();
         }
 
         protected void BtnSearchRequestGrid_Click(object sender, EventArgs e)

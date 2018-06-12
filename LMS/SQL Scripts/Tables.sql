@@ -234,12 +234,18 @@ CREATE OR ALTER VIEW RentalRequestDetails WITH SCHEMABINDING AS
 	CREATE NONCLUSTERED INDEX IDX_displayRequestID ON RentalRequestDetails(rentalID)
 GO
 
-CREATE OR ALTER VIEW RentalDetails AS
-	SELECT BookRentals.rentalID, BookRentals.borrowerID, BorrowerAccounts.accountOwner, 
-		Books.title, AuthorNames.fullName, Books.edition, Books.ISBN, rentalDate, returnDate FROM BookRentals
-		INNER JOIN Books ON BookRentals.bookID = Books.bookID
-		INNER JOIN AuthorNames ON AuthorNames.authorID = Books.authorID
-		INNER JOIN BorrowerAccounts ON BorrowerAccounts.borrowerID = BookRentals.borrowerID
+CREATE OR ALTER VIEW RentalDetails WITH SCHEMABINDING AS
+	SELECT request.rentalID, borrower.borrowerID, (borrower.firstName + ' ' 
+		+ borrower.middleName + ' ' + borrower.lastName) AS accountOwner, book.title, 
+		(authors.firstName + ' ' + authors.lastName) AS fullName, book.edition, book.ISBN, 
+		rentalDate, returnDate FROM dbo.BookRentals request
+		INNER JOIN dbo.Books book ON request.bookID = book.bookID
+		INNER JOIN dbo.BookAuthors authors ON book.authorID = authors.authorID
+		INNER JOIN dbo.BookBorrowers borrower ON borrower.borrowerID = request.borrowerID
+
+	GO
+	CREATE UNIQUE CLUSTERED INDEX IDX_rentalID ON RentalDetails(rentalID)
+	CREATE NONCLUSTERED INDEX IDX_displayrentalID ON RentalDetails(rentalID)
 GO
 
 CREATE OR ALTER VIEW EditBookView AS
@@ -321,9 +327,21 @@ BEGIN
 		STOPLIST = OFF
 END
 
-SELECT * FROM RentalRequestDetails
-
 IF NOT OBJECTPROPERTY ( object_id('RentalRequestDetails'), 'TableHasActiveFulltextIndex') = 1 
+BEGIN
+	CREATE FULLTEXT CATALOG RentalRequestCatalog
+	CREATE FULLTEXT INDEX ON RentalRequestDetails (
+		accountOwner LANGUAGE 1033,
+		title LANGUAGE 1033,
+		fullName LANGUAGE 1033,
+		ISBN LANGUAGE 1033
+	)
+	KEY INDEX IDX_requestID ON RentalRequestCatalog
+		WITH CHANGE_TRACKING AUTO,
+		STOPLIST = OFF
+END
+
+IF NOT OBJECTPROPERTY ( object_id('RentalDetails'), 'TableHasActiveFulltextIndex') = 1 
 BEGIN
 	CREATE FULLTEXT CATALOG RentalRequestCatalog
 	CREATE FULLTEXT INDEX ON RentalRequestDetails (
@@ -349,6 +367,6 @@ END
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries
 --DROP VIEW PublisherWithCityName
-DROP VIEW RentalRequestDetails
-DROP VIEW RentalDetails
+--DROP VIEW RentalRequestDetails
+--DROP VIEW RentalDetails
 GO

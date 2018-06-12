@@ -80,7 +80,7 @@
                             <asp:AsyncPostBackTrigger ControlID="GvwRentals" />
                         </Triggers>
                         <ContentTemplate>
-                            <asp:Panel ID="Panel2" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchRequestGrid">
+                            <asp:Panel ID="Panel2" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchRentalGrid">
                                 <div class="input-group mx-auto mb-1 mt-1">
                                     <asp:TextBox ID="TbxSearchRenters" runat="server" CssClass="form-control form-control-lg"
                                         Font-Size="14px" placeholder="search renters"></asp:TextBox>
@@ -91,7 +91,8 @@
                                 </div>
                             </asp:Panel>
                             <asp:GridView ID="GvwRentals" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table"
-                                DataKeyNames="rentalID" DataSourceID="SourceRentals" GridLines="Horizontal" OnRowCommand="GvwRentals_RowCommand">
+                                DataKeyNames="rentalID" DataSourceID="SourceRentals" GridLines="Horizontal" OnRowCommand="GvwRentals_RowCommand"
+                                HeaderStyle-Wrap="false">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
                                         <p class="lead">There are currently no rental details to show.</p>
