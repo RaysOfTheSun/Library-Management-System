@@ -167,10 +167,14 @@ IF NOT EXISTS (
 GO
 
 CREATE OR ALTER VIEW BorrowerAccounts WITH SCHEMABINDING AS
-	SELECT borrower.borrowerID, (borrower.firstName + ' ' 
+	SELECT account.accountID, borrower.borrowerID, (borrower.firstName + ' ' 
 		+ borrower.middleName + ' ' + borrower.lastName) AS accountOwner,
 		borrower.mail AS userName, account.[password] AS accountPassword
 		FROM dbo.BookBorrowers borrower	INNER JOIN dbo.UserAccounts account ON account.owner = borrower.borrowerID
+
+	GO
+	CREATE UNIQUE CLUSTERED INDEX IDX_accountID ON BorrowerAccounts(accountID)
+	CREATE NONCLUSTERED INDEX IDX_displayaccountID ON BorrowerAccounts(accountID)
 GO
 
 CREATE OR ALTER VIEW AuthorNames WITH SCHEMABINDING AS
@@ -198,15 +202,18 @@ CREATE OR ALTER VIEW BookDisplay WITH SCHEMABINDING AS
 	CREATE NONCLUSTERED INDEX IDX_displayIndex ON BookDisplay(bookID)
 GO
 
-CREATE OR ALTER VIEW completeBorrowerData AS
-	SELECT BookBorrowers.borrowerID, BookBorrowers.firstName, BookBorrowers.middleName, BookBorrowers.lastName,
-		BookBorrowers.mail, BorrowerNumbers.phoneNumber, Countries.countryName, Cities.cityName, 
-		BorrowerAddresses.street, BorrowerAddresses.zipCode, BookBorrowers.addressID
-		FROM BookBorrowers
-			INNER JOIN BorrowerAddresses ON BorrowerAddresses.addressID = BookBorrowers.addressID
-			INNER JOIN BorrowerNumbers ON BorrowerNumbers.numberID = BookBorrowers.numberID
-			INNER JOIN Countries ON Countries.countryID = BorrowerAddresses.countryID
-			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
+CREATE OR ALTER VIEW completeBorrowerData WITH SCHEMABINDING AS
+	SELECT borrower.borrowerID, borrower.firstName, borrower.middleName, borrower.lastName,
+		borrower.mail, nbr.phoneNumber, ctry.countryName, city.cityName, 
+		addr.street, addr.zipCode, borrower.addressID
+		FROM dbo.BookBorrowers borrower
+			INNER JOIN dbo.BorrowerAddresses addr ON addr.addressID = borrower.addressID
+			INNER JOIN dbo.BorrowerNumbers nbr ON nbr.numberID = borrower.numberID
+			INNER JOIN dbo.Countries ctry ON ctry.countryID = addr.countryID
+			INNER JOIN dbo.Cities city ON city.cityID = addr.cityID
+	GO
+	CREATE UNIQUE CLUSTERED INDEX IDX_BorrowerDataID ON completeBorrowerData(borrowerID)
+	CREATE NONCLUSTERED INDEX IDX_displayDataID ON completeBorrowerData(borrowerID)
 GO
 
 CREATE OR ALTER VIEW completeBorrowerDataB AS
@@ -354,6 +361,32 @@ BEGIN
 		WITH CHANGE_TRACKING AUTO,
 		STOPLIST = OFF
 END
+
+IF NOT OBJECTPROPERTY ( object_id('BorrowerAccounts'), 'TableHasActiveFulltextIndex') = 1 
+BEGIN
+	CREATE FULLTEXT CATALOG BorrowerAccountCatalog
+	CREATE FULLTEXT INDEX ON BorrowerAccounts (
+		accountOwner LANGUAGE 1033,
+		userName LANGUAGE 1033
+	)
+	KEY INDEX IDX_accountID ON BorrowerAccountCatalog
+		WITH CHANGE_TRACKING AUTO,
+		STOPLIST = OFF
+END
+
+IF NOT OBJECTPROPERTY ( object_id('completeBorrowerData'), 'TableHasActiveFulltextIndex') = 1 
+BEGIN
+	CREATE FULLTEXT CATALOG BorrowerDataCatalog
+	CREATE FULLTEXT INDEX ON completeBorrowerData (
+		accountOwner LANGUAGE 1033,
+		userName LANGUAGE 1033
+	)
+	KEY INDEX IDX_BorrowerDataID ON BorrowerDataCatalog
+		WITH CHANGE_TRACKING AUTO,
+		STOPLIST = OFF
+END
+
+select * from completeBorrowerData
 
 --DROPS
 --DROP TABLE BookImages

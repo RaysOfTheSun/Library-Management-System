@@ -46,7 +46,6 @@ namespace LMS
         {
             SourceAccountsEdit.Delete();
             GvwAccounts.DataBind();
-            GvwDetails.DataBind();
             ScriptManager.RegisterStartupScript(BtnDeleteAccount, GetType(), "DeleteAccountModal",
                      @"$('#DeleteAccountModal').modal('hide');", true);
         }
@@ -57,6 +56,7 @@ namespace LMS
             {
                 FvwUserDet.UpdateItem(true);
                 GvwDetails.DataBind();
+                GvwAccounts.DataBind();
                 ScriptManager.RegisterStartupScript(BtnUpdateUserDet, GetType(), "editUserModal",
                     @"$('#editUserModal').modal('hide');", true);
                 ScriptManager.RegisterStartupScript(BtnUpdateUserDet, GetType(), "UpdateNotifModal",
@@ -108,6 +108,32 @@ namespace LMS
         {
             ScriptManager.RegisterStartupScript(BtnUpdateUserDet, GetType(), "UpdateNotifModal",
                 @"$('#UpdateNotifModal').modal('toggle');", true);
+        }
+
+        protected void BtnSearchAccountGrid_Click(object sender, EventArgs e)
+        {
+            if(TbxSearchAccountlGrid.Text != string.Empty)
+            {
+                SourceAccounts.SelectCommand = "SELECT * FROM BorrowerAccounts WHERE " +
+                    $"CONTAINS(accountOwner,'\"{TbxSearchAccountlGrid.Text}*\"') " +
+                    $"OR CONTAINS(userName,'\"{TbxSearchAccountlGrid.Text}*\"')";
+            }
+
+            GvwAccounts.DataBind();
+        }
+
+        protected void BtnSearchUserlGrid_Click(object sender, EventArgs e)
+        {
+            if(TbxSearchUserlGrid.Text != string.Empty)
+            {
+                SourceUsers.SelectCommand = "SELECT borrowerID, firstName, middleName, lastName, " +
+                    "countryName, cityName FROM completeBorrowerData WHERE " +
+                    $"CONTAINS(firstName,'\"{TbxSearchUserlGrid.Text}*\"') OR CONTAINS(middleName,'\"{TbxSearchUserlGrid.Text}*\"') " +
+                    $"OR CONTAINS(lastName,'\"{TbxSearchUserlGrid.Text}*\"') OR CONTAINS(countryName,'\"{TbxSearchUserlGrid.Text}*\"') " +
+                    $"OR CONTAINS(cityName,'\"{TbxSearchUserlGrid.Text}*\"')";
+            }
+
+            GvwDetails.DataBind();
         }
     }
 }

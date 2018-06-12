@@ -22,6 +22,16 @@
                             <asp:AsyncPostBackTrigger ControlID="GvwAccounts" />
                         </Triggers>
                         <ContentTemplate>
+                            <asp:Panel ID="Panel1" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchAccountGrid">
+                                <div class="input-group mx-auto mb-1 mt-1">
+                                    <asp:TextBox ID="TbxSearchAccountlGrid" runat="server" CssClass="form-control form-control-lg"
+                                        Font-Size="14px" placeholder="search accounts"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:LinkButton ID="BtnSearchAccountGrid" runat="server" CssClass="btn btn-git btn-lg"
+                                            OnClick="BtnSearchAccountGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
                             <asp:GridView ID="GvwAccounts" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" DataKeyNames="borrowerID" DataSourceID="SourceAccounts"
                                 GridLines="Horizontal" OnRowCommand="GvwDetails_RowCommand">
                                 <EmptyDataTemplate>
@@ -65,6 +75,16 @@
                             <asp:AsyncPostBackTrigger ControlID="GvwDetails" />
                         </Triggers>
                         <ContentTemplate>
+                            <asp:Panel ID="Panel2" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchUserlGrid">
+                                <div class="input-group mx-auto mb-1 mt-1">
+                                    <asp:TextBox ID="TbxSearchUserlGrid" runat="server" CssClass="form-control form-control-lg"
+                                        Font-Size="14px" placeholder="search borrowers"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:LinkButton ID="BtnSearchUserlGrid" runat="server" CssClass="btn btn-git btn-lg"
+                                            OnClick="BtnSearchUserlGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
                             <asp:GridView ID="GvwDetails" runat="server" AutoGenerateColumns="False" BorderStyle="None"
                                 CssClass="table" DataKeyNames="borrowerID" DataSourceID="SourceUsers" GridLines="Horizontal"
                                 OnRowCommand="GvwDetails_RowCommand1" HeaderStyle-Wrap="false">
@@ -244,8 +264,7 @@
                                         </div>
                                         <div class="form-group mb-1">
                                             <p class="h6">Address</p>
-                                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("Address") %>' CssClass="form-control" Enabled="false"
-                                                />
+                                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("Address") %>' CssClass="form-control" Enabled="false" />
                                         </div>
                                     </ItemTemplate>
                                 </asp:FormView>
