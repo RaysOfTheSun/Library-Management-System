@@ -125,17 +125,17 @@ namespace LMS
 
         protected string SetAction(object bookID, object borrowerID)
         {
-            if (!IsAvailable(bookID))
-            {
-                return "Not Available";
-            }
-            else if(IsAlreadyRequested(bookID, borrowerID))
+            if (IsAlreadyRequested(bookID, borrowerID))
             {
                 return "Rental Requested";
             }
-            else if(IsCurrentlyRented(bookID, borrowerID))
+            else if (IsCurrentlyRented(bookID, borrowerID))
             {
                 return "Already Rented";
+            }
+            else if (!IsAvailable(bookID))
+            {
+                return "Not Available";
             }
             else
             {

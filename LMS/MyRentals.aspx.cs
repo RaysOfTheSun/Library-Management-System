@@ -20,7 +20,17 @@ namespace LMS
 
         protected void BtnSearchRentalGrid_Click(object sender, EventArgs e)
         {
+            if (TbxSearchRentalGrid.Text != string.Empty)
+            {
+                int borrowerID = Convert.ToInt32(Session["bID"]);
+                SourceRentals.SelectCommand = "SELECT * FROM RentalDetails WHERE (" +
+                    $"CONTAINS(title,'\"{TbxSearchRentalGrid.Text}*\"') " +
+                    $"OR CONTAINS(fullName,'\"{TbxSearchRentalGrid.Text}*\"') " +
+                    $"OR CONTAINS(ISBN,'\"{TbxSearchRentalGrid.Text}*\"')) " +
+                    $"AND borrowerID = {borrowerID}";
+            }
 
+            GvwRentals.DataBind();
         }
     }
 }
