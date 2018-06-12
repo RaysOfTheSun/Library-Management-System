@@ -24,17 +24,17 @@
                         <ContentTemplate>
                             <asp:Panel ID="Panel1" runat="server" CssClass="jumbotron pb-2 pt-2 pr-2 pl-2 mb-2 mt-2" DefaultButton="BtnSearchRequestGrid">
                                 <div class="input-group mx-auto mb-1 mt-1">
-                                    <asp:TextBox ID="TbxSearchBookGrid" runat="server" CssClass="form-control form-control-lg"
+                                    <asp:TextBox ID="TbxSearchRequestGrid" runat="server" CssClass="form-control form-control-lg"
                                         Font-Size="14px" placeholder="search requestors"></asp:TextBox>
                                     <div class="input-group-append">
                                         <asp:LinkButton ID="BtnSearchRequestGrid" runat="server" CssClass="btn btn-git btn-lg"
-                                            OnClick="BtnSearchBookGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
+                                            OnClick="BtnSearchRequestGrid_Click"><i class="fa fa-search"></i></asp:LinkButton>
                                     </div>
                                 </div>
                             </asp:Panel>
                             <asp:HiddenField ID="HfdRentalID" runat="server" />
                             <asp:GridView ID="GvwRequests" runat="server" AutoGenerateColumns="False" BorderStyle="None" CssClass="table" DataKeyNames="rentalID"
-                                DataSourceID="SourceRequests" GridLines="Horizontal" OnRowCommand="GvwRequests_RowCommand">
+                                DataSourceID="SourceRequests" GridLines="Horizontal" OnRowCommand="GvwRequests_RowCommand" HeaderStyle-Wrap="false">
                                 <EmptyDataTemplate>
                                     <div class="container text-center">
                                         <p class="lead">There are currently no book rental requests to show.</p>
@@ -53,12 +53,12 @@
                                         <ItemTemplate>
                                             <div class="row no-gutters">
                                                 <div class="col-sm-6">
-                                                    <asp:Button ID="GrdBtnAcceptRequest" runat="server" Text="Accept" CssClass="btn btn-success btn-block" CommandName="editItem"
+                                                    <asp:Button ID="GrdBtnAcceptRequest" runat="server" Text=&#10004; CssClass="btn btn-success btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
                                                         data-target="#ConfirmAcceptRequestModal" />
                                                 </div>
                                                 <div class="col-sm-6 pl-1">
-                                                    <asp:Button ID="GrdBtnRejectRequest" runat="server" Text="Reject" CssClass="btn btn-danger btn-block" CommandName="deleteItem"
+                                                    <asp:Button ID="GrdBtnRejectRequest" runat="server" Text=&#x2716; CssClass="btn btn-danger btn-block" CommandName="deleteItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
                                                         data-target="#DeleteRequestModal" />
                                                 </div>

@@ -84,14 +84,23 @@ namespace LMS
                 @"$('#UpdateNotifModal').modal('toggle');", true);
         }
 
-        protected void BtnSearchBookGrid_Click(object sender, EventArgs e)
+        protected void BtnSearchRentalGrid_Click(object sender, EventArgs e)
         {
 
         }
 
-        protected void BtnSearchRentalGrid_Click(object sender, EventArgs e)
+        protected void BtnSearchRequestGrid_Click(object sender, EventArgs e)
         {
+            if (TbxSearchRequestGrid.Text != string.Empty)
+            {
+                SourceRequests.SelectCommand = "SELECT * FROM RentalRequestDetails WHERE " +
+                    $"CONTAINS(accountOwner,'\"{TbxSearchRequestGrid.Text}*\"') " +
+                    $"OR CONTAINS(title,'\"{TbxSearchRequestGrid.Text}*\"') " +
+                    $"OR CONTAINS(fullName,'\"{TbxSearchRequestGrid.Text}*\"') " +
+                    $"OR CONTAINS(ISBN,'\"{TbxSearchRequestGrid.Text}*\"')"; 
+            }
 
+            GvwRequests.DataBind();
         }
     }
 }

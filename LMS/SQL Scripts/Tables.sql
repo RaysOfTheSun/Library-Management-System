@@ -166,16 +166,16 @@ IF NOT EXISTS (
 	END
 GO
 
-CREATE OR ALTER VIEW BorrowerAccounts AS
-	SELECT BookBorrowers.borrowerID, (BookBorrowers.firstName + ' ' 
-		+ BookBorrowers.middleName + ' ' + BookBorrowers.lastName) AS accountOwner,
-		BookBorrowers.mail AS userName, UserAccounts.[password] AS accountPassword
-		FROM BookBorrowers	INNER JOIN UserAccounts ON UserAccounts.owner = BookBorrowers.borrowerID
+CREATE OR ALTER VIEW BorrowerAccounts WITH SCHEMABINDING AS
+	SELECT borrower.borrowerID, (borrower.firstName + ' ' 
+		+ borrower.middleName + ' ' + borrower.lastName) AS accountOwner,
+		borrower.mail AS userName, account.[password] AS accountPassword
+		FROM dbo.BookBorrowers borrower	INNER JOIN dbo.UserAccounts account ON account.owner = borrower.borrowerID
 GO
 
-CREATE OR ALTER VIEW AuthorNames AS
+CREATE OR ALTER VIEW AuthorNames WITH SCHEMABINDING AS
 	SELECT (authors.firstName + ' ' + authors.lastName) AS fullName, 
-		authorID from BookAuthors authors
+		authorID from dbo.BookAuthors authors
 GO
 
 CREATE OR ALTER VIEW PublisherWithCountryName WITH SCHEMABINDING AS
@@ -220,12 +220,18 @@ CREATE OR ALTER VIEW completeBorrowerDataB AS
 			INNER JOIN Cities ON Cities.cityID = BorrowerAddresses.cityID
 GO
 
-CREATE OR ALTER VIEW RentalRequestDetails AS
-	SELECT RentalRequests.rentalID, BorrowerAccounts.accountOwner, Books.title, AuthorNames.fullName, 
-		Books.edition, Books.ISBN, rentalDate, returnDate FROM RentalRequests
-		INNER JOIN Books ON RentalRequests.bookID = Books.bookID
-		INNER JOIN AuthorNames ON AuthorNames.authorID = Books.authorID
-		INNER JOIN BorrowerAccounts ON BorrowerAccounts.borrowerID = RentalRequests.borrowerID
+CREATE OR ALTER VIEW RentalRequestDetails WITH SCHEMABINDING AS
+	SELECT request.rentalID, borrower.borrowerID, (borrower.firstName + ' ' 
+		+ borrower.middleName + ' ' + borrower.lastName) AS accountOwner, book.title, 
+		(authors.firstName + ' ' + authors.lastName) AS fullName, book.edition, book.ISBN, 
+		rentalDate, returnDate FROM dbo.RentalRequests request
+		INNER JOIN dbo.Books book ON request.bookID = book.bookID
+		INNER JOIN dbo.BookAuthors authors ON book.authorID = authors.authorID
+		INNER JOIN dbo.BookBorrowers borrower ON borrower.borrowerID = request.borrowerID
+
+	GO
+	CREATE UNIQUE CLUSTERED INDEX IDX_requestID ON RentalRequestDetails(rentalID)
+	CREATE NONCLUSTERED INDEX IDX_displayRequestID ON RentalRequestDetails(rentalID)
 GO
 
 CREATE OR ALTER VIEW RentalDetails AS
@@ -315,6 +321,22 @@ BEGIN
 		STOPLIST = OFF
 END
 
+SELECT * FROM RentalRequestDetails
+
+IF NOT OBJECTPROPERTY ( object_id('RentalRequestDetails'), 'TableHasActiveFulltextIndex') = 1 
+BEGIN
+	CREATE FULLTEXT CATALOG RentalRequestCatalog
+	CREATE FULLTEXT INDEX ON RentalRequestDetails (
+		accountOwner LANGUAGE 1033,
+		title LANGUAGE 1033,
+		fullName LANGUAGE 1033,
+		ISBN LANGUAGE 1033
+	)
+	KEY INDEX IDX_requestID ON RentalRequestCatalog
+		WITH CHANGE_TRACKING AUTO,
+		STOPLIST = OFF
+END
+
 --DROPS
 --DROP TABLE BookImages
 --DROP TABLE RentalRequests
@@ -327,4 +349,6 @@ END
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries
 --DROP VIEW PublisherWithCityName
+DROP VIEW RentalRequestDetails
+DROP VIEW RentalDetails
 GO
