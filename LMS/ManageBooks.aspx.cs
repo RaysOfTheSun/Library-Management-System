@@ -61,6 +61,7 @@ namespace LMS
         protected void BtnAddBook_ServerClick(object sender, EventArgs e)
         {
             ReqValPositive.Validate();
+            ReqValNonExistentTitle.Validate();
             if (IsValid)
             {
                 SourceBooks.Insert();
@@ -602,6 +603,52 @@ namespace LMS
         protected void ReqValNonExistentAuthor_ServerValidate(object source, ServerValidateEventArgs args)
         {
             if(IsExistingAuthor(args.Value, TbxLastName.Text))
+            {
+                args.IsValid = false;
+            }
+            else
+            {
+                args.IsValid = true;
+            }
+        }
+
+        /// <summary>
+        /// Checks if a book of a given name exists in the database
+        /// </summary>
+        /// <param name="title">The tile of the book</param>
+        /// <returns>True if the book of a given title exists in the database</returns>
+        private bool IsExistingBook(string title)
+        {
+            int matches = -1;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand comm = new SqlCommand("SELECT COUNT(bookID) AS Matches " +
+                    $"FROM Books WHERE title = '{title}'", conn))
+                {
+                    conn.Open();
+
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            matches = Convert.ToInt32(reader["Matches"]);
+                        }
+                    }
+                }
+            }
+
+            if (matches != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        protected void ReqValNonExistentTitle_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (IsExistingBook(args.Value))
             {
                 args.IsValid = false;
             }

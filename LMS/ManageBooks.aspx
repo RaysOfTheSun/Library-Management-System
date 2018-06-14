@@ -288,6 +288,10 @@
                                         <asp:RequiredFieldValidator ID="ReqValTitle" runat="server"
                                             ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                             ControlToValidate="TbxTitle" ValidationGroup="book"></asp:RequiredFieldValidator>
+                                        <asp:CustomValidator ID="ReqValNonExistentTitle" runat="server" 
+                                            ErrorMessage="This book already exists" ForeColor="Red"
+                                            Display="Dynamic" ValidationGroup="book" ControlToValidate="TbxTitle"
+                                            OnServerValidate="ReqValNonExistentTitle_ServerValidate"></asp:CustomValidator>
                                     </div>
                                     <div class="form-group mb-1">
                                         <p class="h6">Author</p>

@@ -350,14 +350,14 @@ END
 
 IF NOT OBJECTPROPERTY ( object_id('RentalDetails'), 'TableHasActiveFulltextIndex') = 1 
 BEGIN
-	CREATE FULLTEXT CATALOG RentalRequestCatalog
-	CREATE FULLTEXT INDEX ON RentalRequestDetails (
+	CREATE FULLTEXT CATALOG RentalCatalog
+	CREATE FULLTEXT INDEX ON RentalDetails (
 		accountOwner LANGUAGE 1033,
 		title LANGUAGE 1033,
 		fullName LANGUAGE 1033,
 		ISBN LANGUAGE 1033
 	)
-	KEY INDEX IDX_requestID ON RentalRequestCatalog
+	KEY INDEX IDX_rentalID ON RentalCatalog
 		WITH CHANGE_TRACKING AUTO,
 		STOPLIST = OFF
 END
@@ -378,18 +378,24 @@ IF NOT OBJECTPROPERTY ( object_id('completeBorrowerData'), 'TableHasActiveFullte
 BEGIN
 	CREATE FULLTEXT CATALOG BorrowerDataCatalog
 	CREATE FULLTEXT INDEX ON completeBorrowerData (
-		accountOwner LANGUAGE 1033,
-		userName LANGUAGE 1033
+		firstName LANGUAGE 1033,
+		middleName LANGUAGE 1033,
+		lastName LANGUAGE 1033,
+		countryName LANGUAGE 1033,
+		cityName LANGUAGE 1033
 	)
 	KEY INDEX IDX_BorrowerDataID ON BorrowerDataCatalog
 		WITH CHANGE_TRACKING AUTO,
 		STOPLIST = OFF
 END
 
-select * from completeBorrowerData
-
 --DROPS
 --DROP TABLE BookImages
+--DROP VIEW PublisherWithCityName
+--DROP VIEW RentalRequestDetails
+--DROP VIEW RentalDetails
+--DROP VIEW BorrowerAccounts,completeBorrowerData,completeBorrowerDataB
+--DROP VIEW PublisherWithCountryName
 --DROP TABLE RentalRequests
 --DROP TABLE BookRentals
 --DROP TABLE UserAccounts
@@ -399,7 +405,4 @@ select * from completeBorrowerData
 --DROP TABLE LibraryIndex, BookStatuses
 --DROP TABLE Books, BookAuthors, BookPublishers
 --DROP TABLE Locations, Cities, Countries
---DROP VIEW PublisherWithCityName
---DROP VIEW RentalRequestDetails
---DROP VIEW RentalDetails
 GO
