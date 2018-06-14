@@ -455,6 +455,9 @@
                                         <asp:RequiredFieldValidator ID="ReqValFirstName" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxFirstname" Display="Dynamic"
                                             ValidationGroup="author"></asp:RequiredFieldValidator>
+                                        <asp:CustomValidator ID="ReqValNonExistentAuthor" runat="server" 
+                                            ErrorMessage="This author already exists" ForeColor="Red" ValidationGroup="author" Display="Dynamic"
+                                            ControlToValidate="TbxFirstname" OnServerValidate="ReqValNonExistentAuthor_ServerValidate"></asp:CustomValidator>
                                     </div>
                                     <div class="form-group col-sm-6 mb-1">
                                         <p class="h6">Last Name</p>
@@ -503,6 +506,9 @@
                                         <asp:RequiredFieldValidator ID="ReqValPub" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxPublisherName"
                                             Display="Dynamic" ValidationGroup="publisher"></asp:RequiredFieldValidator>
+                                        <asp:CustomValidator ID="ReqValNonExistingPublisher" runat="server" ErrorMessage="This publisher already exists"
+                                            ForeColor="Red" ValidationGroup="publisher" Display="Dynamic" 
+                                            ControlToValidate="TbxPublisherName" OnServerValidate="ReqValNonExistingPublisher_ServerValidate"></asp:CustomValidator>
                                     </div>
                                     <div class="form-group col-sm-6 mb-1">
                                         <p class="h6">Location of Headquarters</p>

@@ -24,6 +24,7 @@ namespace LMS
 
         protected void BtnAddAuthor_Click(object sender, EventArgs e)
         {
+            ReqValNonExistentAuthor.Validate();
             if (IsValid)
             {
                 SourceAuthors.Insert();
@@ -42,6 +43,7 @@ namespace LMS
 
         protected void BtnAddPublisher_ServerClick(object sender, EventArgs e)
         {
+            ReqValNonExistingPublisher.Validate();
             if (IsValid)
             {
                 SourcePublishers.Insert();
@@ -512,6 +514,100 @@ namespace LMS
                 {
                     TbxPubYearA.Text = quantity <= 1 ? "1" : (quantity - 1).ToString();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Checks if a publisher of a given name exists in the database
+        /// </summary>
+        /// <param name="publisherName">The name of the publisher</param>
+        /// <returns>true if there exists a publihser of the same name</returns>
+        private bool IsExistingPublisher(string publisherName)
+        {
+            int matches = -1;
+
+            using(SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand comm = new SqlCommand("SELECT COUNT(publisherID) AS Matches " +
+                    $"FROM PublisherWithCountryName WHERE publisherName = '{publisherName}'", conn))
+                {
+                    conn.Open();
+
+                    using(SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            matches = Convert.ToInt32(reader["Matches"]);
+                        }
+                    }
+                }
+            }
+
+            if(matches != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        protected void ReqValNonExistingPublisher_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (IsExistingPublisher(args.Value))
+            {
+                args.IsValid = false;
+            }
+            else
+            {
+                args.IsValid = true;
+            }
+        }
+
+        /// <summary>
+        /// Checks if an author of a given name exists in the database
+        /// </summary>
+        /// <param name="firstName">The author's first name</param>
+        /// <param name="lastName">The author's last name</param>
+        /// <returns>True if the author a given first name and last name exists in the database</returns>
+        private bool IsExistingAuthor(string firstName, string lastName)
+        {
+            int matches = -1;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand comm = new SqlCommand("SELECT COUNT(authorID) AS Matches " +
+                    $"FROM BookAuthors WHERE firstName = '{firstName}' AND " +
+                    $"lastName = '{lastName}'", conn))
+                {
+                    conn.Open();
+
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            matches = Convert.ToInt32(reader["Matches"]);
+                        }
+                    }
+                }
+            }
+
+            if (matches != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        protected void ReqValNonExistentAuthor_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if(IsExistingAuthor(args.Value, TbxLastName.Text))
+            {
+                args.IsValid = false;
+            }
+            else
+            {
+                args.IsValid = true;
             }
         }
     }
