@@ -44,12 +44,12 @@
                     <span class="fa fa-cogs"></span><strong>&nbsp;Dynamic Link&nbsp;</strong>| LIBRARIES
                 </div>
                 <div class="col-md-4 text-right">
-                    <div class="input-group w-75 mx-auto">
-                        <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
+                    <asp:Panel ID="Panel1" runat="server" CssClass="input-group w-75 mx-auto">
+                        <asp:TextBox ID="TbxTopFind" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
                         <div class="input-group-append">
-                            <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-git btn-lg"><i class="fa fa-search"></i></asp:LinkButton>
+                            <asp:LinkButton ID="BtnTopFind" runat="server" OnClick="BtnTopFind_Click" CssClass="btn btn-git btn-lg"><i class="fa fa-search"></i></asp:LinkButton>
                         </div>
-                    </div>
+                    </asp:Panel>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
                         <a href="Search.aspx" class="nav-link"><i class="fas fa-search"></i>&nbsp;Search Libary Resources</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" 
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"><i class="far fa-user"></i>&nbsp;My Library Account</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 100%;">
                             <asp:LinkButton ID="BtnMyRentals" runat="server" CssClass="dropdown-item" OnClick="BtnMyRentals_Click">
@@ -104,15 +104,15 @@
             <div class="container footer-primary" id="footer_primary" runat="server">
                 <div class="row">
                     <div class="col-sm">
-                        <div class="form-group">
+                        <asp:Panel runat="server" CssClass="form-group" DefaultButton="btn_bottomFind">
                             <div class="input-group" style="border: 0;">
-                                <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="search this site"
+                                <asp:TextBox ID="TbxBottomFind" runat="server" CssClass="form-control" placeholder="search this site"
                                     Style="background-color: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.15); color: #fff"></asp:TextBox>
                                 <div class="input-group-append">
-                                    <asp:LinkButton ID="btn_bottomFind" runat="server" CssClass="btn btn-gray"><i class="fa fa-search"></i></asp:LinkButton>
+                                    <asp:LinkButton ID="btn_bottomFind" runat="server" CssClass="btn btn-gray" OnClick="btn_bottomFind_Click"><i class="fa fa-search"></i></asp:LinkButton>
                                 </div>
                             </div>
-                        </div>
+                        </asp:Panel>
                         <asp:Button ID="btn_bottom_search" runat="server" Text="Give to the Libraries" CssClass="btn btn-lg btn-library btn-block" />
                     </div>
                     <div class="col-sm block-25">
@@ -171,6 +171,5 @@
             </div>
         </div>
     </form>
-    <script src="Scripts/SetNavActiveLink.js"></script>
 </body>
 </html>

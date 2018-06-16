@@ -51,5 +51,15 @@ namespace LMS
             Session.Abandon();
             Response.Redirect("~/Home.aspx");
         }
+
+        protected void btn_bottomFind_Click(object sender, EventArgs e)
+        {
+            Response.Redirect($"~/Search.aspx?field=all&term={TbxBottomFind.Text}");
+        }
+
+        protected void BtnTopFind_Click(object sender, EventArgs e)
+        {
+            Response.Redirect($"~/Search.aspx?field=all&term={TbxTopFind.Text}");
+        }
     }
 }
