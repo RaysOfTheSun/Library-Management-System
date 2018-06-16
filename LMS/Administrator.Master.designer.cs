@@ -22,22 +22,31 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl header;
         
         /// <summary>
-        /// TextBox2 control.
+        /// Panel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
-        /// LinkButton1 control.
+        /// TbxTopFind control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.TextBox TbxTopFind;
+        
+        /// <summary>
+        /// BtnTopFind control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton BtnTopFind;
         
         /// <summary>
         /// navbar control.
@@ -76,13 +85,13 @@ namespace LMS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl footer_primary;
         
         /// <summary>
-        /// TextBox1 control.
+        /// TbxBottomFind control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox TbxBottomFind;
         
         /// <summary>
         /// btn_bottomFind control.

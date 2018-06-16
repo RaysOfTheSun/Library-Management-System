@@ -40,20 +40,17 @@
             </Scripts>
         </asp:ScriptManager>
         <div class="lib-header container-fluid" id="header" runat="server">
-            <div class="row">
-                <div class="col-md-8">
-                    <h2 style="margin-left: 8.5%; color: white"><i class="fa fa-cogs"></i>
-                        <strong>Dynamic Link </strong>| LIBRARIES</h2>
+            <div class="row px-5">
+                <div class="col-md-8 align-middle h2 text-white my-0 px-0">
+                    <span class="fa fa-cogs"></span><strong>&nbsp;Dynamic Link&nbsp;</strong>| LIBRARIES
                 </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="input-group w-75" style="border: 0;">
-                            <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
-                            <div class="input-group-append">
-                                <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-git btn-lg"><i class="fa fa-search"></i></asp:LinkButton>
-                            </div>
+                <div class="col-md-4 text-right">
+                    <asp:Panel ID="Panel1" runat="server" CssClass="input-group w-75 mx-auto">
+                        <asp:TextBox ID="TbxTopFind" runat="server" CssClass="form-control form-control-lg" Font-Size="14px" placeholder="search this site"></asp:TextBox>
+                        <div class="input-group-append">
+                            <asp:LinkButton ID="BtnTopFind" runat="server" OnClick="BtnTopFind_Click" CssClass="btn btn-git btn-lg"><i class="fa fa-search"></i></asp:LinkButton>
                         </div>
-                    </div>
+                    </asp:Panel>
                 </div>
             </div>
         </div>
@@ -100,15 +97,15 @@
             <div class="container footer-primary" id="footer_primary" runat="server">
                 <div class="row">
                     <div class="col-sm">
-                        <div class="form-group">
+                        <asp:Panel runat="server" CssClass="form-group" DefaultButton="btn_bottomFind">
                             <div class="input-group" style="border: 0;">
-                                <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="search this site"
+                                <asp:TextBox ID="TbxBottomFind" runat="server" CssClass="form-control" placeholder="search this site"
                                     Style="background-color: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.15); color: #fff"></asp:TextBox>
                                 <div class="input-group-append">
-                                    <asp:LinkButton ID="btn_bottomFind" runat="server" CssClass="btn btn-gray"><i class="fa fa-search"></i></asp:LinkButton>
+                                    <asp:LinkButton ID="btn_bottomFind" runat="server" CssClass="btn btn-gray" OnClick="btn_bottomFind_Click"><i class="fa fa-search"></i></asp:LinkButton>
                                 </div>
                             </div>
-                        </div>
+                        </asp:Panel>
                         <asp:Button ID="btn_bottom_search" runat="server" Text="Give to the Libraries" CssClass="btn btn-lg btn-library btn-block" />
                     </div>
                     <div class="col-sm block-25">
