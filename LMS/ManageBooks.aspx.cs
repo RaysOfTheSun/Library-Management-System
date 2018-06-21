@@ -64,12 +64,13 @@ namespace LMS
             ReqValNonExistentTitle.Validate();
             if (IsValid)
             {
+                TbxTitle.Text = TbxTitle.Text.Replace("''''''''", "''''''''''''");
                 SourceBooks.Insert();
                 TbxTitle.Text = "";
                 TbxISBN.Text = "";
-                TbxEdition.Text = "";
-                TbxPubYearA.Text = "";
-                TbxQuantity.Text = "";
+                TbxEdition.Text = "1";
+                TbxPubYearA.Text = DateTime.Now.Year.ToString();
+                TbxQuantity.Text = "1";
                 GrdBooks.DataBind();
                 GrdLibraryIndex.DataBind();
                 ScriptManager.RegisterStartupScript(BtnAddBook, GetType(), "AddBookModal",
@@ -321,14 +322,15 @@ namespace LMS
         {
             if (TbxSearchBookGrid.Text != string.Empty)
             {
+                string h_title = CleanString(TbxSearchBookGrid.Text);
                 SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
-                    $"CONTAINS(title,'\"{TbxSearchBookGrid.Text}*\"') OR " +
-                    $"CONTAINS(author,'\"{TbxSearchBookGrid.Text}*\"') OR " +
-                    $"CONTAINS(ISBN,'\"{TbxSearchBookGrid.Text}*\"') OR " +
-                    $"CONTAINS(publisherName,'\"{TbxSearchBookGrid.Text}*\"') OR " +
-                    $"CONTAINS(genre,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(title,'\"{h_title}*\"') OR " +
+                    $"CONTAINS(author,'\"{h_title}*\"') OR " +
+                    $"CONTAINS(ISBN,'\"{h_title}*\"') OR " +
+                    $"CONTAINS(publisherName,'\"{h_title}*\"') OR " +
+                    $"CONTAINS(genre,'\"{h_title}*\"') OR " +
                     "bookID IN (SELECT bookID FROM LibraryIndexNamed WHERE " +
-                    $"CONTAINS(callNumber, '\"{TbxSearchBookGrid.Text}*\"'))";
+                    $"CONTAINS(callNumber, '\"{h_title}*\"'))";
             }
 
             GrdBooks.DataBind();
@@ -357,14 +359,15 @@ namespace LMS
         {
             if (TbxSearchBookGrid.Text != string.Empty)
             {
+                string h_title = CleanString(TbxSearchBookGrid.Text);
                 SourceBooks.SelectCommand = "SELECT * FROM BookDisplay WHERE " +
-                    $"CONTAINS(title,'\"{TbxSearchBookGrid.Text}*\"') OR " +
-                    $"CONTAINS(author,'\"{TbxSearchBookGrid.Text}*\"') OR " +
-                    $"CONTAINS(ISBN,'\"{TbxSearchBookGrid.Text}*\"') OR " +
-                    $"CONTAINS(publisherName,'\"{TbxSearchBookGrid.Text}*\"') OR " +
-                    $"CONTAINS(genre,'\"{TbxSearchBookGrid.Text}*\"') OR " +
+                    $"CONTAINS(title,'\"{h_title}*\"') OR " +
+                    $"CONTAINS(author,'\"{h_title}*\"') OR " +
+                    $"CONTAINS(ISBN,'\"{h_title}*\"') OR " +
+                    $"CONTAINS(publisherName,'\"{h_title}*\"') OR " +
+                    $"CONTAINS(genre,'\"{h_title}*\"') OR " +
                     "bookID IN (SELECT bookID FROM LibraryIndexNamed WHERE " +
-                    $"CONTAINS(callNumber, '\"{TbxSearchBookGrid.Text}*\"'))";
+                    $"CONTAINS(callNumber, '\"{h_title}*\"'))";
             }
 
             GrdBooks.DataBind();
@@ -451,8 +454,9 @@ namespace LMS
         {
             if (TbxSearchPub.Text != string.Empty)
             {
+                string h_publisher = CleanString(TbxSearchPub.Text);
                 SourcePublishers.SelectCommand = "SELECT * FROM PublisherWithCountryName WHERE " +
-                    $"CONTAINS(publisherName,'\"{TbxSearchPub.Text}*\"') OR CONTAINS(countryName,'\"{TbxSearchAuthor.Text}*\"')";
+                    $"CONTAINS(publisherName,'\"{h_publisher}*\"') OR CONTAINS(countryName,'\"{h_publisher}*\"')";
             }
 
             GrdPublishers.DataBind();
@@ -463,8 +467,9 @@ namespace LMS
         {
             if (TbxSearchAuthor.Text != string.Empty)
             {
-                SourceAuthors.SelectCommand = $"SELECT * FROM BookAuthors WHERE CONTAINS(firstName,'\"{TbxSearchAuthor.Text}*\"') OR " +
-                    $"CONTAINS(lastName,'\"{TbxSearchAuthor.Text}*\"')";
+                string h_author = CleanString(TbxSearchAuthor.Text);
+                SourceAuthors.SelectCommand = $"SELECT * FROM BookAuthors WHERE CONTAINS(firstName,'\"{h_author}*\"') OR " +
+                    $"CONTAINS(lastName,'\"{h_author}*\"')";
             }
 
             GrdAuthors.DataBind();
@@ -475,10 +480,11 @@ namespace LMS
         {
             if (TbxSearchIdx.Text != string.Empty)
             {
+                string h_title = CleanString(TbxSearchIdx.Text);
                 SourceLibrary.SelectCommand = "SELECT * FROM LibraryIndexNamed WHERE title IN " +
-                    $"(SELECT title FROM BookDisplay WHERE CONTAINS(title,'\"{TbxSearchIdx.Text}*\"')) OR " +
-                    $"fullName IN (SELECT author FROM BookDisplay WHERE CONTAINS(author,'\"{TbxSearchIdx.Text}*\"')) OR " +
-                    $"genre IN (SELECT genre FROM BookDisplay WHERE CONTAINS(genre, '\"{TbxSearchIdx.Text}*\"'))";
+                    $"(SELECT title FROM BookDisplay WHERE CONTAINS(title,'\"{h_title}*\"')) OR " +
+                    $"fullName IN (SELECT author FROM BookDisplay WHERE CONTAINS(author,'\"{h_title}*\"')) OR " +
+                    $"genre IN (SELECT genre FROM BookDisplay WHERE CONTAINS(genre, '\"{h_title}*\"'))";
 
             }
 
@@ -526,15 +532,15 @@ namespace LMS
         private bool IsExistingPublisher(string publisherName)
         {
             int matches = -1;
-
-            using(SqlConnection conn = new SqlConnection(connString))
+            publisherName = publisherName.Replace("'", "''");
+            using (SqlConnection conn = new SqlConnection(connString))
             {
                 using (SqlCommand comm = new SqlCommand("SELECT COUNT(publisherID) AS Matches " +
                     $"FROM PublisherWithCountryName WHERE publisherName = '{publisherName}'", conn))
                 {
                     conn.Open();
 
-                    using(SqlDataReader reader = comm.ExecuteReader())
+                    using (SqlDataReader reader = comm.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -544,7 +550,7 @@ namespace LMS
                 }
             }
 
-            if(matches != 0)
+            if (matches != 0)
             {
                 return true;
             }
@@ -573,6 +579,7 @@ namespace LMS
         private bool IsExistingAuthor(string firstName, string lastName)
         {
             int matches = -1;
+            firstName = firstName.Replace("'", "''");
 
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -602,7 +609,7 @@ namespace LMS
 
         protected void ReqValNonExistentAuthor_ServerValidate(object source, ServerValidateEventArgs args)
         {
-            if(IsExistingAuthor(args.Value, TbxLastName.Text))
+            if (IsExistingAuthor(args.Value, TbxLastName.Text))
             {
                 args.IsValid = false;
             }
@@ -620,7 +627,7 @@ namespace LMS
         private bool IsExistingBook(string title)
         {
             int matches = -1;
-
+            title = title.Replace("'", "''");
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 using (SqlCommand comm = new SqlCommand("SELECT COUNT(bookID) AS Matches " +
@@ -656,6 +663,11 @@ namespace LMS
             {
                 args.IsValid = true;
             }
+        }
+
+        private string  CleanString(string input)
+        {
+            return input.Replace("'", "''");
         }
     }
 }

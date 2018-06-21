@@ -88,11 +88,12 @@ namespace LMS
         {
             if (TbxSearchRenters.Text != string.Empty)
             {
+                string h_renter = CleanString(TbxSearchRenters.Text);
                 SourceRentals.SelectCommand = "SELECT * FROM RentalDetails WHERE " +
-                    $"CONTAINS(accountOwner,'\"{TbxSearchRenters.Text}*\"') " +
-                    $"OR CONTAINS(title,'\"{TbxSearchRenters.Text}*\"') " +
-                    $"OR CONTAINS(fullName,'\"{TbxSearchRenters.Text}*\"') " +
-                    $"OR CONTAINS(ISBN,'\"{TbxSearchRenters.Text}*\"')";
+                    $"CONTAINS(accountOwner,'\"{h_renter}*\"') " +
+                    $"OR CONTAINS(title,'\"{h_renter}*\"') " +
+                    $"OR CONTAINS(fullName,'\"{h_renter}*\"') " +
+                    $"OR CONTAINS(ISBN,'\"{h_renter}*\"')";
             }
 
             GvwRentals.DataBind();
@@ -102,14 +103,20 @@ namespace LMS
         {
             if (TbxSearchRequestGrid.Text != string.Empty)
             {
+                string h_requestor = CleanString(TbxSearchRequestGrid.Text);
                 SourceRequests.SelectCommand = "SELECT * FROM RentalRequestDetails WHERE " +
-                    $"CONTAINS(accountOwner,'\"{TbxSearchRequestGrid.Text}*\"') " +
-                    $"OR CONTAINS(title,'\"{TbxSearchRequestGrid.Text}*\"') " +
-                    $"OR CONTAINS(fullName,'\"{TbxSearchRequestGrid.Text}*\"') " +
-                    $"OR CONTAINS(ISBN,'\"{TbxSearchRequestGrid.Text}*\"')"; 
+                    $"CONTAINS(accountOwner,'\"{h_requestor}*\"') " +
+                    $"OR CONTAINS(title,'\"{h_requestor}*\"') " +
+                    $"OR CONTAINS(fullName,'\"{h_requestor}*\"') " +
+                    $"OR CONTAINS(ISBN,'\"{h_requestor}*\"')"; 
             }
 
             GvwRequests.DataBind();
+        }
+
+        private string CleanString(string input)
+        {
+            return input.Replace("'", "''");
         }
     }
 }

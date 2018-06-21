@@ -22,15 +22,21 @@ namespace LMS
         {
             if (TbxSearchRentalGrid.Text != string.Empty)
             {
+                string h_borrower = CleanString(TbxSearchRentalGrid.Text);
                 int borrowerID = Convert.ToInt32(Session["bID"]);
                 SourceRentals.SelectCommand = "SELECT * FROM RentalDetails WHERE (" +
-                    $"CONTAINS(title,'\"{TbxSearchRentalGrid.Text}*\"') " +
-                    $"OR CONTAINS(fullName,'\"{TbxSearchRentalGrid.Text}*\"') " +
-                    $"OR CONTAINS(ISBN,'\"{TbxSearchRentalGrid.Text}*\"')) " +
+                    $"CONTAINS(title,'\"{h_borrower}*\"') " +
+                    $"OR CONTAINS(fullName,'\"{h_borrower}*\"') " +
+                    $"OR CONTAINS(ISBN,'\"{h_borrower}*\"')) " +
                     $"AND borrowerID = {borrowerID}";
             }
 
             GvwRentals.DataBind();
+        }
+
+        private string CleanString(string input)
+        {
+            return input.Replace("'", "''");
         }
     }
 }

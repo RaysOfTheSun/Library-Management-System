@@ -114,9 +114,10 @@ namespace LMS
         {
             if(TbxSearchAccountlGrid.Text != string.Empty)
             {
+                string h_account = CleanString(TbxSearchAccountlGrid.Text);
                 SourceAccounts.SelectCommand = "SELECT * FROM BorrowerAccounts WHERE " +
-                    $"CONTAINS(accountOwner,'\"{TbxSearchAccountlGrid.Text}*\"') " +
-                    $"OR CONTAINS(userName,'\"{TbxSearchAccountlGrid.Text}*\"')";
+                    $"CONTAINS(accountOwner,'\"{h_account}*\"') " +
+                    $"OR CONTAINS(userName,'\"{h_account}*\"')";
             }
 
             GvwAccounts.DataBind();
@@ -126,14 +127,20 @@ namespace LMS
         {
             if(TbxSearchUserlGrid.Text != string.Empty)
             {
+                string h_user = CleanString(TbxSearchUserlGrid.Text);
                 SourceUsers.SelectCommand = "SELECT borrowerID, firstName, middleName, lastName, " +
                     "countryName, cityName FROM completeBorrowerData WHERE " +
-                    $"CONTAINS(firstName,'\"{TbxSearchUserlGrid.Text}*\"') OR CONTAINS(middleName,'\"{TbxSearchUserlGrid.Text}*\"') " +
-                    $"OR CONTAINS(lastName,'\"{TbxSearchUserlGrid.Text}*\"') OR CONTAINS(countryName,'\"{TbxSearchUserlGrid.Text}*\"') " +
-                    $"OR CONTAINS(cityName,'\"{TbxSearchUserlGrid.Text}*\"')";
+                    $"CONTAINS(firstName,'\"{h_user}*\"') OR CONTAINS(middleName,'\"{h_user}*\"') " +
+                    $"OR CONTAINS(lastName,'\"{h_user}*\"') OR CONTAINS(countryName,'\"{h_user}*\"') " +
+                    $"OR CONTAINS(cityName,'\"{h_user}*\"')";
             }
 
             GvwDetails.DataBind();
+        }
+
+        private string CleanString(string input)
+        {
+            return input.Replace("'", "''");
         }
     }
 }
