@@ -42,6 +42,12 @@
                                     <asp:BoundField DataField="ISBN" HeaderText="ISBN" SortExpression="ISBN" />
                                     <asp:BoundField DataField="rentalDate" HeaderText="Rental Date" SortExpression="rentalDate" DataFormatString="{0:d}" />
                                     <asp:BoundField DataField="returnDate" HeaderText="Return Date" SortExpression="returnDate" DataFormatString="{0:d}" />
+                                    <asp:TemplateField HeaderText="Status">
+                                        <ItemTemplate>
+                                            <asp:Label runat="server" Text='<%# SetText(Eval("returnDate")) %>' 
+                                                CssClass='<%# SetCSSClass(Eval("returnDate")) %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                                 <HeaderStyle BorderStyle="Solid" VerticalAlign="Middle" />
                             </asp:GridView>

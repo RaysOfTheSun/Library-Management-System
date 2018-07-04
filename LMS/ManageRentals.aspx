@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="Rentals - Dynamic Link Administration" Language="C#" MasterPageFile="~/Administrator.Master" AutoEventWireup="true" CodeBehind="ManageRentals.aspx.cs" Inherits="LMS.ManageRentals" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
     <div class="wrap">
         <div class="container" style="font-size: 1.3vw;">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -53,12 +54,12 @@
                                         <ItemTemplate>
                                             <div class="row no-gutters">
                                                 <div class="col-sm-6">
-                                                    <asp:Button ID="GrdBtnAcceptRequest" runat="server" Text=&#10004; CssClass="btn btn-success btn-block" CommandName="editItem"
+                                                    <asp:Button ID="GrdBtnAcceptRequest" runat="server" Text="&#10004;" CssClass="btn btn-success btn-block" CommandName="editItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
                                                         data-target="#ConfirmAcceptRequestModal" />
                                                 </div>
                                                 <div class="col-sm-6 pl-1">
-                                                    <asp:Button ID="GrdBtnRejectRequest" runat="server" Text=&#x2716; CssClass="btn btn-danger btn-block" CommandName="deleteItem"
+                                                    <asp:Button ID="GrdBtnRejectRequest" runat="server" Text="&#x2716;" CssClass="btn btn-danger btn-block" CommandName="deleteItem"
                                                         CommandArgument='<%# Eval("rentalID") %>' CausesValidation="false" data-toggle="modal"
                                                         data-target="#DeleteRequestModal" />
                                                 </div>
@@ -262,19 +263,44 @@
                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                         <ContentTemplate>
                             <div class="modal-body">
-                                <div class="justify-content-center align-items-center">
-                                    <div class="form-group mb-1">
-                                        <p class="h6">New Return Date</p>
-                                        <asp:TextBox ID="TbxExtensionDate" runat="server" CssClass="form-control"
-                                            placeholder="Date" ValidationGroup="extend" TextMode="Date"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="ReqValDate" runat="server"
-                                            ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
-                                            ControlToValidate="TbxExtensionDate" ValidationGroup="extend"></asp:RequiredFieldValidator>
-                                        <asp:CustomValidator ID="ReqNotPastValDate" runat="server" ForeColor="Red" ValidationGroup="extend"
-                                            ErrorMessage="This value cannot be set to a date in the past"
-                                            ControlToValidate="TbxExtensionDate" OnServerValidate="ReqNotPastValDate_ServerValidate"></asp:CustomValidator>
-                                    </div>
-                                </div>
+
+                                <asp:FormView ID="FvwRentalDetails" runat="server" DataSourceID="SourceRentalDatesEdit" DefaultMode="Edit" CssClass="w-100">
+                                    <EditItemTemplate>
+                                        <div class="form-group mb-1">
+                                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("rentalID") %>'
+                                                CssClass="form-control" Enabled="false" Visible="false" />
+                                            <p class="h6">Title</p>
+                                            <asp:TextBox ID="titleTextBox" runat="server" Text='<%# Eval("title") %>'
+                                                CssClass="form-control" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Renter</p>
+                                            <asp:TextBox ID="fullNameTextBox" runat="server" Text='<%# Eval("fullName") %>'
+                                                CssClass="form-control" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Rental Date</p>
+                                            <asp:TextBox ID="rentalDateTextBox" runat="server" Text='<%# Eval("rentalDate","{0:yyyy/MM/dd}") %>'
+                                                CssClass="form-control" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Current Return Date</p>
+                                            <asp:TextBox ID="TextBox2" runat="server" Text='<%# Eval("returnDate","{0:d}") %>'
+                                                CssClass="form-control" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">New Return Date</p>
+                                            <asp:TextBox ID="returnDateTextBox" runat="server" Text='<%# Bind("returnDate") %>' TextMode="Date"
+                                                CssClass="form-control" />
+                                            <asp:RequiredFieldValidator ID="ReqValDate" runat="server"
+                                                ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                ControlToValidate="returnDateTextBox" ValidationGroup="extend"></asp:RequiredFieldValidator>
+                                            <asp:CustomValidator ID="ReqNotPastValDate" runat="server" ForeColor="Red" ValidationGroup="extend"
+                                                ErrorMessage="This value cannot be set to a date in the past"
+                                                ControlToValidate="returnDateTextBox" OnServerValidate="ReqNotPastValDate_ServerValidate"></asp:CustomValidator>
+                                        </div>
+                                    </EditItemTemplate>
+                                </asp:FormView>
                             </div>
                             <div class="modal-footer">
                                 <button id="BtnExtendRental" type="button" class="btn btn-library-10"
@@ -334,13 +360,18 @@
         </InsertParameters>
     </asp:SqlDataSource>
     <asp:SqlDataSource runat="server" ID="SourceRentals" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteRentalDetails @rentalID"
-        ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM RentalDetails" UpdateCommand="EXEC ExtendRetal @rentalID, @date">
+        ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM RentalDetails">
         <DeleteParameters>
             <asp:ControlParameter ControlID="HfdRentalID" Name="rentalID" PropertyName="Value" Type="Int32" />
         </DeleteParameters>
-        <UpdateParameters>
-            <asp:ControlParameter ControlID="HfdRentalID" Name="rentalID" PropertyName="Value" />
-            <asp:ControlParameter ControlID="TbxExtensionDate" Name="date" PropertyName="Text" />
-        </UpdateParameters>
+    </asp:SqlDataSource>
+    <asp:SqlDataSource runat="server" ID="SourceRentalDatesEdit" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteRentalDetails @rentalID"
+        ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM RentalDetails WHERE rentalID = @id" UpdateCommand="EXEC ExtendRetal @rentalID, @returnDate">
+        <DeleteParameters>
+            <asp:ControlParameter ControlID="HfdRentalID" Name="rentalID" PropertyName="Value" Type="Int32" />
+        </DeleteParameters>
+        <SelectParameters>
+            <asp:ControlParameter ControlID="HfdRentalID" Name="id" PropertyName="Value" Type="Int32" />
+        </SelectParameters>
     </asp:SqlDataSource>
 </asp:Content>

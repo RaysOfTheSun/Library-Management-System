@@ -57,10 +57,9 @@ namespace LMS
 
         protected void BtnExtendRental_ServerClick(object sender, EventArgs e)
         {
-            ReqNotPastValDate.Validate();
             if (IsValid)
             {
-                SourceRentals.Update();
+                FvwRentalDetails.UpdateItem(true);
                 GvwRentals.DataBind();
                 ScriptManager.RegisterStartupScript(BtnExtendRental, GetType(), "ExtendRentalModal",
                     @"$('#ExtendRentalModal').modal('hide');", true);

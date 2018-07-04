@@ -175,31 +175,13 @@ namespace LMS {
         protected global::System.Web.UI.UpdatePanel UpdatePanel4;
         
         /// <summary>
-        /// TbxExtensionDate control.
+        /// FvwRentalDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TbxExtensionDate;
-        
-        /// <summary>
-        /// ReqValDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValDate;
-        
-        /// <summary>
-        /// ReqNotPastValDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator ReqNotPastValDate;
+        protected global::System.Web.UI.WebControls.FormView FvwRentalDetails;
         
         /// <summary>
         /// BtnExtendRental control.
@@ -245,5 +227,14 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SourceRentals;
+        
+        /// <summary>
+        /// SourceRentalDatesEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourceRentalDatesEdit;
     }
 }
