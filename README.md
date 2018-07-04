@@ -10,7 +10,7 @@
 * A page that allows users to __view__ borrowed materials from the library
 
 # Notes
+* The Dynamic Link logo(s) used in this project shall be __removed__ if any of the files in it are __modified__.
 * This project uses several files from [`Bootstrap 4`](https://getbootstrap.com/) and [`Font Awesome`](https://fontawesome.com/).
 * The developers would like to thank the owners of the images present in the pages. 
 * We would also like to thank the developers of the [`NYU Libraries`](https://library.nyu.edu/) website for inspiring various aspects of this project.
-* The Dynamic Link logo(s) used in this project shall be removed if any of the files in it are modified.
