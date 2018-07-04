@@ -146,6 +146,7 @@ namespace LMS
         protected void LvwBooks_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
             HfdBookID.Value = e.CommandArgument.ToString();
+            BtnRequestRentV.DataBind();
 
         }
 
@@ -159,6 +160,7 @@ namespace LMS
         {
             SourceRentals.Insert();
             LvwBooks.DataBind();
+            BtnRequestRentV.DataBind();
             ScriptManager.RegisterStartupScript(BtnConfirmRequest, GetType(), "ConfirmRequestModal",
                 @"$('#ConfirmRequestModal').modal('hide');", true);
         }

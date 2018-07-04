@@ -85,9 +85,9 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-0 align-self-center">
-                                                            <asp:Button ID="BtnRequestRent" runat="server" Text='<%# SetAction(Eval("bookID"), Session["bID"]) %>' CssClass="btn btn-library btn-block"
+                                                            <asp:Button ID="BtnViewDetails" runat="server" Text="View Details" CssClass="btn btn-library btn-block"
                                                                 CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
-                                                                data-target="#ConfirmRequestModal" Enabled='<%# IsRentable(Eval("bookID")) %>' />
+                                                                data-target="#ViewBookDetailsModal" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -111,6 +111,70 @@
                                     </div>
                                 </LayoutTemplate>
                             </asp:ListView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- View Book Details modal -->
+        <div class="modal fade" id="ViewBookDetailsModal" tabindex="-1" role="dialog" aria-labelledby="ViewBookDetailsModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewContactDetModalLongTitle"><strong>Book Details</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <asp:UpdatePanel ID="UpdatePanel13" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <asp:FormView ID="FvwBookDetails" runat="server" DataSourceID="SourceBookDetails" CssClass="w-100">
+                                    <ItemTemplate>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Title</p>
+                                            <asp:Label ID="TitleLabel" runat="server" Text='<%# Bind("title") %>' CssClass="text-justify form-control border-0" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Author</p>
+                                            <asp:Label ID="AuthorLabel" runat="server" Text='<%# Bind("author") %>' CssClass="text-justify form-control border-0" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Publisher</p>
+                                            <asp:Label ID="PublisherNameLabel" runat="server" Text='<%# Bind("publisherName") %>' CssClass="text-justify form-control border-0" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Genre</p>
+                                            <asp:Label ID="GenreLabel" runat="server" Text='<%# Bind("genre") %>' CssClass="text-justify form-control border-0" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Year of Publication</p>
+                                            <asp:Label ID="PublicationLabel" runat="server" Text='<%# Bind("publishYear") %>' CssClass="text-justify form-control border-0" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">ISBN</p>
+                                            <asp:Label ID="IsbnLabel" runat="server" Text='<%# Bind("ISBN") %>' CssClass="text-justify form-control border-0" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Edition</p>
+                                            <asp:Label ID="EditionLabel" runat="server" Text='<%# Bind("edition") %>' CssClass="text-justify form-control border-0" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Synopsis</p>
+                                            <asp:Label ID="SynopsisLabel" runat="server" Text='<%# Bind("bookSynopsis") %>' CssClass="text-justify form-control border-0" Enabled="false" />
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:FormView>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button ID="BtnRequestRentV" runat="server" Text='<%# SetAction(HfdBookID.Value, Session["bID"]) %>' CssClass="btn btn-library-10"
+                                    CausesValidation="false" data-toggle="modal"
+                                    data-target="#ConfirmRequestModal" Enabled='<%# IsRentable(HfdBookID.Value) %>' />
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
@@ -198,4 +262,9 @@
         </InsertParameters>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SourceBookDetails" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [BookDisplay] WHERE bookID = @id">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="HfdBookID" Name="id" PropertyName="Value" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
 </asp:Content>

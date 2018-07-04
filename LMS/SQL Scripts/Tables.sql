@@ -295,7 +295,7 @@ GO
 --SEARCHING
 
 -- BOOKS
-IF NOT OBJECTPROPERTY ( object_id('BookDisplay'), 'TableHasActiveFulltextIndex') = 1 
+IF NOT OBJECTPROPERTY (object_id('BookDisplay'), 'TableHasActiveFulltextIndex') = 1 
 BEGIN
 	CREATE FULLTEXT CATALOG BookCatalog
 	CREATE FULLTEXT INDEX ON BookDisplay (

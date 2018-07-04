@@ -26,6 +26,7 @@ namespace LMS
                     $"CONTAINS(ISBN,'\"{h_term}*\"') OR " +
                     $"CONTAINS(publisherName,'\"{h_term}*\"') OR " +
                     $"CONTAINS(genre,'\"{h_term}*\"') OR " +
+                    $"CONTAINS(bookSynopsis,'\"{h_term}*\"') OR " +
                     "bookID IN (SELECT bookID FROM LibraryIndexNamed WHERE " +
                     $"CONTAINS(callNumber, '\"{h_term}*\"'))";
             }
@@ -60,16 +61,17 @@ namespace LMS
                     "(SELECT bookID FROM LibraryIndexNamed WHERE CONTAINS(callNumber, " +
                     $"'\"{h_term}*\"'))";
             }
-
         }
 
         protected void ListViewSearchResults_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
             HfdBookID.Value = e.CommandArgument.ToString();
+            BtnRequestRentV.DataBind();
         }
 
         protected void BtnConfirmRental_ServerClick(object sender, EventArgs e)
         {
+            BtnRequestRentV.DataBind();
             ScriptManager.RegisterStartupScript(BtnConfirmRental, GetType(), "rentalNotifModal",
                      @"$('#rentalNotifModal').modal('hide');", true);
         }
@@ -203,6 +205,7 @@ namespace LMS
 
         protected void BtnConfirmRequest_ServerClick(object sender, EventArgs e)
         {
+            BtnRequestRentV.DataBind();
             SourceRentals.Insert();
             ListViewSearchResults.DataBind();
             ScriptManager.RegisterStartupScript(BtnConfirmRequest, GetType(), "ConfirmRequestModal",

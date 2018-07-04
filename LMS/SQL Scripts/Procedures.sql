@@ -154,6 +154,7 @@ CREATE OR ALTER PROCEDURE DeleteBook(@id INT) AS
 		BEGIN TRY
 			DELETE FROM BookStatuses WHERE bookID = @id
 			DELETE FROM LibraryIndex WHERE bookID = @id
+			DELETE FROM BookSynopses WHERE bookID = @id
 			DELETE FROM Books WHERE bookID = @id
 			COMMIT TRAN
 		END TRY

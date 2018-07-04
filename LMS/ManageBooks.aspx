@@ -286,19 +286,19 @@
                                     <ItemTemplate>
                                         <div class="form-group mb-1">
                                             <p class="h6">Title</p>
-                                            <asp:Label ID="NameLabel" runat="server" Text='<%# Bind("title") %>' CssClass="text-justify" Enabled="false" />
+                                            <asp:Label ID="TitleLabel" runat="server" Text='<%# Bind("title") %>' CssClass="text-justify form-control border-0" Enabled="false" />
                                         </div>
                                         <div class="form-group mb-1">
                                             <p class="h6">Author</p>
-                                            <asp:Label ID="mailLabel" runat="server" Text='<%# Bind("author") %>' CssClass="text-justify" Enabled="false" />
+                                            <asp:Label ID="AuthorLabel" runat="server" Text='<%# Bind("author") %>' CssClass="text-justify form-control border-0" Enabled="false" />
                                         </div>
                                         <div class="form-group mb-1">
                                             <p class="h6">Publisher</p>
-                                            <asp:Label ID="phoneNumberLabel" runat="server" Text='<%# Bind("publisherName") %>' CssClass="text-justify" Enabled="false" />
+                                            <asp:Label ID="PublisherNameLabel" runat="server" Text='<%# Bind("publisherName") %>' CssClass="text-justify form-control border-0" Enabled="false" />
                                         </div>
                                         <div class="form-group mb-1">
                                             <p class="h6">Synopsis</p>
-                                            <asp:Label ID="SynopsisLabel" runat="server" Text='<%# Bind("bookSynopsis") %>' CssClass="text-justify" Enabled="false" />
+                                            <asp:Label ID="SynopsisLabel" runat="server" Text='<%# Bind("bookSynopsis") %>' CssClass="text-justify form-control border-0" Enabled="false" />
                                         </div>
                                     </ItemTemplate>
                                 </asp:FormView>
@@ -495,7 +495,7 @@
             </div>
         </div>
 
-        <%-- Edit Book modal --%>
+        <%-- Add Book modal --%>
         <div class="modal fade" id="AddAuthorModal" tabindex="-1" role="dialog" aria-labelledby="AddAuthorModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

@@ -252,19 +252,19 @@
                                     <ItemTemplate>
                                         <div class="form-group mb-1">
                                             <p class="h6">Name</p>
-                                            <asp:Label ID="NameLabel" runat="server" Text='<%# Bind("Name") %>' CssClass="form-control" Enabled="false" />
+                                            <asp:Label ID="NameLabel" runat="server" Text='<%# Bind("Name") %>' CssClass="text-justify form-control border-0" Enabled="false" />
                                         </div>
                                         <div class="form-group mb-1">
                                             <p class="h6">E-mail Address</p>
-                                            <asp:Label ID="mailLabel" runat="server" Text='<%# Bind("mail") %>' CssClass="form-control" Enabled="false" />
+                                            <asp:Label ID="MailLabel" runat="server" Text='<%# Bind("mail") %>' CssClass="text-justify form-control border-0" Enabled="false" />
                                         </div>
                                         <div class="form-group mb-1">
                                             <p class="h6">Contact Number</p>
-                                            <asp:Label ID="phoneNumberLabel" runat="server" Text='<%# Bind("phoneNumber") %>' CssClass="form-control" Enabled="false" />
+                                            <asp:Label ID="PhoneNumberLabel" runat="server" Text='<%# Bind("phoneNumber") %>' CssClass="text-justify form-control border-0" Enabled="false" />
                                         </div>
                                         <div class="form-group mb-1">
                                             <p class="h6">Address</p>
-                                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("Address") %>' CssClass="form-control" Enabled="false" />
+                                            <asp:Label ID="AddressLabel" runat="server" Text='<%# Bind("Address") %>' CssClass="text-justify form-control border-0" Enabled="false" />
                                         </div>
                                     </ItemTemplate>
                                 </asp:FormView>
@@ -456,7 +456,7 @@
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SourceUsers" runat="server" SelectCommand="SELECT borrowerID, firstName, middleName, lastName, mail, phoneNumber, countryName, cityName, street, zipCode FROM completeBorrowerData" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SourceContactDet" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT (firstName + ' ' + middleName + ' ' + lastName) AS [Name], mail, phoneNumber, (street + ', ' + cityName + ', ' + countryName +' ' + CONVERT(NVARCHAR,zipCode)) AS [Address] FROM completeBorrowerData WHERE borrowerID = @id">
+    <asp:SqlDataSource ID="SourceContactDet" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT (firstName + ' ' + middleName + ' ' + lastName) AS [Name], mail, phoneNumber, (street + ', ' + cityName  + ' ' + CONVERT(NVARCHAR,zipCode) + ',' + ' ' + countryName) AS [Address] FROM completeBorrowerData WHERE borrowerID = @id">
         <SelectParameters>
             <asp:ControlParameter ControlID="hideenID" Name="id" PropertyName="Value" Type="Int32" />
         </SelectParameters>
