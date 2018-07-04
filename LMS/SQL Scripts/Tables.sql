@@ -157,6 +157,17 @@ IF NOT EXISTS (
 IF NOT EXISTS ( 
 		SELECT * FROM INFORMATION_SCHEMA.TABLES
 		WHERE TABLE_SCHEMA = 'dbo'
+		AND TABLE_NAME = 'BookSynopses')
+	BEGIN
+		CREATE TABLE BookSynopses (
+		synopsisID INT IDENTITY(1, 1) CONSTRAINT PK_SYNOPSISID PRIMARY KEY NOT NULL,
+		bookID INT FOREIGN KEY REFERENCES Books(bookID) NOT NULL,
+		bookSynopsis NVARCHAR(MAX) NOT NULL)
+	END
+
+IF NOT EXISTS ( 
+		SELECT * FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_SCHEMA = 'dbo'
 		AND TABLE_NAME = 'Locations')
 	BEGIN
 		CREATE TABLE Locations (
@@ -193,10 +204,11 @@ GO
 
 CREATE OR ALTER VIEW BookDisplay WITH SCHEMABINDING AS 
 	SELECT book.bookID, book.title, (authors.firstName + ' ' + authors.lastName) AS author, 
-	publishers.publisherName, book.publishYear, book.ISBN, book.edition, book.genre, statuses.bookCount
+	publishers.publisherName, book.publishYear, book.ISBN, book.edition, book.genre, statuses.bookCount, bookSynopsis
 	FROM dbo.Books book INNER JOIN dbo.BookAuthors authors ON book.authorID = authors.authorID
 				INNER JOIN dbo.BookPublishers publishers ON publishers.publisherID = book.publisherID
 				INNER JOIN dbo.BookStatuses statuses ON book.bookID = statuses.bookID
+				INNER JOIN dbo.BookSynopses synopses ON book.bookID = synopses.bookID
 	GO
 	CREATE UNIQUE CLUSTERED INDEX IDX_bookID ON BookDisplay(bookID)
 	CREATE NONCLUSTERED INDEX IDX_displayIndex ON BookDisplay(bookID)
@@ -257,8 +269,9 @@ GO
 
 CREATE OR ALTER VIEW EditBookView AS
 	SELECT Books.bookID, Books.title, Books.authorID, Books.publisherID, Books.publishYear, Books.ISBN,
-		Books.edition, Books.genre, BookStatuses.bookCount FROM Books
+		Books.edition, Books.genre, BookStatuses.bookCount, BookSynopses.bookSynopsis FROM Books
 		INNER JOIN BookStatuses ON Books.bookID = BookStatuses.bookID
+		INNER JOIN BookSynopses ON Books.bookID = BookSynopses.bookID
 GO
 
 CREATE OR ALTER VIEW RentedBooksWithAuthorID AS 
@@ -290,7 +303,8 @@ BEGIN
 		author LANGUAGE 1033,
 		publisherName LANGUAGE 1033,
 		genre LANGUAGE 1033,
-		ISBN LANGUAGE 1033
+		ISBN LANGUAGE 1033,
+		bookSynopsis LANGUAGE 1033
 	)
 	KEY INDEX IDX_bookID ON BookCatalog
 		WITH CHANGE_TRACKING AUTO,

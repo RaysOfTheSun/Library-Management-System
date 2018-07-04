@@ -163,12 +163,13 @@ CREATE OR ALTER PROCEDURE DeleteBook(@id INT) AS
 GO
 
 CREATE OR ALTER PROCEDURE UpdateBook(@authorID INT, @publisherID INT, @title NVARCHAR(100), @ISBN NVARCHAR(20), 
-	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @bookCount INT, @id INT) AS
+	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @bookCount INT, @synopsis NVARCHAR(MAX), @id INT) AS
 	BEGIN TRAN
 		BEGIN TRY
 			UPDATE Books SET title = @title, authorID = @authorID, publisherID = @publisherID, 
 				publishYear = @publishYr, ISBN = @ISBN, edition = @edition, genre = @genre WHERE bookID = @id
 			UPDATE BookStatuses SET bookCount = @bookCount WHERE bookID = @id
+			UPDATE BookSynopses SET bookSynopsis = @synopsis WHERE bookID = @id
 			COMMIT TRAN
 		END TRY
 		BEGIN CATCH
@@ -177,12 +178,13 @@ CREATE OR ALTER PROCEDURE UpdateBook(@authorID INT, @publisherID INT, @title NVA
 GO
 
 CREATE OR ALTER PROCEDURE AddBook(@authorID INT, @publisherID INT, @title NVARCHAR(100), @ISBN NVARCHAR(20), 
-	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @bookCount SMALLINT) AS
+	@edition INT, @genre NVARCHAR(20), @publishYr SMALLINT, @bookCount SMALLINT, @synopsis NVARCHAR(MAX)) AS
 		BEGIN TRAN
 		BEGIN TRY
 			INSERT INTO Books VALUES (@title, @authorID, @publisherID, @publishYr, @ISBN, @edition, @genre)
 			INSERT INTO BookStatuses VALUES (IDENT_CURRENT('Books'), @bookCount)
 			INSERT INTO LibraryIndex (bookID) VALUES (IDENT_CURRENT('Books'))
+			INSERT INTO BookSynopses VALUES (IDENT_CURRENT('Books'), @synopsis)
 			COMMIT TRAN
 		END TRY
 		BEGIN CATCH

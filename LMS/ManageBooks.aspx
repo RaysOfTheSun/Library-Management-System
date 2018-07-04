@@ -48,7 +48,7 @@
         </div>
 
         <div class="tab-content" id="nav-tabContent">
-            <%--Libray tab--%>
+            <%-- Authors tab --%>
             <div class="tab-pane fade show active" id="nav-library" role="tabpanel" aria-labelledby="nav-library-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UpdatePanel9" runat="server" ChildrenAsTriggers="true">
@@ -96,7 +96,7 @@
                     </asp:UpdatePanel>
                 </div>
             </div>
-            <%-- Book tab --%>
+            <%-- Titles tab --%>
             <div class="tab-pane fade" id="nav-titles" role="tabpanel" aria-labelledby="nav-titles-tab">
                 <div class="container">
                     <asp:UpdatePanel ID="UPBooks" runat="server" ChildrenAsTriggers="true">
@@ -134,6 +134,12 @@
                                     <asp:BoundField DataField="edition" HeaderText="Edition" SortExpression="edition" />
                                     <asp:BoundField DataField="genre" HeaderText="Genre" SortExpression="genre" />
                                     <asp:BoundField DataField="bookCount" HeaderText="Quantity" SortExpression="bookCount" />
+                                    <asp:TemplateField HeaderText="Synopsis" ItemStyle-Wrap="false">
+                                        <ItemTemplate>
+                                            <asp:Button ID="GrdBtnViewSynopsis" runat="server" Text="View" CssClass="btn btn-info" CausesValidation="false"
+                                                data-toggle="modal" data-target="#ViewBookSynopsisModal" CommandArgument='<%# Eval("bookID") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
                                             <asp:Button ID="GrdBtnEditBook" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
@@ -262,7 +268,50 @@
             </div>
         </div>
 
-        <%-- Add Book modal --%>
+        <!-- View Book Synopsis modal -->
+        <div class="modal fade" id="ViewBookSynopsisModal" tabindex="-1" role="dialog" aria-labelledby="ViewBookSynopsisModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewContactDetModalLongTitle"><strong>Synopsis</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <asp:UpdatePanel ID="UpdatePanel13" runat="server">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <asp:FormView ID="FvwBookSynopsis" runat="server" DataSourceID="SourceBookSynopsis" CssClass="w-100">
+                                    <ItemTemplate>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Title</p>
+                                            <asp:Label ID="NameLabel" runat="server" Text='<%# Bind("title") %>' CssClass="text-justify" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Author</p>
+                                            <asp:Label ID="mailLabel" runat="server" Text='<%# Bind("author") %>' CssClass="text-justify" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Publisher</p>
+                                            <asp:Label ID="phoneNumberLabel" runat="server" Text='<%# Bind("publisherName") %>' CssClass="text-justify" Enabled="false" />
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <p class="h6">Synopsis</p>
+                                            <asp:Label ID="SynopsisLabel" runat="server" Text='<%# Bind("bookSynopsis") %>' CssClass="text-justify" Enabled="false" />
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:FormView>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+        <%-- Add publisher modal --%>
         <div class="modal fade" id="AddBookModal" tabindex="-1" role="dialog" aria-labelledby="AddBookModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -288,7 +337,7 @@
                                         <asp:RequiredFieldValidator ID="ReqValTitle" runat="server"
                                             ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                             ControlToValidate="TbxTitle" ValidationGroup="book"></asp:RequiredFieldValidator>
-                                        <asp:CustomValidator ID="ReqValNonExistentTitle" runat="server" 
+                                        <asp:CustomValidator ID="ReqValNonExistentTitle" runat="server"
                                             ErrorMessage="This book already exists" ForeColor="Red"
                                             Display="Dynamic" ValidationGroup="book" ControlToValidate="TbxTitle"
                                             OnServerValidate="ReqValNonExistentTitle_ServerValidate"></asp:CustomValidator>
@@ -421,6 +470,14 @@
                                         ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                         ControlToValidate="TbxQuantity" ValidationGroup="book"></asp:RequiredFieldValidator>
                                 </div>
+                                <div class="form-group mb-1">
+                                    <p class="h6">Synopsis</p>
+                                    <asp:TextBox ID="TbxBookSynopsis" runat="server" CssClass="form-control"
+                                        TextMode="MultiLine" ValidationGroup="book"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="ReqValBookSynop" runat="server"
+                                        ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                        ControlToValidate="TbxBookSynopsis" ValidationGroup="book"></asp:RequiredFieldValidator>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button id="BtnAddBook" type="button" class="btn btn-library-10"
@@ -438,7 +495,7 @@
             </div>
         </div>
 
-        <%-- Add Author modal --%>
+        <%-- Edit Book modal --%>
         <div class="modal fade" id="AddAuthorModal" tabindex="-1" role="dialog" aria-labelledby="AddAuthorModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -459,7 +516,7 @@
                                         <asp:RequiredFieldValidator ID="ReqValFirstName" runat="server" ForeColor="Red"
                                             ErrorMessage="This field is required" ControlToValidate="TbxFirstname" Display="Dynamic"
                                             ValidationGroup="author"></asp:RequiredFieldValidator>
-                                        <asp:CustomValidator ID="ReqValNonExistentAuthor" runat="server" 
+                                        <asp:CustomValidator ID="ReqValNonExistentAuthor" runat="server"
                                             ErrorMessage="This author already exists" ForeColor="Red" ValidationGroup="author" Display="Dynamic"
                                             ControlToValidate="TbxFirstname" OnServerValidate="ReqValNonExistentAuthor_ServerValidate"></asp:CustomValidator>
                                     </div>
@@ -511,7 +568,7 @@
                                             ErrorMessage="This field is required" ControlToValidate="TbxPublisherName"
                                             Display="Dynamic" ValidationGroup="publisher"></asp:RequiredFieldValidator>
                                         <asp:CustomValidator ID="ReqValNonExistingPublisher" runat="server" ErrorMessage="This publisher already exists"
-                                            ForeColor="Red" ValidationGroup="publisher" Display="Dynamic" 
+                                            ForeColor="Red" ValidationGroup="publisher" Display="Dynamic"
                                             ControlToValidate="TbxPublisherName" OnServerValidate="ReqValNonExistingPublisher_ServerValidate"></asp:CustomValidator>
                                     </div>
                                     <div class="form-group col-sm-6 mb-1">
@@ -627,6 +684,14 @@
                                                 <asp:RequiredFieldValidator ID="ReqValQuantU" runat="server"
                                                     ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                                     ControlToValidate="TbxQuantity" ValidationGroup="editBook"></asp:RequiredFieldValidator>
+                                            </div>
+                                            <div class="form-group mb-1">
+                                                <p class="h6">Synopsis</p>
+                                                <asp:TextBox ID="TbxSynopsis" runat="server" Text='<%# Bind("bookSynopsis") %>' CssClass="form-control"
+                                                    TextMode="MultiLine" ValidationGroup="editBook"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="ReqValSynopsis" runat="server"
+                                                    ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
+                                                    ControlToValidate="TbxSynopsis" ValidationGroup="editBook"></asp:RequiredFieldValidator>
                                             </div>
                                         </div>
                                     </EditItemTemplate>
@@ -989,7 +1054,7 @@
             </div>
         </div>
 
-        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr, @bookCount" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
+        <asp:SqlDataSource ID="SourceBooks" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookDisplay]" InsertCommand="EXEC AddBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYr, @bookCount, @synopsis" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
             <InsertParameters>
                 <asp:ControlParameter ControlID="DrpAuthors" Name="authorID" PropertyName="SelectedValue" Type="Int32" />
                 <asp:ControlParameter ControlID="DrpPublishers" Name="publisherID" PropertyName="SelectedValue" Type="Int32" />
@@ -999,6 +1064,7 @@
                 <asp:ControlParameter ControlID="DrpGenres" Name="genre" PropertyName="SelectedValue" Type="String" />
                 <asp:ControlParameter ControlID="TbxPubYearA" Name="publishYr" PropertyName="Text" Type="Int16" />
                 <asp:ControlParameter Name="bookCount" Type="Int16" ControlID="TbxQuantity" PropertyName="Text" />
+                <asp:ControlParameter ControlID="TbxBookSynopsis" Name="synopsis" PropertyName="Text" Type="String" />
             </InsertParameters>
         </asp:SqlDataSource>
         <asp:SqlDataSource ID="SourceAuthors" runat="server" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" SelectCommand="SELECT * FROM [BookAuthors]" InsertCommand="EXEC AddAuthor @first, @last" DeleteCommand="EXEC DeleteAuthor @id" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
@@ -1024,7 +1090,7 @@
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM EditBookView WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookCount, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteBook @id" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
+        <asp:SqlDataSource ID="SourceBookEdit" runat="server" SelectCommand="SELECT * FROM EditBookView WHERE bookID = @id" UpdateCommand="EXEC UpdateBook @authorID, @publisherID, @title , @ISBN, @edition, @genre, @publishYear, @bookCount, @bookSynopsis, @bookID" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" DeleteCommand="EXEC DeleteBook @id" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
             <DeleteParameters>
                 <asp:SessionParameter Name="id" SessionField="keys" Type="Int32" />
             </DeleteParameters>
@@ -1036,6 +1102,11 @@
             <DeleteParameters>
                 <asp:SessionParameter Name="id" SessionField="keys" />
             </DeleteParameters>
+            <SelectParameters>
+                <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="SourceBookSynopsis" runat="server" SelectCommand="SELECT title, author, publisherName, genre, bookSynopsis FROM BookDisplay WHERE bookID = @id" ConnectionString="<%$ ConnectionStrings:LibraryDBConnectionString %>" ProviderName="<%$ ConnectionStrings:LibraryDBConnectionString.ProviderName %>">
             <SelectParameters>
                 <asp:ControlParameter ControlID="hiddenID" Name="id" PropertyName="Value" Type="Int32" />
             </SelectParameters>

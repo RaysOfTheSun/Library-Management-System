@@ -202,6 +202,24 @@ namespace LMS {
         protected global::System.Web.UI.WebControls.GridView GrdPublishers;
         
         /// <summary>
+        /// UpdatePanel13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel13;
+        
+        /// <summary>
+        /// FvwBookSynopsis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FormView FvwBookSynopsis;
+        
+        /// <summary>
         /// UpdatePanel3 control.
         /// </summary>
         /// <remarks>
@@ -434,6 +452,24 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValQuant;
+        
+        /// <summary>
+        /// TbxBookSynopsis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TbxBookSynopsis;
+        
+        /// <summary>
+        /// ReqValBookSynop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqValBookSynop;
         
         /// <summary>
         /// BtnAddBook control.
@@ -839,6 +875,15 @@ namespace LMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SourceAuthorEdit;
+        
+        /// <summary>
+        /// SourceBookSynopsis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SourceBookSynopsis;
         
         /// <summary>
         /// SourceLibrary control.
