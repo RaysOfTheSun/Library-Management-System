@@ -41,7 +41,6 @@
                         <i class="fas fa-user"></i>&nbsp;Authors</a>
                     <a class="nav-item nav-link" id="nav-publishers-tab" data-toggle="tab" href="#nav-publishers" role="tab" aria-controls="nav-publishers" aria-selected="false">
                         <i class="fas fa-print"></i>&nbsp;Publishers</a>
-
                     <asp:HiddenField ID="hiddenID" runat="server" />
                 </div>
             </nav>
@@ -143,11 +142,11 @@
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-Wrap="false">
                                         <ItemTemplate>
                                             <asp:Button ID="GrdBtnEditBook" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="editItem"
-                                                CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
+                                                CommandArgument='<%# Bind("bookID") %>' CausesValidation="false" data-toggle="modal"
                                                 data-target="#EditBookModal" />
                                             <asp:Button ID="GrdBtnDeleteBook" runat="server" Text="Delete" CssClass="btn btn-danger" CommandName="deleteItem"
-                                                CommandArgument='<%# Eval("bookID") %>' CausesValidation="false" data-toggle="modal"
-                                                data-target="#DeleteBookModal" Enabled='<%# IsRented(Eval("bookID")) %>' />
+                                                CommandArgument='<%# Bind("bookID") %>' CausesValidation="false" data-toggle="modal"
+                                                data-target="#DeleteBookModal" Enabled='<%# CanDelete(Eval("bookID")) %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -680,7 +679,7 @@
                                             <div class="form-group mb-1">
                                                 <p class="h6">Quantity</p>
                                                 <asp:TextBox ID="TbxQuantity" runat="server" Text='<%# Bind("bookCount") %>' CssClass="form-control"
-                                                    TextMode="Number" min="1" ValidationGroup="editBook"></asp:TextBox>
+                                                    TextMode="Number" ValidationGroup="editBook"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="ReqValQuantU" runat="server"
                                                     ErrorMessage="This field is rquired" ForeColor="Red" Display="Dynamic"
                                                     ControlToValidate="TbxQuantity" ValidationGroup="editBook"></asp:RequiredFieldValidator>

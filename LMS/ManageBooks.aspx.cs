@@ -268,7 +268,44 @@ namespace LMS
         /// </summary>
         /// <param name="bookID">The ID that identifies the book in the database</param>
         /// <returns>Boolean value of True if the book is currently being rented</returns>
-        protected bool IsRented(object bookID)
+        protected bool CanDelete(object bookID)
+        {
+            bool result = true;
+
+            if(BookRentalisRequested(bookID) || BookIsRented(bookID))
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        protected bool BookRentalisRequested(object bookID)
+        {
+            bool result = false;
+            int bID = Convert.ToInt32(bookID);
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand comm = new SqlCommand("SELECT COUNT(bookID) from " +
+                    "RentalRequests WHERE bookID = @id", conn))
+                {
+                    comm.Parameters.Add("@id", SqlDbType.Int).Value = bID;
+                    conn.Open();
+                    int rowCount = Convert.ToInt32(comm.ExecuteScalar());
+
+                    if (rowCount >= 1)
+                    {
+                        result = true;
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        protected bool BookIsRented(object bookID)
         {
             bool result = false;
             int bID = Convert.ToInt32(bookID);
@@ -282,7 +319,7 @@ namespace LMS
                     conn.Open();
                     int rowCount = Convert.ToInt32(comm.ExecuteScalar());
 
-                    if (rowCount <= 0)
+                    if (rowCount >= 1)
                     {
                         result = true;
                     }
@@ -292,6 +329,8 @@ namespace LMS
 
             return result;
         }
+
+
 
         protected void FvBtnUpdateCallNum_ServerClick(object sender, EventArgs e)
         {
