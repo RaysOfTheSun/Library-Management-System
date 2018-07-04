@@ -1,5 +1,5 @@
 # Library-Management-System
-* A simple libary management system built using `ASP.NET` and `C#.` 
+* A simple libary management system built using `ASP.NET` and `C#` for the purpose of a school project. 
 # Features
 * __Administration pages__ that would allow a "librarian" to manage a database containing information about the following:
     * Books present in the library
